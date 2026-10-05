@@ -1,18 +1,477 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#111217"><title>MBP Controller</title><style>
-*{box-sizing:border-box}body{margin:0;background:#0d0e12;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;padding:14px;max-width:760px;margin:auto}h1{font-size:20px;margin:4px 0 12px}.card{background:#171920;border:1px solid #333741;border-radius:16px;padding:12px;margin-bottom:12px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.label{font-size:12px;color:#aaa;margin:0 0 5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}input,select{width:100%;height:46px;border-radius:10px;border:1px solid #3d424e;background:#0d0f14;color:#fff;padding:0 11px;font-size:16px}.scoregrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.side{text-align:center}.who{font-weight:900;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:8px}.big{font-size:42px;font-weight:900;line-height:1}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}button{height:52px;border:0;border-radius:12px;background:#303541;color:#fff;font-size:22px;font-weight:900;touch-action:manipulation}.plus{background:#176b38}.minus{background:#7a2727}.secondary{font-size:15px;background:#303541}.danger{font-size:14px;background:#6d2525}.wide{width:100%}.op{display:none}.tiny{font-size:12px;color:#9ea3ad;line-height:1.4}.status{font-size:12px;color:#9ea3ad;margin-top:8px}.pill{display:inline-block;padding:4px 8px;background:#262a33;border-radius:999px}.sectiontitle{font-size:13px;font-weight:900;color:#d6d8dd;margin-bottom:10px;letter-spacing:.06em}.spacer{height:2px}@media(min-width:650px){body{padding:20px}.scoregrid{gap:18px}}
-</style></head><body><h1>MBP Mobile Match Controller</h1><div class="card"><div class="row"><div><div class="label">Game</div><select id="game"><option>8-Ball</option><option selected>9-Ball</option><option>10-Ball</option><option>One Pocket</option><option>Banks</option><option>Other</option></select></div><div><div class="label">Match ID</div><input id="mid" value="main" autocapitalize="none" autocomplete="off" spellcheck="false"></div></div><div class="status">Overlay URL uses <span class="pill">?match=<span id="mid2"></span></span></div></div>
-<div class="card"><div class="row"><div><div class="label">Player 1</div><input id="p1"></div><div><div class="label">Player 2</div><input id="p2"></div></div><div class="row" style="margin-top:10px"><div><div class="label">Race / Games target</div><input id="r1" type="number" inputmode="numeric"></div><div><div class="label">Race / Games target</div><input id="r2" type="number" inputmode="numeric"></div></div><div style="margin-top:10px"><div class="label">Top match info (optional)</div><input id="info" placeholder="9-BALL • WINNERS SIDE • TABLE 12"></div></div>
-<div class="card"><div class="sectiontitle">MATCH SCORE</div><div class="scoregrid"><div class="side"><div class="who" id="n1">PLAYER ONE</div><div class="big" id="sc1">0</div><div class="buttons"><button class="minus" data-a="score1" data-d="-1">−</button><button class="plus" data-a="score1" data-d="1">+</button></div></div><div class="side"><div class="who" id="n2">PLAYER TWO</div><div class="big" id="sc2">0</div><div class="buttons"><button class="minus" data-a="score2" data-d="-1">−</button><button class="plus" data-a="score2" data-d="1">+</button></div></div></div></div>
-<div class="card op" id="opcard"><div class="sectiontitle">ONE POCKET BALL COUNT</div><div class="tiny" style="margin-bottom:10px">Ball counts can go below zero. Reset Ball Counts leaves Games Won unchanged.</div><div class="scoregrid"><div class="side"><div class="who" id="bn1">PLAYER ONE</div><div class="big" id="bc1">0</div><div class="buttons"><button class="minus" data-a="balls1" data-d="-1">−</button><button class="plus" data-a="balls1" data-d="1">+</button></div></div><div class="side"><div class="who" id="bn2">PLAYER TWO</div><div class="big" id="bc2">0</div><div class="buttons"><button class="minus" data-a="balls2" data-d="-1">−</button><button class="plus" data-a="balls2" data-d="1">+</button></div></div></div><button class="secondary wide" id="resetballs" style="margin-top:10px">Reset Ball Counts</button></div>
-<div class="card"><div class="row"><button class="secondary" id="swap">Swap Sides</button><button class="secondary" id="toggle">Hide Overlay</button></div><div class="row" style="margin-top:10px"><button class="secondary" id="zeroscores">Reset Scores</button><button class="danger" id="reset">Reset Entire Match</button></div></div>
-<script src="config.js"></script><script src="shared.js"></script><script>
-const $=id=>document.getElementById(id); $('mid').value=matchId==='mbp-match'?'main':matchId;$('mid2').textContent=$('mid').value;let cur={...DEFAULT_STATE};let typing=false;
-$('mid').addEventListener('change',()=>{const id=($('mid').value||'main').trim().replace(/[^a-zA-Z0-9_-]/g,'').slice(0,40)||'main'; location.href='control.html?match='+encodeURIComponent(id);});
-function render(s){cur=s;$('game').value=s.game;$('p1').value=s.p1;$('p2').value=s.p2;$('r1').value=s.race1;$('r2').value=s.race2;$('info').value=s.info;$('n1').textContent=$('bn1').textContent=s.p1;$('n2').textContent=$('bn2').textContent=s.p2;$('sc1').textContent=s.score1;$('sc2').textContent=s.score2;$('bc1').textContent=s.balls1;$('bc2').textContent=s.balls2;$('opcard').style.display=s.game==='One Pocket'?'block':'none';$('toggle').textContent=s.visible?'Hide Overlay':'Show Overlay'}
-initSync(render);
-['game','p1','p2','r1','r2','info'].forEach(id=>{$(id).addEventListener('change',()=>{const v=(id==='r1'||id==='r2')?+$((id)).value:$((id)).value;pushState({[id==='r1'?'race1':id==='r2'?'race2':id]:v}).then(render)})});
-document.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{const k=b.dataset.a;pushState({[k]:(+cur[k]||0)+(+b.dataset.d)}).then(render)});
-$('resetballs').onclick=()=>pushState({balls1:0,balls2:0}).then(render);$('zeroscores').onclick=()=>pushState({score1:0,score2:0}).then(render);$('toggle').onclick=()=>pushState({visible:!cur.visible}).then(render);
-$('swap').onclick=()=>pushState({p1:cur.p2,p2:cur.p1,score1:cur.score2,score2:cur.score1,race1:cur.race2,race2:cur.race1,balls1:cur.balls2,balls2:cur.balls1}).then(render);
-$('reset').onclick=()=>{if(confirm('Reset the entire match?'))pushState({...DEFAULT_STATE,game:cur.game}).then(render)};
-</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>MBP Match Controller</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 18px;
+  background: #080808;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.logo img {
+  max-width: 150px;
+  max-height: 90px;
+}
+
+h1 {
+  text-align: center;
+  margin: 8px 0 20px;
+  font-size: 25px;
+}
+
+.card {
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+
+input, select {
+  width: 100%;
+  background: #222;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.player-title {
+  font-size: 19px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.score {
+  font-size: 62px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.score-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+button {
+  border: 0;
+  border-radius: 9px;
+  padding: 14px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.plus {
+  background: #19a64a;
+  color: white;
+}
+
+.minus {
+  background: #444;
+  color: white;
+}
+
+.primary {
+  width: 100%;
+  background: #e31b23;
+  color: white;
+  margin-top: 6px;
+}
+
+.secondary {
+  width: 100%;
+  background: #333;
+  color: white;
+  margin-top: 10px;
+}
+
+.danger {
+  width: 100%;
+  background: #8b1117;
+  color: white;
+  margin-top: 10px;
+}
+
+.status {
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  background: #252525;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.status.connected {
+  color: #6dff8a;
+}
+
+@media(max-width: 520px) {
+  body {
+    padding: 10px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .score {
+    font-size: 52px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="logo">
+    <img src="mbp-logo.png" alt="MBP">
+  </div>
+
+  <h1>MBP Match Controller</h1>
+
+  <div id="status" class="status">
+    Connecting to Firebase...
+  </div>
+
+  <div class="card">
+
+    <label>Event / Venue</label>
+    <input id="venue" type="text" placeholder="Venue or event name">
+
+    <div class="row">
+
+      <div>
+        <label>Game</label>
+        <select id="game">
+          <option value="9-Ball">9-Ball</option>
+          <option value="8-Ball">8-Ball</option>
+          <option value="10-Ball">10-Ball</option>
+          <option value="One Pocket">One Pocket</option>
+          <option value="Banks">Banks</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Race To</label>
+        <input id="race" type="number" min="1" value="5">
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="row">
+
+    <div class="card">
+
+      <div class="player-title">Player 1</div>
+
+      <label>Name</label>
+      <input id="player1" type="text" placeholder="Player 1">
+
+      <label>FargoRate</label>
+      <input id="fargo1" type="number" placeholder="Fargo">
+
+      <div id="score1" class="score">0</div>
+
+      <div class="score-buttons">
+        <button id="minus1" class="minus">−1</button>
+        <button id="plus1" class="plus">+1</button>
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="player-title">Player 2</div>
+
+      <label>Name</label>
+      <input id="player2" type="text" placeholder="Player 2">
+
+      <label>FargoRate</label>
+      <input id="fargo2" type="number" placeholder="Fargo">
+
+      <div id="score2" class="score">0</div>
+
+      <div class="score-buttons">
+        <button id="minus2" class="minus">−1</button>
+        <button id="plus2" class="plus">+1</button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <button id="swap" class="secondary">
+      ⇄ Swap Players
+    </button>
+
+    <button id="resetScores" class="danger">
+      Reset Scores
+    </button>
+
+    <button id="newMatch" class="primary">
+      New Match
+    </button>
+
+  </div>
+
+</div>
+
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+
+<script src="config.js"></script>
+
+<script>
+
+firebase.initializeApp(firebaseConfig);
+
+const database = firebase.database();
+const matchRef = database.ref("match");
+
+let match = {
+  venue: "",
+  game: "9-Ball",
+  race: 5,
+
+  player1: {
+    name: "",
+    fargo: "",
+    score: 0
+  },
+
+  player2: {
+    name: "",
+    fargo: "",
+    score: 0
+  }
+};
+
+
+const statusBox = document.getElementById("status");
+
+firebase.database().ref(".info/connected").on("value", snapshot => {
+
+  if (snapshot.val() === true) {
+
+    statusBox.textContent = "● Connected — changes are live";
+    statusBox.classList.add("connected");
+
+  } else {
+
+    statusBox.textContent = "Connecting to Firebase...";
+    statusBox.classList.remove("connected");
+
+  }
+
+});
+
+
+function render() {
+
+  document.getElementById("venue").value = match.venue || "";
+  document.getElementById("game").value = match.game || "9-Ball";
+  document.getElementById("race").value = match.race || 5;
+
+  document.getElementById("player1").value = match.player1?.name || "";
+  document.getElementById("fargo1").value = match.player1?.fargo || "";
+  document.getElementById("score1").textContent = match.player1?.score ?? 0;
+
+  document.getElementById("player2").value = match.player2?.name || "";
+  document.getElementById("fargo2").value = match.player2?.fargo || "";
+  document.getElementById("score2").textContent = match.player2?.score ?? 0;
+}
+
+
+matchRef.on("value", snapshot => {
+
+  if (snapshot.exists()) {
+
+    const data = snapshot.val();
+
+    match = {
+      venue: data.venue || "",
+      game: data.game || "9-Ball",
+      race: Number(data.race) || 5,
+
+      player1: {
+        name: data.player1?.name || "",
+        fargo: data.player1?.fargo || "",
+        score: Number(data.player1?.score) || 0
+      },
+
+      player2: {
+        name: data.player2?.name || "",
+        fargo: data.player2?.fargo || "",
+        score: Number(data.player2?.score) || 0
+      }
+    };
+
+    render();
+
+  } else {
+
+    matchRef.set(match);
+
+  }
+
+});
+
+
+function updateField(path, value) {
+  return matchRef.child(path).set(value);
+}
+
+
+document.getElementById("venue").addEventListener("change", e => {
+  updateField("venue", e.target.value);
+});
+
+document.getElementById("game").addEventListener("change", e => {
+  updateField("game", e.target.value);
+});
+
+document.getElementById("race").addEventListener("change", e => {
+  updateField("race", Number(e.target.value) || 1);
+});
+
+document.getElementById("player1").addEventListener("change", e => {
+  updateField("player1/name", e.target.value);
+});
+
+document.getElementById("fargo1").addEventListener("change", e => {
+  updateField("player1/fargo", e.target.value);
+});
+
+document.getElementById("player2").addEventListener("change", e => {
+  updateField("player2/name", e.target.value);
+});
+
+document.getElementById("fargo2").addEventListener("change", e => {
+  updateField("player2/fargo", e.target.value);
+});
+
+
+document.getElementById("plus1").onclick = () => {
+
+  matchRef.child("player1/score")
+    .transaction(score => (Number(score) || 0) + 1);
+
+};
+
+
+document.getElementById("minus1").onclick = () => {
+
+  matchRef.child("player1/score")
+    .transaction(score => Math.max(0, (Number(score) || 0) - 1));
+
+};
+
+
+document.getElementById("plus2").onclick = () => {
+
+  matchRef.child("player2/score")
+    .transaction(score => (Number(score) || 0) + 1);
+
+};
+
+
+document.getElementById("minus2").onclick = () => {
+
+  matchRef.child("player2/score")
+    .transaction(score => Math.max(0, (Number(score) || 0) - 1));
+
+};
+
+
+document.getElementById("swap").onclick = () => {
+
+  matchRef.transaction(current => {
+
+    if (!current) return current;
+
+    const temp = current.player1;
+    current.player1 = current.player2;
+    current.player2 = temp;
+
+    return current;
+
+  });
+
+};
+
+
+document.getElementById("resetScores").onclick = () => {
+
+  matchRef.update({
+    "player1/score": 0,
+    "player2/score": 0
+  });
+
+};
+
+
+document.getElementById("newMatch").onclick = () => {
+
+  if (!confirm("Start a new match and reset both scores?")) return;
+
+  matchRef.update({
+    "player1/score": 0,
+    "player2/score": 0
+  });
+
+};
+
+</script>
+
+</body>
+</html>
