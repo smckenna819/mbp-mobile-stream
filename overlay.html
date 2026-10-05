@@ -6,461 +6,412 @@
 <title>MBP Overlay</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html,body{
-    margin:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:transparent;
-    font-family:Arial,Helvetica,sans-serif;
-    color:white;
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:transparent;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
 }
 
 .stage{
-    position:relative;
-    width:100vw;
-    height:100vh;
+  position:relative;
+  width:100vw;
+  height:100vh;
 }
 
-/* ==============================
-   COMPLETE SCOREBOARD
-   ============================== */
+/* =========================================================
+   SCOREBOARD
+   ========================================================= */
 
 .scoreboard{
-    position:absolute;
-    left:50%;
-    bottom:5%;
-    transform:translateX(-50%);
-    width:96%;
-    height:145px;
-    filter:drop-shadow(0 8px 12px rgba(0,0,0,.85));
+  position:absolute;
+  left:50%;
+  bottom:7%;
+  transform:translateX(-50%);
+  width:97%;
+  max-width:1860px;
+  height:190px;
+  filter:drop-shadow(0 8px 10px rgba(0,0,0,.85));
 }
 
-/* MAIN ROW */
-
-.main-row{
-    position:absolute;
-    left:0;
-    bottom:30px;
-    width:100%;
-    height:115px;
-
-    display:grid;
-
-    grid-template-columns:
-        13%
-        24%
-        8%
-        10%
-        8%
-        24%
-        13%;
+.main{
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:145px;
+  display:grid;
+  grid-template-columns:14% 23% 8% 10% 8% 23% 14%;
+  align-items:stretch;
 }
 
-
-/* ==============================
-   SPONSORS
-   ============================== */
+/* =========================================================
+   SPONSOR ENDCAPS
+   ========================================================= */
 
 .sponsor{
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(30,32,37,.98),
-            rgba(5,6,8,.98)
-        );
-
-    border:2px solid #8a8d92;
-
-    overflow:hidden;
+  position:relative;
+  z-index:4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#1b1d21 0%,#050607 100%);
+  border:3px solid #8c8f94;
+  box-shadow:
+    inset 0 0 18px rgba(255,255,255,.08),
+    0 0 7px rgba(0,0,0,.9);
+  overflow:hidden;
 }
 
-.sponsor-left{
-    border-radius:14px 0 0 14px;
+.sponsor.left{
+  border-radius:18px 0 0 18px;
+  clip-path:polygon(0 0,88% 0,100% 100%,0 100%);
+  padding-right:12%;
 }
 
-.sponsor-right{
-    border-radius:0 14px 14px 0;
+.sponsor.right{
+  border-radius:0 18px 18px 0;
+  clip-path:polygon(12% 0,100% 0,100% 100%,0 100%);
+  padding-left:12%;
 }
 
 .sponsor img{
-    width:90%;
-    height:88%;
-    object-fit:contain;
+  width:88%;
+  height:82%;
+  object-fit:contain;
 }
 
+/* Hide broken placeholder icons until sponsor files exist */
+.sponsor img[src=""]{
+  display:none;
+}
 
-/* ==============================
+/* =========================================================
    PLAYER PANELS
-   ============================== */
+   ========================================================= */
 
 .player{
-    position:relative;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(29,31,36,.98),
-            rgba(6,7,9,.98)
-        );
-
-    padding:12px 28px;
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  background:linear-gradient(180deg,#15171b,#050608);
+  overflow:hidden;
 }
 
-.player-left{
-    border-left:5px solid #087dff;
+.player.left{
+  padding:20px 28px 20px 42px;
+  border-top:2px solid #34373d;
+  border-bottom:2px solid #34373d;
 }
 
-.player-right{
-    border-right:5px solid #ff2028;
-    text-align:right;
+.player.right{
+  padding:20px 42px 20px 28px;
+  text-align:right;
+  border-top:2px solid #34373d;
+  border-bottom:2px solid #34373d;
 }
 
-.player-left:before{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:0;
+/* blue wedge */
 
-    width:16px;
-    height:100%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #178cff,
-            #004bd0
-        );
-
-    clip-path:polygon(
-        0 0,
-        100% 0,
-        35% 100%,
-        0 100%
-    );
+.player.left:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:28px;
+  height:100%;
+  background:linear-gradient(180deg,#1596ff,#004bd2);
+  clip-path:polygon(0 0,100% 0,42% 100%,0 100%);
 }
 
-.player-right:after{
-    content:"";
-    position:absolute;
-    right:0;
-    bottom:0;
+/* red wedge */
 
-    width:16px;
-    height:100%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #ff252d,
-            #c4000a
-        );
-
-    clip-path:polygon(
-        65% 0,
-        100% 0,
-        100% 100%,
-        0 100%
-    );
+.player.right:after{
+  content:"";
+  position:absolute;
+  right:0;
+  top:0;
+  width:28px;
+  height:100%;
+  background:linear-gradient(180deg,#ff2630,#c4000a);
+  clip-path:polygon(58% 0,100% 0,100% 100%,0 100%);
 }
 
 .name{
-    font-size:31px;
-    line-height:1;
-    font-weight:900;
-
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-
-    text-shadow:
-        0 2px 3px black;
+  font-size:34px;
+  line-height:1.05;
+  font-weight:900;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  text-shadow:0 3px 4px #000;
 }
 
-.player-info{
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    margin-top:12px;
-
-    font-size:19px;
+.player-sub{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-top:12px;
+  font-size:20px;
+  color:#e5e5e5;
 }
 
-.player-right .player-info{
-    justify-content:flex-end;
+.player.right .player-sub{
+  justify-content:flex-end;
 }
 
-
-/* ==============================
-   BREAK INDICATOR
-   ============================== */
+/* =========================================================
+   BREAK BADGE
+   ========================================================= */
 
 .break{
-    display:none;
-
-    padding:4px 13px;
-
-    font-weight:900;
-    font-size:16px;
-
-    font-style:italic;
-
-    background:#e3131b;
-
-    transform:skew(-12deg);
-
-    border-left:4px solid #ff3c43;
-    border-right:4px solid #ff3c43;
-
-    text-shadow:0 2px 2px black;
-}
-
-.break span{
-    display:block;
-    transform:skew(12deg);
+  display:none;
+  position:relative;
+  padding:5px 16px;
+  background:#ec111b;
+  color:#fff;
+  font-size:18px;
+  font-weight:900;
+  font-style:italic;
+  transform:skew(-14deg);
+  border-left:5px solid #ff3941;
+  border-right:5px solid #ff3941;
+  box-shadow:0 2px 5px #000;
 }
 
 .break.blue{
-    background:#086de0;
-    border-color:#2095ff;
+  background:#0769db;
+  border-color:#1c92ff;
 }
 
-
-/* ==============================
-   SCORES
-   ============================== */
-
-.score-wrap{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:
-        linear-gradient(
-            180deg,
-            #17191e,
-            #050608
-        );
+.break span{
+  display:block;
+  transform:skew(14deg);
 }
 
-.score-box{
-    width:82%;
-    height:80%;
+/* =========================================================
+   SCORE AREAS
+   ========================================================= */
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:58px;
-    font-weight:900;
-
-    background:
-        linear-gradient(
-            180deg,
-            #1b1d21,
-            #08090b
-        );
-
-    clip-path:polygon(
-        14% 0,
-        100% 0,
-        86% 100%,
-        0 100%
-    );
-
-    text-shadow:
-        0 3px 4px black;
+.score-area{
+  position:relative;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#07080a;
 }
 
-.score-left{
-    border-bottom:5px solid #087cff;
+.score-pod{
+  width:92%;
+  height:112px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:66px;
+  line-height:1;
+  font-weight:900;
+  background:linear-gradient(180deg,#1b1d22,#060709);
+  text-shadow:0 3px 5px #000;
 }
 
-.score-right{
-    border-bottom:5px solid #f01822;
+.score-pod.blue{
+  border:5px solid #086fe8;
+  clip-path:polygon(13% 0,100% 0,87% 100%,0 100%);
+  box-shadow:inset 0 0 15px rgba(0,120,255,.35);
 }
 
+.score-pod.red{
+  border:5px solid #e20e18;
+  clip-path:polygon(0 0,87% 0,100% 100%,13% 100%);
+  box-shadow:inset 0 0 15px rgba(255,0,0,.35);
+}
 
-/* ==============================
-   CENTER MBP LOGO
-   ============================== */
+/* =========================================================
+   CENTER MBP
+   ========================================================= */
 
 .brand{
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  position:relative;
+  z-index:6;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#0e0f12,#020304);
+  overflow:visible;
+}
 
-    padding:8px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #111216,
-            #020304
-        );
+.brand:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-top:2px solid #2f3136;
+  border-bottom:2px solid #2f3136;
+  pointer-events:none;
 }
 
 .brand img{
-    max-width:100%;
-    max-height:100%;
-    object-fit:contain;
+  position:relative;
+  z-index:2;
+  width:94%;
+  max-height:128px;
+  object-fit:contain;
+  filter:drop-shadow(0 3px 4px #000);
 }
 
+/* =========================================================
+   LOWER MATCH BAR
+   ========================================================= */
 
-/* ==============================
-   LOWER MATCH INFORMATION BAR
-   ============================== */
-
-.match-bar{
-    position:absolute;
-
-    left:26%;
-    bottom:0;
-
-    width:48%;
-    height:38px;
-
-    display:grid;
-    grid-template-columns:1fr 1.6fr 1fr;
-
-    background:
-        linear-gradient(
-            180deg,
-            #181a1e,
-            #050607
-        );
-
-    border-top:2px solid #777;
-
-    clip-path:polygon(
-        2% 0,
-        98% 0,
-        96% 100%,
-        4% 100%
-    );
-
-    font-size:18px;
-    font-weight:700;
+.lower{
+  position:absolute;
+  left:27%;
+  top:137px;
+  width:46%;
+  height:45px;
+  z-index:10;
+  display:grid;
+  grid-template-columns:1fr 1.45fr 1fr;
+  background:linear-gradient(180deg,#17191d,#050607);
+  border-top:2px solid #777;
+  border-bottom:2px solid #555;
+  clip-path:polygon(3% 0,97% 0,94% 100%,6% 100%);
 }
 
-.match-cell{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    position:relative;
+.lower-cell{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:19px;
+  font-weight:700;
+  text-shadow:0 2px 3px #000;
 }
 
-.match-cell:not(:last-child):after{
-    content:"";
-    position:absolute;
-
-    right:0;
-
-    height:55%;
-    width:2px;
-
-    background:#aaa;
+.lower-cell:not(:last-child):after{
+  content:"";
+  position:absolute;
+  right:0;
+  width:2px;
+  height:55%;
+  background:#aaa;
 }
 
 .game{
-    font-weight:900;
+  font-weight:900;
 }
 
 .ball-icon{
-    display:inline-flex;
-
-    align-items:center;
-    justify-content:center;
-
-    width:26px;
-    height:26px;
-
-    margin-right:8px;
-
-    border-radius:50%;
-
-    background:#f0c52c;
-    color:black;
-
-    font-size:13px;
-    font-weight:900;
-
-    border:2px solid white;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:29px;
+  height:29px;
+  margin-right:9px;
+  border-radius:50%;
+  background:#f1c62b;
+  color:#111;
+  border:2px solid #fff;
+  font-size:14px;
+  font-weight:900;
 }
 
+/* blue/red decorative lower slashes */
 
-/* ==============================
-   ONE POCKET BALL COUNTERS
-   ============================== */
+.lower:before{
+  content:"";
+  position:absolute;
+  left:3.5%;
+  bottom:0;
+  width:9px;
+  height:100%;
+  background:#087cff;
+  transform:skew(-16deg);
+}
+
+.lower:after{
+  content:"";
+  position:absolute;
+  right:3.5%;
+  bottom:0;
+  width:9px;
+  height:100%;
+  background:#ef1721;
+  transform:skew(-16deg);
+}
+
+/* =========================================================
+   ONE POCKET COUNTER
+   ========================================================= */
 
 .one-pocket{
-    display:none;
-
-    position:absolute;
-
-    left:50%;
-    bottom:151px;
-
-    transform:translateX(-50%);
-
-    height:42px;
-    min-width:350px;
-
-    grid-template-columns:1fr 1fr;
-
-    background:
-        linear-gradient(
-            180deg,
-            #1b1d22,
-            #050607
-        );
-
-    border:2px solid #888;
-    border-radius:8px;
-
-    overflow:hidden;
+  display:none;
+  position:absolute;
+  left:50%;
+  bottom:200px;
+  transform:translateX(-50%);
+  min-width:390px;
+  height:46px;
+  grid-template-columns:1fr 1fr;
+  background:linear-gradient(180deg,#1a1c20,#050607);
+  border:2px solid #888;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 5px 10px rgba(0,0,0,.7);
 }
 
 .ball-count{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    padding:0 20px;
-
-    font-weight:900;
-    font-size:17px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 20px;
+  font-size:17px;
+  font-weight:900;
 }
 
 .ball-count:first-child{
-    border-right:1px solid #777;
+  border-right:1px solid #777;
 }
 
 .ball-number{
-    font-size:25px;
-    margin-left:12px;
+  margin-left:12px;
+  font-size:27px;
 }
 
+/* =========================================================
+   SMALLER SCREENS
+   ========================================================= */
 
-/* hide entire overlay */
+@media(max-width:1200px){
+  .scoreboard{
+    width:98%;
+    height:150px;
+  }
 
-.hidden{
-    display:none !important;
+  .main{
+    height:112px;
+  }
+
+  .name{font-size:25px}
+  .player-sub{font-size:15px}
+  .score-pod{height:88px;font-size:50px}
+  .brand img{max-height:96px}
+
+  .lower{
+    top:106px;
+    height:38px;
+  }
+
+  .lower-cell{
+    font-size:15px;
+  }
 }
 
 </style>
@@ -470,191 +421,123 @@ html,body{
 
 <div class="stage" id="stage">
 
-    <!-- ONE POCKET COUNTER -->
+  <div class="one-pocket" id="onePocket">
+    <div class="ball-count">
+      P1 BALLS <span class="ball-number" id="balls1">0</span>
+    </div>
 
-    <div class="one-pocket" id="onePocket">
+    <div class="ball-count">
+      P2 BALLS <span class="ball-number" id="balls2">0</span>
+    </div>
+  </div>
 
-        <div class="ball-count">
-            P1 BALLS
-            <span class="ball-number" id="balls1">0</span>
+
+  <div class="scoreboard">
+
+    <div class="main">
+
+      <!-- LEFT ROTATING SPONSOR -->
+      <div class="sponsor left">
+        <img id="sponsorLeft" src="" alt="">
+      </div>
+
+
+      <!-- PLAYER 1 -->
+      <div class="player left">
+
+        <div class="name" id="player1">
+          PLAYER ONE
         </div>
 
-        <div class="ball-count">
-            P2 BALLS
-            <span class="ball-number" id="balls2">0</span>
+        <div class="player-sub">
+
+          <div class="break blue" id="break1">
+            <span>BREAK</span>
+          </div>
+
+          <div id="fargo1">
+            Fargo 620
+          </div>
+
         </div>
+
+      </div>
+
+
+      <!-- SCORE 1 -->
+      <div class="score-area">
+        <div class="score-pod blue" id="score1">
+          0
+        </div>
+      </div>
+
+
+      <!-- CENTER LOGO -->
+      <div class="brand">
+        <img
+          src="mbp-logo.png"
+          alt="McKenna Billiard Productions"
+        >
+      </div>
+
+
+      <!-- SCORE 2 -->
+      <div class="score-area">
+        <div class="score-pod red" id="score2">
+          0
+        </div>
+      </div>
+
+
+      <!-- PLAYER 2 -->
+      <div class="player right">
+
+        <div class="name" id="player2">
+          PLAYER TWO
+        </div>
+
+        <div class="player-sub">
+
+          <div id="fargo2">
+            Fargo 598
+          </div>
+
+          <div class="break" id="break2">
+            <span>BREAK</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- RIGHT ROTATING SPONSOR -->
+      <div class="sponsor right">
+        <img id="sponsorRight" src="" alt="">
+      </div>
 
     </div>
 
 
-    <!-- SCOREBOARD -->
+    <!-- LOWER MATCH BAR -->
+    <div class="lower">
 
-    <div class="scoreboard">
+      <div class="lower-cell game">
+        <span class="ball-icon" id="ballIcon">9</span>
+        <span id="gameType">9-BALL</span>
+      </div>
 
-        <div class="main-row">
+      <div class="lower-cell" id="matchType">
+        SCOTCH DOUBLES
+      </div>
 
-            <!-- LEFT SPONSOR -->
-
-            <div class="sponsor sponsor-left">
-                <img
-                    id="sponsorLeft"
-                    src="assets/sponsor-left.png"
-                    alt=""
-                >
-            </div>
-
-
-            <!-- PLAYER ONE -->
-
-            <div class="player player-left">
-
-                <div
-                    class="name"
-                    id="player1"
-                >
-                    PLAYER ONE
-                </div>
-
-                <div class="player-info">
-
-                    <div
-                        class="break blue"
-                        id="break1"
-                    >
-                        <span>BREAK</span>
-                    </div>
-
-                    <div id="fargo1">
-                        Fargo 620
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- SCORE ONE -->
-
-            <div class="score-wrap">
-
-                <div
-                    class="score-box score-left"
-                    id="score1"
-                >
-                    0
-                </div>
-
-            </div>
-
-
-            <!-- MBP LOGO -->
-
-            <div class="brand">
-
-                <img
-                    src="assets/mbp-logo.png"
-                    alt="McKenna Billiard Productions"
-                >
-
-            </div>
-
-
-            <!-- SCORE TWO -->
-
-            <div class="score-wrap">
-
-                <div
-                    class="score-box score-right"
-                    id="score2"
-                >
-                    0
-                </div>
-
-            </div>
-
-
-            <!-- PLAYER TWO -->
-
-            <div class="player player-right">
-
-                <div
-                    class="name"
-                    id="player2"
-                >
-                    PLAYER TWO
-                </div>
-
-                <div class="player-info">
-
-                    <div id="fargo2">
-                        Fargo 598
-                    </div>
-
-                    <div
-                        class="break"
-                        id="break2"
-                    >
-                        <span>BREAK</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- RIGHT SPONSOR -->
-
-            <div class="sponsor sponsor-right">
-
-                <img
-                    id="sponsorRight"
-                    src="assets/sponsor-right.png"
-                    alt=""
-                >
-
-            </div>
-
-        </div>
-
-
-        <!-- MATCH INFORMATION -->
-
-        <div class="match-bar">
-
-            <div class="match-cell game">
-
-                <span
-                    class="ball-icon"
-                    id="ballIcon"
-                >
-                    9
-                </span>
-
-                <span id="gameType">
-                    9-BALL
-                </span>
-
-            </div>
-
-
-            <div
-                class="match-cell"
-                id="matchType"
-            >
-                SCOTCH DOUBLES
-            </div>
-
-
-            <div
-                class="match-cell"
-                id="race"
-            >
-                RACE TO 5
-            </div>
-
-        </div>
+      <div class="lower-cell" id="race">
+        RACE TO 5
+      </div>
 
     </div>
+
+  </div>
 
 </div>
 
@@ -666,112 +549,86 @@ html,body{
 
 function render(s){
 
-    /* PLAYER NAMES */
+  document.getElementById("player1").textContent =
+    s.p1 || "PLAYER ONE";
 
-    document.getElementById("player1").textContent =
-        s.p1 || "PLAYER ONE";
-
-    document.getElementById("player2").textContent =
-        s.p2 || "PLAYER TWO";
+  document.getElementById("player2").textContent =
+    s.p2 || "PLAYER TWO";
 
 
-    /* SCORES */
+  document.getElementById("score1").textContent =
+    s.score1 ?? 0;
 
-    document.getElementById("score1").textContent =
-        s.score1 ?? 0;
-
-    document.getElementById("score2").textContent =
-        s.score2 ?? 0;
+  document.getElementById("score2").textContent =
+    s.score2 ?? 0;
 
 
-    /* FARGO */
+  document.getElementById("fargo1").textContent =
+    s.fargo1 ? "Fargo " + s.fargo1 : "";
 
-    document.getElementById("fargo1").textContent =
-        s.fargo1
-        ? "Fargo " + s.fargo1
-        : "";
-
-    document.getElementById("fargo2").textContent =
-        s.fargo2
-        ? "Fargo " + s.fargo2
-        : "";
+  document.getElementById("fargo2").textContent =
+    s.fargo2 ? "Fargo " + s.fargo2 : "";
 
 
-    /* GAME TYPE */
+  const game = s.game || "9-Ball";
 
-    const game =
-        s.game || "9-Ball";
-
-    document.getElementById("gameType").textContent =
-        game.toUpperCase();
-
-    const icon =
-        document.getElementById("ballIcon");
-
-    if(game === "8-Ball"){
-        icon.textContent = "8";
-    }
-    else if(game === "9-Ball"){
-        icon.textContent = "9";
-    }
-    else if(game === "10-Ball"){
-        icon.textContent = "10";
-    }
-    else{
-        icon.textContent = "●";
-    }
+  document.getElementById("gameType").textContent =
+    game.toUpperCase();
 
 
-    /* MATCH TYPE */
+  const ballIcon =
+    document.getElementById("ballIcon");
 
-    document.getElementById("matchType").textContent =
-        s.matchType ||
-        "SCOTCH DOUBLES";
-
-
-    /* RACE */
-
-    document.getElementById("race").textContent =
-        "RACE TO " +
-        (s.race1 || 5);
-
-
-    /* BREAK */
-
-    document.getElementById("break1").style.display =
-        s.breakPlayer === 1
-        ? "block"
-        : "none";
-
-    document.getElementById("break2").style.display =
-        s.breakPlayer === 2
-        ? "block"
-        : "none";
+  if(game === "8-Ball"){
+    ballIcon.textContent = "8";
+  }
+  else if(game === "9-Ball"){
+    ballIcon.textContent = "9";
+  }
+  else if(game === "10-Ball"){
+    ballIcon.textContent = "10";
+  }
+  else{
+    ballIcon.textContent = "●";
+  }
 
 
-    /* ONE POCKET */
-
-    const onePocket =
-        game === "One Pocket";
-
-    document.getElementById("onePocket").style.display =
-        onePocket
-        ? "grid"
-        : "none";
-
-    document.getElementById("balls1").textContent =
-        s.balls1 ?? 0;
-
-    document.getElementById("balls2").textContent =
-        s.balls2 ?? 0;
+  document.getElementById("matchType").textContent =
+    s.matchType || "SCOTCH DOUBLES";
 
 
-    /* OVERLAY VISIBILITY */
+  const race1 = s.race1 || 5;
+  const race2 = s.race2 || race1;
 
-    document.getElementById("stage").style.display =
-        s.visible === false
-        ? "none"
-        : "block";
+  document.getElementById("race").textContent =
+    race1 === race2
+      ? "RACE TO " + race1
+      : "RACE " + race1 + " / " + race2;
+
+
+  document.getElementById("break1").style.display =
+    s.breakPlayer === 1 ? "block" : "none";
+
+  document.getElementById("break2").style.display =
+    s.breakPlayer === 2 ? "block" : "none";
+
+
+  const onePocket =
+    game.toLowerCase() === "one pocket";
+
+  document.getElementById("onePocket").style.display =
+    onePocket ? "grid" : "none";
+
+
+  document.getElementById("balls1").textContent =
+    s.balls1 ?? 0;
+
+  document.getElementById("balls2").textContent =
+    s.balls2 ?? 0;
+
+
+  document.getElementById("stage").style.display =
+    s.visible === false ? "none" : "block";
 }
 
 
