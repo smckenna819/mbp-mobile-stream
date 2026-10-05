@@ -1,5 +1,558 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MBP Overlay</title><style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent;font-family:Arial,Helvetica,sans-serif;color:white}.stage{position:relative;width:100vw;height:100vh}.top{position:absolute;top:2.2%;left:50%;transform:translateX(-50%);min-width:22%;max-width:70%;padding:.5% 1.4%;text-align:center;background:linear-gradient(180deg,rgba(28,28,32,.94),rgba(5,5,7,.92));border:2px solid rgba(255,255,255,.75);border-radius:14px;font-weight:800;font-size:1.45vw;letter-spacing:.06em;text-shadow:0 2px 4px #000;display:none}.board{position:absolute;left:50%;bottom:2.1%;transform:translateX(-50%);width:76%;height:11.8%;display:grid;grid-template-columns:1fr 10% 12% 10% 1fr;filter:drop-shadow(0 5px 9px rgba(0,0,0,.75))}.panel,.score,.brand{background:linear-gradient(180deg,rgba(35,36,42,.96),rgba(7,8,11,.96));border-top:2px solid #d7d7d7;border-bottom:2px solid #7e7e7e}.panel{padding:1.1% 4%;display:flex;flex-direction:column;justify-content:center}.left{border-left:2px solid #aaa;border-radius:14px 0 0 14px}.right{border-right:2px solid #aaa;border-radius:0 14px 14px 0;text-align:right}.name{font-size:2.15vw;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{font-size:1.05vw;font-weight:700;color:#d6d6d6;margin-top:.2em;letter-spacing:.06em}.score{display:flex;align-items:center;justify-content:center;font-size:4.1vw;font-weight:900;border-left:1px solid #777;border-right:1px solid #777}.brand{display:flex;align-items:center;justify-content:center;padding:7%;}.brand img{max-width:100%;max-height:100%;object-fit:contain}.onepocket{position:absolute;left:50%;bottom:14.35%;transform:translateX(-50%);width:36%;height:5.3%;display:none;grid-template-columns:1fr 1fr;background:rgba(8,9,12,.95);border:2px solid #aaa;border-radius:12px;overflow:hidden;box-shadow:0 5px 10px rgba(0,0,0,.6)}.ball{display:flex;align-items:center;justify-content:center;font-size:1.45vw;font-weight:900}.ball:first-child{border-right:1px solid #777}.ball span{font-size:2vw;margin-left:.55em}.hidden{display:none!important}
-</style></head><body><div class="stage" id="stage"><div class="top" id="info"></div><div class="onepocket" id="op"><div class="ball">P1 BALLS <span id="b1">0</span></div><div class="ball">P2 BALLS <span id="b2">0</span></div></div><div class="board"><div class="panel left"><div class="name" id="p1">PLAYER ONE</div><div class="meta" id="m1">RACE TO 5</div></div><div class="score" id="s1">0</div><div class="brand"><img src="assets/mbp-logo.png"></div><div class="score" id="s2">0</div><div class="panel right"><div class="name" id="p2">PLAYER TWO</div><div class="meta" id="m2">RACE TO 5</div></div></div></div><script src="config.js"></script><script src="shared.js"></script><script>
-function render(s){document.getElementById('p1').textContent=s.p1;document.getElementById('p2').textContent=s.p2;document.getElementById('s1').textContent=s.score1;document.getElementById('s2').textContent=s.score2;document.getElementById('b1').textContent=s.balls1;document.getElementById('b2').textContent=s.balls2;const op=s.game==='One Pocket';document.getElementById('op').style.display=op?'grid':'none';document.getElementById('m1').textContent=(op?'GAMES ':'RACE TO ')+s.race1;document.getElementById('m2').textContent=(op?'GAMES ':'RACE TO ')+s.race2;const i=document.getElementById('info');i.textContent=s.info||'';i.style.display=s.info?'block':'none';document.getElementById('stage').style.display=s.visible?'block':'none'} initSync(render);
-</script></body></html>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MBP Overlay</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.stage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* =========================
+   MATCH INFORMATION
+   ========================= */
+
+.match-info {
+  position: absolute;
+  left: 50%;
+  bottom: 15.4%;
+  transform: translateX(-50%);
+
+  min-width: 25%;
+  max-width: 55%;
+
+  padding: .42% 1.5%;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(32,35,42,.97),
+      rgba(7,8,11,.97)
+    );
+
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 8px;
+
+  text-align: center;
+
+  font-size: 1vw;
+  font-weight: 800;
+  letter-spacing: .08em;
+
+  text-shadow: 0 2px 3px black;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.65),
+    inset 0 1px rgba(255,255,255,.08);
+
+  display: none;
+}
+
+
+/* =========================
+   MAIN SCOREBOARD
+   ========================= */
+
+.board {
+  position: absolute;
+
+  left: 50%;
+  bottom: 2.5%;
+
+  transform: translateX(-50%);
+
+  width: 92%;
+  height: 12%;
+
+  display: grid;
+
+  grid-template-columns:
+    9%
+    1fr
+    8%
+    14%
+    8%
+    1fr
+    9%;
+
+  filter:
+    drop-shadow(0 7px 12px rgba(0,0,0,.8));
+}
+
+
+/* =========================
+   SPONSOR BOXES
+   ========================= */
+
+.sponsor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8%;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(25,27,32,.96),
+      rgba(5,6,8,.98)
+    );
+
+  border-top: 2px solid rgba(255,255,255,.55);
+  border-bottom: 2px solid rgba(255,255,255,.25);
+}
+
+.sponsor-left {
+  border-left: 2px solid rgba(255,255,255,.4);
+  border-radius: 13px 0 0 13px;
+}
+
+.sponsor-right {
+  border-right: 2px solid rgba(255,255,255,.4);
+  border-radius: 0 13px 13px 0;
+}
+
+.sponsor img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+
+/* =========================
+   PLAYER PANELS
+   ========================= */
+
+.player {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 1% 4%;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(38,41,48,.98),
+      rgba(8,9,12,.98)
+    );
+
+  border-top: 2px solid rgba(255,255,255,.6);
+  border-bottom: 2px solid rgba(255,255,255,.25);
+}
+
+.player-left {
+  border-left: 4px solid #2478ff;
+}
+
+.player-right {
+  border-right: 4px solid #e63232;
+  text-align: right;
+}
+
+.player-name {
+  font-size: 1.8vw;
+  font-weight: 900;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  text-shadow: 0 2px 3px black;
+}
+
+.player-meta {
+  margin-top: .2em;
+
+  font-size: .82vw;
+  font-weight: 700;
+
+  color: #c9cdd3;
+
+  letter-spacing: .06em;
+}
+
+
+/* =========================
+   BREAK INDICATOR
+   ========================= */
+
+.break-indicator {
+  position: absolute;
+
+  bottom: 8%;
+  padding: .18em .65em;
+
+  border-radius: 4px;
+
+  background: #f0b429;
+  color: #090909;
+
+  font-size: .65vw;
+  font-weight: 900;
+  letter-spacing: .12em;
+
+  box-shadow:
+    0 2px 5px rgba(0,0,0,.6);
+
+  display: none;
+}
+
+.player-left .break-indicator {
+  right: 4%;
+}
+
+.player-right .break-indicator {
+  left: 4%;
+}
+
+
+/* =========================
+   SCORES
+   ========================= */
+
+.score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(28,30,36,.99),
+      rgba(3,4,6,.99)
+    );
+
+  border-top: 2px solid rgba(255,255,255,.6);
+  border-bottom: 2px solid rgba(255,255,255,.25);
+
+  font-size: 4vw;
+  font-weight: 900;
+
+  text-shadow:
+    0 3px 5px black;
+}
+
+.score-left {
+  border-left: 1px solid rgba(255,255,255,.22);
+  border-right: 1px solid rgba(255,255,255,.22);
+}
+
+.score-right {
+  border-left: 1px solid rgba(255,255,255,.22);
+  border-right: 1px solid rgba(255,255,255,.22);
+}
+
+
+/* =========================
+   CENTER MBP BRAND
+   ========================= */
+
+.brand {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5%;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(48,51,58,.98),
+      rgba(7,8,11,.99) 72%
+    );
+
+  border-top: 2px solid rgba(255,255,255,.65);
+  border-bottom: 2px solid rgba(255,255,255,.25);
+}
+
+.brand img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.game-type {
+  position: absolute;
+
+  bottom: 3%;
+
+  width: 100%;
+
+  text-align: center;
+
+  font-size: .62vw;
+  font-weight: 900;
+
+  letter-spacing: .14em;
+
+  color: #d7d9dc;
+
+  text-shadow: 0 2px 3px black;
+}
+
+
+/* =========================
+   ONE POCKET BALL COUNT
+   ========================= */
+
+.onepocket {
+  position: absolute;
+
+  left: 50%;
+  bottom: 15.4%;
+
+  transform: translateX(-50%);
+
+  width: 30%;
+  height: 4.7%;
+
+  display: none;
+  grid-template-columns: 1fr 1fr;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,32,38,.98),
+      rgba(5,6,8,.98)
+    );
+
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 5px 10px rgba(0,0,0,.65);
+}
+
+.ball {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: .85vw;
+  font-weight: 900;
+
+  letter-spacing: .05em;
+}
+
+.ball:first-child {
+  border-right: 1px solid rgba(255,255,255,.25);
+}
+
+.ball span {
+  margin-left: .55em;
+  font-size: 1.35vw;
+}
+
+
+/* =========================
+   HIDDEN
+   ========================= */
+
+.hidden {
+  display: none !important;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stage" id="stage">
+
+  <div class="match-info" id="info"></div>
+
+
+  <div class="onepocket" id="op">
+
+    <div class="ball">
+      P1 BALLS
+      <span id="b1">0</span>
+    </div>
+
+    <div class="ball">
+      P2 BALLS
+      <span id="b2">0</span>
+    </div>
+
+  </div>
+
+
+  <div class="board">
+
+    <!-- LEFT SPONSOR -->
+
+    <div class="sponsor sponsor-left" id="sponsorLeft">
+    </div>
+
+
+    <!-- PLAYER ONE -->
+
+    <div class="player player-left">
+
+      <div class="player-name" id="p1">
+        PLAYER ONE
+      </div>
+
+      <div class="player-meta" id="m1">
+        RACE TO 5
+      </div>
+
+      <div class="break-indicator" id="break1">
+        BREAK
+      </div>
+
+    </div>
+
+
+    <!-- SCORE ONE -->
+
+    <div class="score score-left" id="s1">
+      0
+    </div>
+
+
+    <!-- MBP CENTER -->
+
+    <div class="brand">
+
+      <img
+        src="mbp-logo.png"
+        alt="McKenna Billiard Productions"
+      >
+
+      <div class="game-type" id="gameType">
+        9-BALL
+      </div>
+
+    </div>
+
+
+    <!-- SCORE TWO -->
+
+    <div class="score score-right" id="s2">
+      0
+    </div>
+
+
+    <!-- PLAYER TWO -->
+
+    <div class="player player-right">
+
+      <div class="player-name" id="p2">
+        PLAYER TWO
+      </div>
+
+      <div class="player-meta" id="m2">
+        RACE TO 5
+      </div>
+
+      <div class="break-indicator" id="break2">
+        BREAK
+      </div>
+
+    </div>
+
+
+    <!-- RIGHT SPONSOR -->
+
+    <div class="sponsor sponsor-right" id="sponsorRight">
+    </div>
+
+  </div>
+
+</div>
+
+
+<script src="config.js"></script>
+<script src="shared.js"></script>
+
+<script>
+
+function render(s) {
+
+  document.getElementById('p1').textContent =
+    s.p1 || 'PLAYER ONE';
+
+  document.getElementById('p2').textContent =
+    s.p2 || 'PLAYER TWO';
+
+
+  document.getElementById('s1').textContent =
+    s.score1 ?? 0;
+
+  document.getElementById('s2').textContent =
+    s.score2 ?? 0;
+
+
+  document.getElementById('b1').textContent =
+    s.balls1 ?? 0;
+
+  document.getElementById('b2').textContent =
+    s.balls2 ?? 0;
+
+
+  const op = s.game === 'One Pocket';
+
+  document.getElementById('op').style.display =
+    op ? 'grid' : 'none';
+
+
+  document.getElementById('m1').textContent =
+    (op ? 'GAMES ' : 'RACE TO ') + s.race1;
+
+  document.getElementById('m2').textContent =
+    (op ? 'GAMES ' : 'RACE TO ') + s.race2;
+
+
+  const gameType =
+    document.getElementById('gameType');
+
+  gameType.textContent =
+    (s.game || '9-Ball').toUpperCase();
+
+
+  const info =
+    document.getElementById('info');
+
+  info.textContent =
+    s.info || '';
+
+  info.style.display =
+    s.info && !op ? 'block' : 'none';
+
+
+  document.getElementById('stage').style.display =
+    s.visible ? 'block' : 'none';
+}
+
+initSync(render);
+
+</script>
+
+</body>
+</html>
