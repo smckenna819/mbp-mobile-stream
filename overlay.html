@@ -6,89 +6,111 @@
 <title>MBP Overlay</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:transparent;
-  font-family:Arial,Helvetica,sans-serif;
-  color:#fff;
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:transparent;
+    font-family:Arial,Helvetica,sans-serif;
+    color:#fff;
 }
 
 .stage{
-  position:relative;
-  width:100vw;
-  height:100vh;
+    position:relative;
+    width:100vw;
+    height:100vh;
 }
 
 /* =========================================================
-   SCOREBOARD
+   COMPLETE SCOREBOARD
    ========================================================= */
 
 .scoreboard{
-  position:absolute;
-  left:50%;
-  bottom:7%;
-  transform:translateX(-50%);
-  width:97%;
-  max-width:1860px;
-  height:190px;
-  filter:drop-shadow(0 8px 10px rgba(0,0,0,.85));
-}
-
-.main{
-  position:absolute;
-  left:0;
-  top:0;
-  width:100%;
-  height:145px;
-  display:grid;
-  grid-template-columns:14% 23% 8% 10% 8% 23% 14%;
-  align-items:stretch;
+    position:absolute;
+    left:50%;
+    bottom:3.2vh;
+    transform:translateX(-50%);
+    width:97vw;
+    height:15.3vh;
+    filter:drop-shadow(0 8px 8px rgba(0,0,0,.70));
 }
 
 /* =========================================================
-   SPONSOR ENDCAPS
+   MAIN UPPER BAR
+   ========================================================= */
+
+.mainbar{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:12.2vh;
+    display:grid;
+
+    grid-template-columns:
+        14.5%
+        21.5%
+        7.2%
+        12.6%
+        7.2%
+        21.5%
+        14.5%;
+
+    align-items:stretch;
+}
+
+/* =========================================================
+   SPONSOR BOXES
    ========================================================= */
 
 .sponsor{
-  position:relative;
-  z-index:4;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(180deg,#1b1d21 0%,#050607 100%);
-  border:3px solid #8c8f94;
-  box-shadow:
-    inset 0 0 18px rgba(255,255,255,.08),
-    0 0 7px rgba(0,0,0,.9);
-  overflow:hidden;
+    position:relative;
+    background:
+        linear-gradient(180deg,#202328 0%,#08090b 58%,#15171a 100%);
+    border:2px solid #96999e;
+    overflow:hidden;
+    z-index:3;
 }
 
-.sponsor.left{
-  border-radius:18px 0 0 18px;
-  clip-path:polygon(0 0,88% 0,100% 100%,0 100%);
-  padding-right:12%;
+.sponsor.leftSponsor{
+    border-radius:13px 0 0 13px;
+    clip-path:polygon(
+        0 0,
+        87% 0,
+        100% 100%,
+        0 100%
+    );
+    padding-right:10%;
 }
 
-.sponsor.right{
-  border-radius:0 18px 18px 0;
-  clip-path:polygon(12% 0,100% 0,100% 100%,0 100%);
-  padding-left:12%;
+.sponsor.rightSponsor{
+    border-radius:0 13px 13px 0;
+    clip-path:polygon(
+        13% 0,
+        100% 0,
+        100% 100%,
+        0 100%
+    );
+    padding-left:10%;
+}
+
+.sponsorInner{
+    position:absolute;
+    inset:8%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .sponsor img{
-  width:88%;
-  height:82%;
-  object-fit:contain;
-}
-
-/* Hide broken placeholder icons until sponsor files exist */
-.sponsor img[src=""]{
-  display:none;
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
 }
 
 /* =========================================================
@@ -96,322 +118,363 @@ html,body{
    ========================================================= */
 
 .player{
-  position:relative;
-  z-index:2;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  background:linear-gradient(180deg,#15171b,#050608);
-  overflow:hidden;
+    position:relative;
+    background:
+        linear-gradient(180deg,#121419 0%,#08090c 100%);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    overflow:hidden;
 }
 
-.player.left{
-  padding:20px 28px 20px 42px;
-  border-top:2px solid #34373d;
-  border-bottom:2px solid #34373d;
+.player.leftPlayer{
+    padding:0 4% 0 8%;
+    border-left:9px solid #0785ff;
 }
 
-.player.right{
-  padding:20px 42px 20px 28px;
-  text-align:right;
-  border-top:2px solid #34373d;
-  border-bottom:2px solid #34373d;
+.player.rightPlayer{
+    padding:0 8% 0 4%;
+    text-align:right;
+    border-right:9px solid #ff2028;
 }
 
-/* blue wedge */
-
-.player.left:before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  width:28px;
-  height:100%;
-  background:linear-gradient(180deg,#1596ff,#004bd2);
-  clip-path:polygon(0 0,100% 0,42% 100%,0 100%);
+.player.leftPlayer:before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:9px;
+    height:100%;
+    background:linear-gradient(180deg,#28a7ff,#0067df);
+    box-shadow:0 0 10px rgba(0,132,255,.65);
 }
 
-/* red wedge */
-
-.player.right:after{
-  content:"";
-  position:absolute;
-  right:0;
-  top:0;
-  width:28px;
-  height:100%;
-  background:linear-gradient(180deg,#ff2630,#c4000a);
-  clip-path:polygon(58% 0,100% 0,100% 100%,0 100%);
+.player.rightPlayer:after{
+    content:"";
+    position:absolute;
+    right:0;
+    top:0;
+    width:9px;
+    height:100%;
+    background:linear-gradient(180deg,#ff3c43,#d8000b);
+    box-shadow:0 0 10px rgba(255,0,0,.60);
 }
 
-.name{
-  font-size:34px;
-  line-height:1.05;
-  font-weight:900;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  text-shadow:0 3px 4px #000;
+.playerName{
+    font-size:2.05vw;
+    line-height:1;
+    font-weight:900;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    text-shadow:0 3px 4px #000;
 }
 
-.player-sub{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  margin-top:12px;
-  font-size:20px;
-  color:#e5e5e5;
+.playerBottom{
+    margin-top:.65vh;
+    min-height:2.2vh;
+    display:flex;
+    align-items:center;
+    gap:.75vw;
 }
 
-.player.right .player-sub{
-  justify-content:flex-end;
+.rightPlayer .playerBottom{
+    justify-content:flex-end;
+}
+
+.fargo{
+    font-size:1.16vw;
+    color:#ddd;
+    white-space:nowrap;
+}
+
+.breakBadge{
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    padding:.2vh .65vw;
+
+    background:
+        linear-gradient(180deg,#ff2530,#cf0009);
+
+    border-left:4px solid #ff2932;
+    border-right:4px solid #ff2932;
+
+    transform:skew(-13deg);
+
+    box-shadow:
+        0 0 8px rgba(255,0,0,.45);
+
+    font-size:1.05vw;
+    font-weight:900;
+    line-height:1.3;
+}
+
+.breakBadge span{
+    display:block;
+    transform:skew(13deg);
 }
 
 /* =========================================================
-   BREAK BADGE
+   SCORE PODS
    ========================================================= */
 
-.break{
-  display:none;
-  position:relative;
-  padding:5px 16px;
-  background:#ec111b;
-  color:#fff;
-  font-size:18px;
-  font-weight:900;
-  font-style:italic;
-  transform:skew(-14deg);
-  border-left:5px solid #ff3941;
-  border-right:5px solid #ff3941;
-  box-shadow:0 2px 5px #000;
+.scoreWrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#08090c;
 }
 
-.break.blue{
-  background:#0769db;
-  border-color:#1c92ff;
+.scorePod{
+    position:relative;
+    width:74%;
+    height:78%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(180deg,#17191e 0%,#090a0d 100%);
+
+    transform:skew(-9deg);
+
+    box-shadow:
+        inset 0 0 15px rgba(255,255,255,.03),
+        0 4px 8px rgba(0,0,0,.8);
 }
 
-.break span{
-  display:block;
-  transform:skew(14deg);
+.scoreWrap.blue .scorePod{
+    border-top:4px solid #078bff;
+    border-bottom:4px solid #078bff;
+    box-shadow:
+        inset 0 0 14px rgba(0,130,255,.10),
+        0 0 10px rgba(0,125,255,.25);
 }
 
-/* =========================================================
-   SCORE AREAS
-   ========================================================= */
-
-.score-area{
-  position:relative;
-  z-index:5;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#07080a;
+.scoreWrap.red .scorePod{
+    border-top:4px solid #ff1724;
+    border-bottom:4px solid #ff1724;
+    box-shadow:
+        inset 0 0 14px rgba(255,0,0,.10),
+        0 0 10px rgba(255,0,0,.25);
 }
 
-.score-pod{
-  width:92%;
-  height:112px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:66px;
-  line-height:1;
-  font-weight:900;
-  background:linear-gradient(180deg,#1b1d22,#060709);
-  text-shadow:0 3px 5px #000;
-}
-
-.score-pod.blue{
-  border:5px solid #086fe8;
-  clip-path:polygon(13% 0,100% 0,87% 100%,0 100%);
-  box-shadow:inset 0 0 15px rgba(0,120,255,.35);
-}
-
-.score-pod.red{
-  border:5px solid #e20e18;
-  clip-path:polygon(0 0,87% 0,100% 100%,13% 100%);
-  box-shadow:inset 0 0 15px rgba(255,0,0,.35);
+.scoreNumber{
+    transform:skew(9deg);
+    font-size:4.3vw;
+    line-height:1;
+    font-weight:900;
+    text-shadow:0 3px 5px #000;
 }
 
 /* =========================================================
-   CENTER MBP
+   CENTER MBP SECTION
    ========================================================= */
 
 .brand{
-  position:relative;
-  z-index:6;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(180deg,#0e0f12,#020304);
-  overflow:visible;
+    position:relative;
+    background:
+        linear-gradient(180deg,#090a0d 0%,#030304 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:.5vh .6vw;
+    overflow:hidden;
+}
+
+.brand:before,
+.brand:after{
+    content:"";
+    position:absolute;
+    top:13%;
+    width:1px;
+    height:74%;
+    background:#3c3f44;
 }
 
 .brand:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-top:2px solid #2f3136;
-  border-bottom:2px solid #2f3136;
-  pointer-events:none;
+    left:0;
+}
+
+.brand:after{
+    right:0;
 }
 
 .brand img{
-  position:relative;
-  z-index:2;
-  width:94%;
-  max-height:128px;
-  object-fit:contain;
-  filter:drop-shadow(0 3px 4px #000);
+    display:block;
+    max-width:95%;
+    max-height:94%;
+    object-fit:contain;
 }
 
 /* =========================================================
-   LOWER MATCH BAR
+   LOWER MATCH INFORMATION BAR
    ========================================================= */
 
-.lower{
-  position:absolute;
-  left:27%;
-  top:137px;
-  width:46%;
-  height:45px;
-  z-index:10;
-  display:grid;
-  grid-template-columns:1fr 1.45fr 1fr;
-  background:linear-gradient(180deg,#17191d,#050607);
-  border-top:2px solid #777;
-  border-bottom:2px solid #555;
-  clip-path:polygon(3% 0,97% 0,94% 100%,6% 100%);
+.matchbar{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    top:11.55vh;
+
+    width:44%;
+    height:3.65vh;
+
+    background:
+        linear-gradient(180deg,#17191d,#07080a);
+
+    clip-path:polygon(
+        2% 0,
+        98% 0,
+        96% 100%,
+        4% 100%
+    );
+
+    border-top:2px solid #777;
+
+    display:grid;
+    grid-template-columns:1fr 1px 1.55fr 1px 1fr;
+    align-items:center;
+
+    box-shadow:0 6px 8px rgba(0,0,0,.75);
+    z-index:10;
 }
 
-.lower-cell{
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:19px;
-  font-weight:700;
-  text-shadow:0 2px 3px #000;
+.matchItem{
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:.45vw;
+
+    font-size:.95vw;
+    font-weight:900;
+    white-space:nowrap;
 }
 
-.lower-cell:not(:last-child):after{
-  content:"";
-  position:absolute;
-  right:0;
-  width:2px;
-  height:55%;
-  background:#aaa;
+.divider{
+    height:48%;
+    background:#aaa;
 }
 
-.game{
-  font-weight:900;
+.ballIcon{
+    width:1.55vw;
+    height:1.55vw;
+    min-width:1.55vw;
+    border-radius:50%;
+
+    background:
+        radial-gradient(circle at 35% 30%,#fff 0 16%,#f3cf26 17% 68%,#b68b00 69% 100%);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#111;
+    font-size:.72vw;
+    font-weight:900;
+
+    box-shadow:
+        inset -2px -2px 4px rgba(0,0,0,.35),
+        0 1px 3px #000;
 }
 
-.ball-icon{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:29px;
-  height:29px;
-  margin-right:9px;
-  border-radius:50%;
-  background:#f1c62b;
-  color:#111;
-  border:2px solid #fff;
-  font-size:14px;
-  font-weight:900;
+/* blue/red decorative slashes */
+
+.matchbar:before{
+    content:"";
+    position:absolute;
+    left:1.5%;
+    top:0;
+    width:1.2%;
+    height:100%;
+    background:#0787ff;
+    transform:skew(-17deg);
 }
 
-/* blue/red decorative lower slashes */
-
-.lower:before{
-  content:"";
-  position:absolute;
-  left:3.5%;
-  bottom:0;
-  width:9px;
-  height:100%;
-  background:#087cff;
-  transform:skew(-16deg);
-}
-
-.lower:after{
-  content:"";
-  position:absolute;
-  right:3.5%;
-  bottom:0;
-  width:9px;
-  height:100%;
-  background:#ef1721;
-  transform:skew(-16deg);
+.matchbar:after{
+    content:"";
+    position:absolute;
+    right:1.5%;
+    top:0;
+    width:1.2%;
+    height:100%;
+    background:#f20d1b;
+    transform:skew(-17deg);
 }
 
 /* =========================================================
-   ONE POCKET COUNTER
+   ONE POCKET BALL COUNTS
    ========================================================= */
 
-.one-pocket{
-  display:none;
-  position:absolute;
-  left:50%;
-  bottom:200px;
-  transform:translateX(-50%);
-  min-width:390px;
-  height:46px;
-  grid-template-columns:1fr 1fr;
-  background:linear-gradient(180deg,#1a1c20,#050607);
-  border:2px solid #888;
-  border-radius:10px;
-  overflow:hidden;
-  box-shadow:0 5px 10px rgba(0,0,0,.7);
+.onePocket{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:15.8vh;
+
+    width:30vw;
+    height:4.3vh;
+
+    display:none;
+    grid-template-columns:1fr 1fr;
+
+    background:linear-gradient(180deg,#17191d,#08090b);
+    border:1px solid #888;
+    border-radius:8px;
+
+    overflow:hidden;
 }
 
-.ball-count{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:0 20px;
-  font-size:17px;
-  font-weight:900;
+.ballCount{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:.5vw;
+
+    font-size:1vw;
+    font-weight:800;
 }
 
-.ball-count:first-child{
-  border-right:1px solid #777;
+.ballCount:first-child{
+    border-right:1px solid #666;
 }
 
-.ball-number{
-  margin-left:12px;
-  font-size:27px;
+.ballCount strong{
+    font-size:1.45vw;
 }
 
 /* =========================================================
-   SMALLER SCREENS
+   OPTIONAL TOP INFORMATION
    ========================================================= */
 
-@media(max-width:1200px){
-  .scoreboard{
-    width:98%;
-    height:150px;
-  }
+.topInfo{
+    position:absolute;
+    left:50%;
+    top:3vh;
+    transform:translateX(-50%);
 
-  .main{
-    height:112px;
-  }
+    display:none;
 
-  .name{font-size:25px}
-  .player-sub{font-size:15px}
-  .score-pod{height:88px;font-size:50px}
-  .brand img{max-height:96px}
+    background:rgba(8,9,12,.94);
+    border:1px solid #888;
+    border-radius:8px;
 
-  .lower{
-    top:106px;
-    height:38px;
-  }
+    padding:.6vh 1.2vw;
 
-  .lower-cell{
-    font-size:15px;
-  }
+    font-size:1.15vw;
+    font-weight:800;
+}
+
+/* =========================================================
+   RESPONSIVE SAFETY
+   ========================================================= */
+
+.hidden{
+    display:none !important;
 }
 
 </style>
@@ -421,218 +484,331 @@ html,body{
 
 <div class="stage" id="stage">
 
-  <div class="one-pocket" id="onePocket">
-    <div class="ball-count">
-      P1 BALLS <span class="ball-number" id="balls1">0</span>
+    <div class="topInfo" id="info"></div>
+
+    <div class="onePocket" id="op">
+        <div class="ballCount">
+            P1 BALLS
+            <strong id="b1">0</strong>
+        </div>
+
+        <div class="ballCount">
+            P2 BALLS
+            <strong id="b2">0</strong>
+        </div>
     </div>
 
-    <div class="ball-count">
-      P2 BALLS <span class="ball-number" id="balls2">0</span>
-    </div>
-  </div>
+    <div class="scoreboard">
 
+        <div class="mainbar">
 
-  <div class="scoreboard">
+            <!-- LEFT SPONSOR -->
+            <div class="sponsor leftSponsor">
+                <div class="sponsorInner">
+                    <img id="leftSponsor" src="">
+                </div>
+            </div>
 
-    <div class="main">
+            <!-- PLAYER ONE -->
+            <div class="player leftPlayer">
 
-      <!-- LEFT ROTATING SPONSOR -->
-      <div class="sponsor left">
-        <img id="sponsorLeft" src="" alt="">
-      </div>
+                <div class="playerName" id="p1">
+                    PLAYER ONE
+                </div>
 
+                <div class="playerBottom">
 
-      <!-- PLAYER 1 -->
-      <div class="player left">
+                    <div class="breakBadge" id="break1">
+                        <span>BREAK</span>
+                    </div>
 
-        <div class="name" id="player1">
-          PLAYER ONE
+                    <div class="fargo">
+                        Fargo <span id="fargo1">620</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SCORE ONE -->
+            <div class="scoreWrap blue">
+                <div class="scorePod">
+                    <div class="scoreNumber" id="s1">0</div>
+                </div>
+            </div>
+
+            <!-- MBP -->
+            <div class="brand">
+                <img src="mbp-logo.png" alt="McKenna Billiard Productions">
+            </div>
+
+            <!-- SCORE TWO -->
+            <div class="scoreWrap red">
+                <div class="scorePod">
+                    <div class="scoreNumber" id="s2">0</div>
+                </div>
+            </div>
+
+            <!-- PLAYER TWO -->
+            <div class="player rightPlayer">
+
+                <div class="playerName" id="p2">
+                    PLAYER TWO
+                </div>
+
+                <div class="playerBottom">
+
+                    <div class="fargo">
+                        Fargo <span id="fargo2">598</span>
+                    </div>
+
+                    <div class="breakBadge" id="break2">
+                        <span>BREAK</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT SPONSOR -->
+            <div class="sponsor rightSponsor">
+                <div class="sponsorInner">
+                    <img id="rightSponsor" src="">
+                </div>
+            </div>
+
         </div>
 
-        <div class="player-sub">
+        <!-- LOWER BAR -->
 
-          <div class="break blue" id="break1">
-            <span>BREAK</span>
-          </div>
+        <div class="matchbar">
 
-          <div id="fargo1">
-            Fargo 620
-          </div>
+            <div class="matchItem">
+                <div class="ballIcon" id="ballIcon">9</div>
+                <span id="gameType">9-BALL</span>
+            </div>
 
-        </div>
+            <div class="divider"></div>
 
-      </div>
+            <div class="matchItem" id="format">
+                SCOTCH DOUBLES
+            </div>
 
+            <div class="divider"></div>
 
-      <!-- SCORE 1 -->
-      <div class="score-area">
-        <div class="score-pod blue" id="score1">
-          0
-        </div>
-      </div>
-
-
-      <!-- CENTER LOGO -->
-      <div class="brand">
-        <img
-          src="mbp-logo.png"
-          alt="McKenna Billiard Productions"
-        >
-      </div>
-
-
-      <!-- SCORE 2 -->
-      <div class="score-area">
-        <div class="score-pod red" id="score2">
-          0
-        </div>
-      </div>
-
-
-      <!-- PLAYER 2 -->
-      <div class="player right">
-
-        <div class="name" id="player2">
-          PLAYER TWO
-        </div>
-
-        <div class="player-sub">
-
-          <div id="fargo2">
-            Fargo 598
-          </div>
-
-          <div class="break" id="break2">
-            <span>BREAK</span>
-          </div>
+            <div class="matchItem" id="race">
+                RACE TO 5
+            </div>
 
         </div>
-
-      </div>
-
-
-      <!-- RIGHT ROTATING SPONSOR -->
-      <div class="sponsor right">
-        <img id="sponsorRight" src="" alt="">
-      </div>
-
-    </div>
-
-
-    <!-- LOWER MATCH BAR -->
-    <div class="lower">
-
-      <div class="lower-cell game">
-        <span class="ball-icon" id="ballIcon">9</span>
-        <span id="gameType">9-BALL</span>
-      </div>
-
-      <div class="lower-cell" id="matchType">
-        SCOTCH DOUBLES
-      </div>
-
-      <div class="lower-cell" id="race">
-        RACE TO 5
-      </div>
 
     </div>
-
-  </div>
 
 </div>
-
 
 <script src="config.js"></script>
 <script src="shared.js"></script>
 
 <script>
 
+function value(v,fallback){
+    return (v === undefined || v === null || v === "")
+        ? fallback
+        : v;
+}
+
 function render(s){
 
-  document.getElementById("player1").textContent =
-    s.p1 || "PLAYER ONE";
+    /* PLAYERS */
 
-  document.getElementById("player2").textContent =
-    s.p2 || "PLAYER TWO";
+    document.getElementById("p1").textContent =
+        value(s.p1,"PLAYER ONE");
 
-
-  document.getElementById("score1").textContent =
-    s.score1 ?? 0;
-
-  document.getElementById("score2").textContent =
-    s.score2 ?? 0;
+    document.getElementById("p2").textContent =
+        value(s.p2,"PLAYER TWO");
 
 
-  document.getElementById("fargo1").textContent =
-    s.fargo1 ? "Fargo " + s.fargo1 : "";
+    /* SCORES */
 
-  document.getElementById("fargo2").textContent =
-    s.fargo2 ? "Fargo " + s.fargo2 : "";
+    document.getElementById("s1").textContent =
+        value(s.score1,0);
 
-
-  const game = s.game || "9-Ball";
-
-  document.getElementById("gameType").textContent =
-    game.toUpperCase();
+    document.getElementById("s2").textContent =
+        value(s.score2,0);
 
 
-  const ballIcon =
-    document.getElementById("ballIcon");
+    /* FARGO */
 
-  if(game === "8-Ball"){
-    ballIcon.textContent = "8";
-  }
-  else if(game === "9-Ball"){
-    ballIcon.textContent = "9";
-  }
-  else if(game === "10-Ball"){
-    ballIcon.textContent = "10";
-  }
-  else{
-    ballIcon.textContent = "●";
-  }
+    document.getElementById("fargo1").textContent =
+        value(s.fargo1,620);
+
+    document.getElementById("fargo2").textContent =
+        value(s.fargo2,598);
 
 
-  document.getElementById("matchType").textContent =
-    s.matchType || "SCOTCH DOUBLES";
+    /* GAME TYPE */
+
+    const game = value(s.game,"9-Ball");
+
+    document.getElementById("gameType").textContent =
+        game.toUpperCase();
 
 
-  const race1 = s.race1 || 5;
-  const race2 = s.race2 || race1;
+    /* BALL ICON */
 
-  document.getElementById("race").textContent =
-    race1 === race2
-      ? "RACE TO " + race1
-      : "RACE " + race1 + " / " + race2;
+    let ballNumber = "9";
 
+    if(game.toLowerCase().includes("8")){
+        ballNumber = "8";
+    }
 
-  document.getElementById("break1").style.display =
-    s.breakPlayer === 1 ? "block" : "none";
+    if(game.toLowerCase().includes("10")){
+        ballNumber = "10";
+    }
 
-  document.getElementById("break2").style.display =
-    s.breakPlayer === 2 ? "block" : "none";
+    if(game.toLowerCase().includes("one")){
+        ballNumber = "1";
+    }
 
-
-  const onePocket =
-    game.toLowerCase() === "one pocket";
-
-  document.getElementById("onePocket").style.display =
-    onePocket ? "grid" : "none";
+    document.getElementById("ballIcon").textContent =
+        ballNumber;
 
 
-  document.getElementById("balls1").textContent =
-    s.balls1 ?? 0;
+    /* FORMAT */
 
-  document.getElementById("balls2").textContent =
-    s.balls2 ?? 0;
+    document.getElementById("format").textContent =
+        value(
+            s.format || s.matchType,
+            "SCOTCH DOUBLES"
+        ).toUpperCase();
 
 
-  document.getElementById("stage").style.display =
-    s.visible === false ? "none" : "block";
+    /* RACE */
+
+    const race =
+        value(s.race1,s.race);
+
+    document.getElementById("race").textContent =
+        game === "One Pocket"
+        ? "ONE POCKET"
+        : "RACE TO " + value(race,5);
+
+
+    /* BREAK INDICATOR */
+
+    const break1 =
+        document.getElementById("break1");
+
+    const break2 =
+        document.getElementById("break2");
+
+    break1.style.display = "none";
+    break2.style.display = "none";
+
+    const breaker =
+        s.breaker || s.break || s.breakPlayer;
+
+    if(
+        breaker === 1 ||
+        breaker === "1" ||
+        breaker === "p1" ||
+        breaker === "P1"
+    ){
+        break1.style.display = "flex";
+    }
+
+    if(
+        breaker === 2 ||
+        breaker === "2" ||
+        breaker === "p2" ||
+        breaker === "P2"
+    ){
+        break2.style.display = "flex";
+    }
+
+
+    /* ONE POCKET */
+
+    const onePocket =
+        game.toLowerCase().includes("one pocket");
+
+    document.getElementById("op").style.display =
+        onePocket ? "grid" : "none";
+
+    document.getElementById("b1").textContent =
+        value(s.balls1,0);
+
+    document.getElementById("b2").textContent =
+        value(s.balls2,0);
+
+
+    /* TOP INFORMATION */
+
+    const info =
+        document.getElementById("info");
+
+    info.textContent =
+        value(s.info,"");
+
+    info.style.display =
+        s.info ? "block" : "none";
+
+
+    /* SPONSOR LOGOS */
+
+    const left =
+        document.getElementById("leftSponsor");
+
+    const right =
+        document.getElementById("rightSponsor");
+
+    if(s.leftSponsor){
+        left.src = s.leftSponsor;
+    }
+
+    if(s.rightSponsor){
+        right.src = s.rightSponsor;
+    }
+
+
+    /* OVERLAY VISIBILITY */
+
+    document.getElementById("stage").style.display =
+        s.visible === false
+        ? "none"
+        : "block";
 }
 
 
-initSync(render);
+/* CONNECT TO EXISTING SYNC SYSTEM */
+
+if(typeof initSync === "function"){
+    initSync(render);
+}else{
+
+    /* Preview values if sync isn't available */
+
+    render({
+        p1:"SHAWN MCKENNA",
+        p2:"CHRIS LAWSON",
+
+        score1:0,
+        score2:0,
+
+        fargo1:620,
+        fargo2:598,
+
+        game:"9-Ball",
+
+        format:"SCOTCH DOUBLES",
+
+        race1:5,
+
+        breaker:1,
+
+        visible:true
+    });
+}
 
 </script>
 
