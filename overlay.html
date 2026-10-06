@@ -117,12 +117,7 @@ body{
 
 
 /* =========================================================
-   PLAYER / TEAM ONE PANEL
-
-   Container stays fixed.
-
-   Individual rows are staggered to follow the blue
-   diagonal on the left side of the player panel.
+   PLAYER / TEAM ONE CONTAINER
    ========================================================= */
 
 #player1{
@@ -132,7 +127,7 @@ body{
     top:95px;
 
     width:360px;
-    height:115px;
+    height:145px;
 
     z-index:6;
 }
@@ -140,6 +135,10 @@ body{
 
 /* =========================================================
    PLAYER ONE — SINGLES
+
+   IMPORTANT:
+   We are intentionally reserving the upper portion of
+   this panel for a future Scotch Doubles team name.
    ========================================================= */
 
 #player1Singles{
@@ -148,26 +147,23 @@ body{
 }
 
 
-/* ---------------------------------------------------------
-   RESERVED TEAM-NAME AREA
+/* =========================================================
+   PLAYER ONE NAME
 
-   Nothing displays here during Singles.
+   Previous:
+   left:12px
+   top:18px
 
-   In Scotch Doubles this upper area can be used for the
-   optional team name without forcing the player names up
-   against the blue border.
-   --------------------------------------------------------- */
+   THIS PASS:
+   left:18px
+   top:42px
+   ========================================================= */
 
 #player1Name{
     position:absolute;
 
-    /*
-       Slightly farther right because of diagonal.
-       Lower than previous version to reserve upper space.
-    */
-
-    left:12px;
-    top:18px;
+    left:18px;
+    top:42px;
 
     width:330px;
     height:35px;
@@ -191,22 +187,28 @@ body{
 }
 
 
-/* ---------------------------------------------------------
-   FARGO + BREAK ROW
+/* =========================================================
+   PLAYER ONE FARGO / BREAK ROW
 
-   Starts farther right than player name because the blue
-   diagonal cuts farther into the panel at this height.
+   Previous:
+   left:38px
+   top:68px
 
-   Also sits much lower, just above the blue divider.
-   --------------------------------------------------------- */
+   THIS PASS:
+   left:52px
+   top:96px
+
+   This is deliberately a large move so we can establish
+   the true usable lower boundary of the player panel.
+   ========================================================= */
 
 #player1SingleInfo{
     position:absolute;
 
-    left:38px;
-    top:68px;
+    left:52px;
+    top:96px;
 
-    width:300px;
+    width:290px;
     height:29px;
 
     display:flex;
@@ -234,11 +236,7 @@ body{
 /* =========================================================
    PLAYER ONE — SCOTCH DOUBLES
 
-   Hidden for now.
-
-   Each row has its own horizontal position so the eventual
-   doubles layout can follow the diagonal instead of using
-   one rectangular left edge.
+   Still hidden until we intentionally test it.
    ========================================================= */
 
 #player1Doubles{
@@ -279,15 +277,15 @@ body{
 }
 
 
-/* FIRST DOUBLES PLAYER */
+/* DOUBLES PLAYER ONE */
 
 #team1Row1{
     position:absolute;
 
-    left:12px;
-    top:23px;
+    left:18px;
+    top:31px;
 
-    width:325px;
+    width:320px;
     height:23px;
 
     display:flex;
@@ -297,15 +295,15 @@ body{
 }
 
 
-/* SECOND DOUBLES PLAYER */
+/* DOUBLES PLAYER TWO */
 
 #team1Row2{
     position:absolute;
 
-    left:25px;
-    top:49px;
+    left:34px;
+    top:59px;
 
-    width:310px;
+    width:302px;
     height:23px;
 
     display:flex;
@@ -354,10 +352,10 @@ body{
 #team1Bottom{
     position:absolute;
 
-    left:38px;
-    top:76px;
+    left:52px;
+    top:91px;
 
-    width:295px;
+    width:285px;
     height:25px;
 
     display:flex;
@@ -379,8 +377,7 @@ body{
 
     color:#fff;
 
-    text-shadow:
-        0 2px 3px #000;
+    text-shadow:0 2px 3px #000;
 }
 
 
@@ -477,9 +474,7 @@ body{
 
 
 /* =========================================================
-   SCORES
-
-   PLAYER 1 SCORE IS LOCKED FOR THIS TEST
+   SCORES — UNCHANGED
    ========================================================= */
 
 .score{
@@ -538,7 +533,7 @@ body{
 
 
 /* =========================================================
-   LOWER INFORMATION BAR
+   LOWER INFORMATION BAR — UNCHANGED
    ========================================================= */
 
 .lowerItem{
@@ -560,8 +555,7 @@ body{
 
     z-index:5;
 
-    text-shadow:
-        0 2px 3px #000;
+    text-shadow:0 2px 3px #000;
 }
 
 #gameBox{
@@ -612,7 +606,7 @@ body{
 
 
 /* =========================================================
-   OLD ONE POCKET FLOATING COUNTER — DISABLED
+   OLD ONE POCKET COUNTER — DISABLED
    ========================================================= */
 
 #onePocket{
@@ -879,17 +873,12 @@ body{
             <!-- LEGACY ONE POCKET VALUES -->
 
             <div id="onePocket">
-
                 <span id="balls1">0</span>
                 <span id="balls2">0</span>
-
             </div>
 
 
-            <!-- VENUE -->
-
             <div id="venue"></div>
-
 
         </div>
 
@@ -939,9 +928,7 @@ scaleFrame();
    FIREBASE
    ========================================================= */
 
-firebase.initializeApp(
-    firebaseConfig
-);
+firebase.initializeApp(firebaseConfig);
 
 const database =
     firebase.database();
@@ -957,28 +944,22 @@ const matchRef =
 
 function fitPlayerName(element, name){
 
-    element.textContent =
-        name;
+    element.textContent = name;
 
-    const length =
-        name.length;
+    const length = name.length;
 
     if(length > 24){
         element.style.fontSize = "23px";
     }
-
     else if(length > 20){
         element.style.fontSize = "25px";
     }
-
     else if(length > 17){
         element.style.fontSize = "27px";
     }
-
     else if(length > 14){
         element.style.fontSize = "29px";
     }
-
     else{
         element.style.fontSize = "31px";
     }
@@ -993,9 +974,7 @@ function fitPlayerName(element, name){
 function isScotchDoubles(data){
 
     const format =
-        String(
-            data.format || ""
-        )
+        String(data.format || "")
         .trim()
         .toLowerCase();
 
@@ -1029,11 +1008,6 @@ function renderMatch(data){
     const doubles =
         isScotchDoubles(data);
 
-
-
-    /* =====================================================
-       PLAYER ONE MODE
-       ===================================================== */
 
     const player1Singles =
         document.getElementById(
@@ -1075,9 +1049,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       PLAYER ONE — SINGLES
-       ===================================================== */
+    /* PLAYER ONE — SINGLES */
 
     fitPlayerName(
         document.getElementById(
@@ -1096,9 +1068,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       PLAYER ONE — SCOTCH DOUBLES
-       ===================================================== */
+    /* PLAYER ONE — DOUBLES */
 
     if(showTeam1Doubles){
 
@@ -1172,9 +1142,7 @@ function renderMatch(data){
 
 
         const combined =
-            Number(
-                team1.combinedFargo
-            ) ||
+            Number(team1.combinedFargo) ||
             (
                 f1 && f2
                 ? f1 + f2
@@ -1192,9 +1160,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       PLAYER TWO
-       ===================================================== */
+    /* PLAYER TWO */
 
     document.getElementById(
         "player2Name"
@@ -1211,9 +1177,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       SCORES
-       ===================================================== */
+    /* SCORES */
 
     document.getElementById(
         "score1"
@@ -1228,9 +1192,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       GAME
-       ===================================================== */
+    /* GAME */
 
     const game =
         data.game || "9-Ball";
@@ -1241,11 +1203,6 @@ function renderMatch(data){
     ).textContent =
         game.toUpperCase();
 
-
-
-    /* =====================================================
-       BALL ICON
-       ===================================================== */
 
     const ballIcon =
         document.getElementById(
@@ -1288,9 +1245,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       RACE
-       ===================================================== */
+    /* RACE */
 
     document.getElementById(
         "raceBox"
@@ -1307,9 +1262,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       FORMAT
-       ===================================================== */
+    /* FORMAT */
 
     document.getElementById(
         "formatBox"
@@ -1320,9 +1273,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       BREAK
-       ===================================================== */
+    /* BREAK */
 
     const breaker =
         data.breaker ??
@@ -1366,9 +1317,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       ONE POCKET VALUES
-       ===================================================== */
+    /* ONE POCKET DATA */
 
     document.getElementById(
         "balls1"
@@ -1383,9 +1332,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       VENUE
-       ===================================================== */
+    /* VENUE */
 
     const venue =
         document.getElementById(
@@ -1410,9 +1357,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       SPONSORS
-       ===================================================== */
+    /* SPONSORS */
 
     if(data.leftSponsor){
 
