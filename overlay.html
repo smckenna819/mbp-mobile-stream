@@ -139,21 +139,15 @@ body{
 /* =========================================================
    PLAYER ONE NAME
 
-   Previous:
-   left:18px
-   top:42px
-   font-size:31px
-
-   THIS PASS:
-   left:18px
-   top:48px
-   font-size:27px
+   FINAL TUNING PASS:
+   left: 18px -> 24px
+   top stays 48px
    ========================================================= */
 
 #player1Name{
     position:absolute;
 
-    left:18px;
+    left:24px;
     top:48px;
 
     width:330px;
@@ -181,22 +175,18 @@ body{
 /* =========================================================
    PLAYER ONE FARGO + BREAK
 
-   Previous:
-   left:52px
-   top:96px
-
-   THIS PASS:
-   left:52px
-   top:110px
+   FINAL TUNING PASS:
+   left: 52px -> 44px
+   top: 110px -> 105px
    ========================================================= */
 
 #player1SingleInfo{
     position:absolute;
 
-    left:52px;
-    top:110px;
+    left:44px;
+    top:105px;
 
-    width:290px;
+    width:298px;
     height:25px;
 
     display:flex;
@@ -497,7 +487,7 @@ body{
 
 
 /* =========================================================
-   MBP LOGO — UNCHANGED
+   MBP LOGO
    ========================================================= */
 
 #mbpLogo{
@@ -631,15 +621,14 @@ body{
 </style>
 </head>
 
-
 <body>
 
 <div id="viewport">
-
 <div id="frame">
-
 <div id="scoreboard">
 
+
+<!-- SCOREBOARD SHELL -->
 
 <img
     id="shell"
@@ -647,6 +636,8 @@ body{
     alt=""
 >
 
+
+<!-- LEFT SPONSOR -->
 
 <div id="leftSponsor">
     <img
@@ -1022,9 +1013,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       PLAYER ONE — SINGLES
-       ===================================================== */
+    /* PLAYER ONE — SINGLES */
 
     fitPlayerName(
         document.getElementById(
@@ -1043,9 +1032,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       PLAYER ONE — DOUBLES
-       ===================================================== */
+    /* PLAYER ONE — DOUBLES */
 
     if(showTeam1Doubles){
 
@@ -1137,9 +1124,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       PLAYER TWO
-       ===================================================== */
+    /* PLAYER TWO */
 
     document.getElementById(
         "player2Name"
@@ -1156,9 +1141,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       SCORES
-       ===================================================== */
+    /* SCORES */
 
     document.getElementById(
         "score1"
@@ -1173,9 +1156,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       GAME
-       ===================================================== */
+    /* GAME */
 
     const game =
         data.game || "9-Ball";
@@ -1228,9 +1209,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       RACE
-       ===================================================== */
+    /* RACE */
 
     document.getElementById(
         "raceBox"
@@ -1247,9 +1226,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       FORMAT
-       ===================================================== */
+    /* FORMAT */
 
     document.getElementById(
         "formatBox"
@@ -1260,9 +1237,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       BREAK
-       ===================================================== */
+    /* BREAK */
 
     const breaker =
         data.breaker ??
@@ -1306,9 +1281,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       ONE POCKET DATA
-       ===================================================== */
+    /* ONE POCKET DATA */
 
     document.getElementById(
         "balls1"
@@ -1323,9 +1296,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       VENUE
-       ===================================================== */
+    /* VENUE */
 
     const venue =
         document.getElementById(
@@ -1350,9 +1321,7 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       SPONSORS
-       ===================================================== */
+    /* SPONSORS */
 
     if(data.leftSponsor){
 
