@@ -6,395 +6,399 @@
 <title>MBP Overlay</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: transparent;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:transparent;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-/* =========================================================
-   FIXED 1920x1080 OVERLAY CANVAS
-   ========================================================= */
-
-#canvas {
-    position: absolute;
-    width: 1920px;
-    height: 1080px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    transform-origin: center center;
+body{
+    color:#fff;
 }
 
 /* =========================================================
-   SCOREBOARD
-   Shell itself is a full 1920x1080 transparent PNG.
+   MASTER 1920 x 1080 STAGE
    ========================================================= */
 
-#scoreboard {
-    position: absolute;
-    inset: 0;
+#stage{
+    position:absolute;
+    inset:0;
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
 }
 
-#shell {
-    position: absolute;
-    inset: 0;
-    width: 1920px;
-    height: 1080px;
-    object-fit: contain;
-    pointer-events: none;
-    user-select: none;
+/*
+    Everything inside this canvas is designed at 1920x1080.
+    Browser scales the complete overlay together.
+*/
+
+#canvas{
+    position:absolute;
+    width:1920px;
+    height:1080px;
+    left:50%;
+    top:50%;
+    transform-origin:center center;
 }
+
 
 /* =========================================================
-   SPONSOR PANELS
+   SCOREBOARD SHELL
    ========================================================= */
 
-.sponsor {
-    position: absolute;
-    top: 455px;
-    width: 245px;
-    height: 145px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#shell{
+    position:absolute;
+    left:0;
+    top:0;
+    width:1920px;
+    height:1080px;
+    object-fit:contain;
+    pointer-events:none;
 }
 
-.sponsor.left {
-    left: 25px;
-}
-
-.sponsor.right {
-    right: 25px;
-}
-
-.sponsor img {
-    max-width: 88%;
-    max-height: 82%;
-    object-fit: contain;
-}
 
 /* =========================================================
-   PLAYER AREAS
+   PLAYER 1
    ========================================================= */
 
-.player {
-    position: absolute;
-    top: 458px;
-    width: 410px;
-    height: 128px;
+#player1Block{
+    position:absolute;
+    left:405px;
+    top:812px;
+    width:300px;
+    height:82px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 }
 
-.player.left {
-    left: 330px;
-    text-align: left;
+#player1Name{
+    font-size:30px;
+    line-height:32px;
+    font-weight:900;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    text-shadow:0 2px 3px #000;
 }
 
-.player.right {
-    right: 330px;
-    text-align: right;
+#player1Info{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:7px;
 }
 
-.playerName {
-    position: absolute;
-    top: 20px;
-    width: 100%;
-
-    font-size: 35px;
-    line-height: 40px;
-    font-weight: 900;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    text-shadow:
-        0 2px 2px rgba(0,0,0,.9),
-        0 0 5px rgba(0,0,0,.7);
+#break1{
+    display:none;
+    background:#f01822;
+    padding:3px 15px 4px;
+    font-size:19px;
+    line-height:20px;
+    font-weight:900;
+    font-style:italic;
+    transform:skew(-8deg);
+    text-shadow:0 1px 2px #000;
 }
 
-.playerBottom {
-    position: absolute;
-    top: 70px;
-    width: 100%;
-    height: 42px;
-
-    display: flex;
-    align-items: center;
+#fargo1{
+    font-size:21px;
+    color:#e5e5e5;
+    text-shadow:0 2px 3px #000;
 }
 
-.player.left .playerBottom {
-    justify-content: flex-start;
-}
-
-.player.right .playerBottom {
-    justify-content: flex-end;
-}
-
-.fargo {
-    font-size: 24px;
-    font-weight: 500;
-    color: #e8e8e8;
-    white-space: nowrap;
-}
 
 /* =========================================================
-   BREAK INDICATOR
+   PLAYER 2
    ========================================================= */
 
-.break {
-    display: none;
-    align-items: center;
-    justify-content: center;
-
-    height: 36px;
-    min-width: 115px;
-    padding: 0 17px;
-    margin-right: 16px;
-
-    background: linear-gradient(
-        180deg,
-        #ff3138 0%,
-        #e50914 50%,
-        #b80008 100%
-    );
-
-    transform: skew(-12deg);
-
-    border-left: 4px solid #ff3038;
-    border-right: 4px solid #ff3038;
-
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.35),
-        0 2px 5px rgba(0,0,0,.65);
+#player2Block{
+    position:absolute;
+    left:1215px;
+    top:812px;
+    width:300px;
+    height:82px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    text-align:right;
 }
 
-.break span {
-    transform: skew(12deg);
-
-    font-size: 22px;
-    line-height: 1;
-    font-weight: 900;
-    font-style: italic;
-
-    color: white;
+#player2Name{
+    font-size:30px;
+    line-height:32px;
+    font-weight:900;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    text-shadow:0 2px 3px #000;
 }
 
-.player.right .break {
-    margin-right: 0;
-    margin-left: 16px;
-    order: 2;
+#player2Info{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:14px;
+    margin-top:7px;
 }
 
-.player.right .fargo {
-    order: 1;
+#break2{
+    display:none;
+    background:#f01822;
+    padding:3px 15px 4px;
+    font-size:19px;
+    line-height:20px;
+    font-weight:900;
+    font-style:italic;
+    transform:skew(-8deg);
+    text-shadow:0 1px 2px #000;
 }
+
+#fargo2{
+    font-size:21px;
+    color:#e5e5e5;
+    text-shadow:0 2px 3px #000;
+}
+
 
 /* =========================================================
    SCORES
    ========================================================= */
 
-.score {
-    position: absolute;
-    top: 462px;
-
-    width: 100px;
-    height: 120px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 66px;
-    line-height: 1;
-    font-weight: 900;
-
-    text-shadow:
-        0 3px 3px rgba(0,0,0,.9),
-        0 0 6px rgba(0,0,0,.6);
+.score{
+    position:absolute;
+    top:803px;
+    width:92px;
+    height:92px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:56px;
+    line-height:1;
+    font-weight:900;
+    text-align:center;
+    text-shadow:0 3px 4px #000;
 }
 
-#score1 {
-    left: 747px;
+#score1{
+    left:711px;
 }
 
-#score2 {
-    right: 747px;
+#score2{
+    left:1117px;
 }
+
 
 /* =========================================================
-   REAL MCKENNA BILLIARDS LOGO
+   CENTER MBP LOGO
    ========================================================= */
 
-#mbpLogo {
-    position: absolute;
-
-    left: 50%;
-    top: 450px;
-
-    transform: translateX(-50%);
-
-    width: 170px;
-    height: 135px;
-
-    object-fit: contain;
+#mbpLogo{
+    position:absolute;
+    left:50%;
+    top:800px;
+    transform:translateX(-50%);
+    width:225px;
+    height:100px;
+    object-fit:contain;
 }
+
 
 /* =========================================================
-   LOWER INFORMATION BAR
+   SPONSOR LOGOS
    ========================================================= */
 
-.bottomInfo {
-    position: absolute;
-
-    left: 50%;
-    top: 602px;
-
-    transform: translateX(-50%);
-
-    width: 800px;
-    height: 55px;
-
-    display: grid;
-    grid-template-columns: 1fr 1.35fr 1fr;
-
-    align-items: center;
-
-    font-weight: 900;
-    text-transform: uppercase;
-
-    pointer-events: none;
+.sponsor{
+    position:absolute;
+    top:792px;
+    width:260px;
+    height:118px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.infoCell {
-    height: 35px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 20px;
-    white-space: nowrap;
+.sponsor img{
+    max-width:88%;
+    max-height:88%;
+    object-fit:contain;
 }
 
-.infoCell + .infoCell {
-    border-left: 2px solid rgba(255,255,255,.55);
+#leftSponsor{
+    left:22px;
 }
 
-#game {
-    gap: 8px;
+#rightSponsor{
+    right:22px;
 }
 
-.ballIcon {
-    display: inline-flex;
-
-    width: 31px;
-    height: 31px;
-
-    border-radius: 50%;
-
-    align-items: center;
-    justify-content: center;
-
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            #fff5a8 0%,
-            #ffd32b 35%,
-            #e1a800 72%,
-            #9d7200 100%
-        );
-
-    border: 2px solid #f8dc45;
-
-    color: #111;
-
-    font-size: 16px;
-    font-weight: 900;
-
-    box-shadow:
-        inset 0 1px 2px rgba(255,255,255,.8),
-        0 1px 3px rgba(0,0,0,.8);
-}
 
 /* =========================================================
-   RESPONSIVE PREVIEW
-   Keeps exact 1920x1080 geometry when browser isn't 1920x1080.
+   LOWER MATCH BAR
    ========================================================= */
 
-@media (max-width: 1919px), (max-height: 1079px) {
-
-    #canvas {
-        transform:
-            translate(-50%, -50%)
-            scale(
-                min(
-                    calc(100vw / 1920),
-                    calc(100vh / 1080)
-                )
-            );
-    }
+#gameText,
+#formatText,
+#raceText{
+    position:absolute;
+    top:917px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    line-height:22px;
+    font-weight:900;
+    white-space:nowrap;
+    text-shadow:0 2px 3px #000;
 }
+
+#gameText{
+    left:575px;
+    width:220px;
+}
+
+#formatText{
+    left:800px;
+    width:320px;
+}
+
+#raceText{
+    left:1125px;
+    width:220px;
+}
+
+
+/* =========================================================
+   9 BALL ICON
+   ========================================================= */
+
+#ballIcon{
+    display:inline-flex;
+    width:29px;
+    height:29px;
+    border-radius:50%;
+    background:#f1c40f;
+    color:#111;
+    align-items:center;
+    justify-content:center;
+    margin-right:9px;
+    border:2px solid #fff;
+    font-size:15px;
+    font-weight:900;
+    text-shadow:none;
+}
+
+
+/* =========================================================
+   ONE POCKET BALL COUNTERS
+   ========================================================= */
+
+#onePocket{
+    display:none;
+    position:absolute;
+    left:50%;
+    top:742px;
+    transform:translateX(-50%);
+    background:rgba(5,5,7,.95);
+    border:2px solid #999;
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 4px 10px rgba(0,0,0,.7);
+}
+
+.ballCount{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 22px;
+    font-size:18px;
+    font-weight:800;
+}
+
+.ballCount:first-child{
+    border-right:1px solid #666;
+}
+
+.ballCount strong{
+    font-size:25px;
+}
+
+
+/* =========================================================
+   OPTIONAL EVENT / VENUE
+   ========================================================= */
+
+#venue{
+    display:none;
+    position:absolute;
+    left:50%;
+    top:755px;
+    transform:translateX(-50%);
+    padding:8px 24px;
+    border-radius:7px;
+    background:rgba(8,8,10,.90);
+    border:1px solid #777;
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:.04em;
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   HIDDEN
+   ========================================================= */
+
+.hidden{
+    display:none !important;
+}
+
 </style>
 </head>
 
 <body>
 
-<div id="canvas">
+<div id="stage">
 
-    <div id="scoreboard">
+    <div id="canvas">
 
-        <!-- LOCKED SCOREBOARD ARTWORK -->
+        <!-- FIXED SCOREBOARD ART -->
         <img
             id="shell"
             src="scoreboard-shell.png"
             alt=""
         >
 
-        <!-- LEFT ROTATING SPONSOR -->
-        <div class="sponsor left">
-            <img id="leftSponsor" src="" alt="">
+
+        <!-- LEFT SPONSOR -->
+        <div id="leftSponsor" class="sponsor">
+            <img id="leftSponsorImg" src="" alt="">
         </div>
 
-        <!-- RIGHT ROTATING SPONSOR -->
-        <div class="sponsor right">
-            <img id="rightSponsor" src="" alt="">
-        </div>
 
         <!-- PLAYER 1 -->
-        <div class="player left">
+        <div id="player1Block">
 
-            <div
-                class="playerName"
-                id="player1"
-            >
+            <div id="player1Name">
                 PLAYER ONE
             </div>
 
-            <div class="playerBottom">
+            <div id="player1Info">
 
-                <div
-                    class="break"
-                    id="break1"
-                >
-                    <span>BREAK</span>
+                <div id="break1">
+                    BREAK
                 </div>
 
-                <div
-                    class="fargo"
-                    id="fargo1"
-                >
+                <div id="fargo1">
                     Fargo 620
                 </div>
 
@@ -402,85 +406,91 @@ body {
 
         </div>
 
-        <!-- PLAYER 1 SCORE -->
-        <div
-            class="score"
-            id="score1"
-        >
+
+        <!-- SCORE 1 -->
+        <div id="score1" class="score">
             0
         </div>
 
-        <!-- REAL MBP LOGO -->
+
+        <!-- CENTER MBP LOGO -->
         <img
             id="mbpLogo"
             src="mbp-logo.png"
             alt="McKenna Billiard Productions"
         >
 
-        <!-- PLAYER 2 SCORE -->
-        <div
-            class="score"
-            id="score2"
-        >
+
+        <!-- SCORE 2 -->
+        <div id="score2" class="score">
             0
         </div>
 
-        <!-- PLAYER 2 -->
-        <div class="player right">
 
-            <div
-                class="playerName"
-                id="player2"
-            >
+        <!-- PLAYER 2 -->
+        <div id="player2Block">
+
+            <div id="player2Name">
                 PLAYER TWO
             </div>
 
-            <div class="playerBottom">
+            <div id="player2Info">
 
-                <div
-                    class="fargo"
-                    id="fargo2"
-                >
+                <div id="fargo2">
                     Fargo 598
                 </div>
 
-                <div
-                    class="break"
-                    id="break2"
-                >
-                    <span>BREAK</span>
+                <div id="break2">
+                    BREAK
                 </div>
 
             </div>
 
         </div>
 
-        <!-- LOWER INFORMATION STRIP -->
-        <div class="bottomInfo">
 
-            <div
-                class="infoCell"
-                id="game"
-            >
-                <span class="ballIcon">9</span>
-                <span id="gameText">9-BALL</span>
+        <!-- RIGHT SPONSOR -->
+        <div id="rightSponsor" class="sponsor">
+            <img id="rightSponsorImg" src="" alt="">
+        </div>
+
+
+        <!-- LOWER BAR -->
+
+        <div id="gameText">
+            <span id="ballIcon">9</span>
+            <span id="gameLabel">9-BALL</span>
+        </div>
+
+        <div id="formatText">
+            SCOTCH DOUBLES
+        </div>
+
+        <div id="raceText">
+            RACE TO 5
+        </div>
+
+
+        <!-- ONE POCKET -->
+
+        <div id="onePocket">
+
+            <div class="ballCount">
+                P1 BALLS
+                <strong id="balls1">0</strong>
             </div>
 
-            <div
-                class="infoCell"
-                id="format"
-            >
-                SCOTCH DOUBLES
-            </div>
-
-            <div
-                class="infoCell"
-                id="race"
-            >
-                RACE TO 5
+            <div class="ballCount">
+                P2 BALLS
+                <strong id="balls2">0</strong>
             </div>
 
         </div>
+
+
+        <!-- OPTIONAL VENUE -->
+
+        <div id="venue"></div>
 
     </div>
 
@@ -489,178 +499,225 @@ body {
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-
 <script src="config.js"></script>
 
 <script>
+
+/* =========================================================
+   SCALE THE 1920x1080 MASTER CANVAS
+   ========================================================= */
+
+function scaleCanvas(){
+
+    const canvas = document.getElementById("canvas");
+
+    const scale = Math.min(
+        window.innerWidth / 1920,
+        window.innerHeight / 1080
+    );
+
+    canvas.style.transform =
+        "translate(-50%, -50%) scale(" + scale + ")";
+
+}
+
+window.addEventListener("resize", scaleCanvas);
+scaleCanvas();
+
+
+/* =========================================================
+   FIREBASE
+   ========================================================= */
+
 firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 const matchRef = database.ref("match");
 
 
-function text(id, value) {
-    document.getElementById(id).textContent = value;
-}
+/* =========================================================
+   RENDER
+   ========================================================= */
 
+function render(data){
 
-function renderMatch(data) {
-
-    if (!data) return;
+    if(!data) return;
 
     const p1 = data.player1 || {};
     const p2 = data.player2 || {};
 
-    /* PLAYER NAMES */
+    document.getElementById("player1Name").textContent =
+        p1.name || "PLAYER ONE";
 
-    text(
-        "player1",
-        p1.name || "PLAYER ONE"
-    );
-
-    text(
-        "player2",
-        p2.name || "PLAYER TWO"
-    );
+    document.getElementById("player2Name").textContent =
+        p2.name || "PLAYER TWO";
 
 
-    /* FARGO */
+    document.getElementById("score1").textContent =
+        Number(p1.score) || 0;
 
-    text(
-        "fargo1",
-        p1.fargo
-            ? "Fargo " + p1.fargo
-            : ""
-    );
-
-    text(
-        "fargo2",
-        p2.fargo
-            ? "Fargo " + p2.fargo
-            : ""
-    );
+    document.getElementById("score2").textContent =
+        Number(p2.score) || 0;
 
 
-    /* SCORES */
+    document.getElementById("fargo1").textContent =
+        p1.fargo ? "Fargo " + p1.fargo : "";
 
-    text(
-        "score1",
-        Number(p1.score) || 0
-    );
-
-    text(
-        "score2",
-        Number(p2.score) || 0
-    );
+    document.getElementById("fargo2").textContent =
+        p2.fargo ? "Fargo " + p2.fargo : "";
 
 
-    /* GAME */
+    const game = data.game || "9-Ball";
 
-    const game =
-        data.game ||
-        "9-Ball";
-
-    text(
-        "gameText",
-        game.toUpperCase()
-    );
+    document.getElementById("gameLabel").textContent =
+        game.toUpperCase();
 
 
-    /* BALL ICON */
-
-    let ballNumber = "9";
-
-    if (game === "8-Ball") {
-        ballNumber = "8";
-    }
-
-    if (game === "10-Ball") {
-        ballNumber = "10";
-    }
-
-    if (game === "One Pocket") {
-        ballNumber = "1";
-    }
-
-    if (game === "Banks") {
-        ballNumber = "8";
-    }
-
-    document.querySelector(
-        ".ballIcon"
-    ).textContent = ballNumber;
-
-
-    /* RACE */
-
-    text(
-        "race",
-        "RACE TO " + (data.race || 5)
-    );
-
-
-    /* FORMAT
-       Controller doesn't have this field yet,
-       so default to Scotch Doubles.
+    /*
+       Ball icon only makes sense for numbered-ball games.
     */
 
-    text(
-        "format",
-        (
-            data.format ||
-            "SCOTCH DOUBLES"
-        ).toUpperCase()
-    );
+    const ballIcon =
+        document.getElementById("ballIcon");
+
+    if(game === "9-Ball"){
+
+        ballIcon.style.display = "inline-flex";
+        ballIcon.textContent = "9";
+
+    }
+    else if(game === "8-Ball"){
+
+        ballIcon.style.display = "inline-flex";
+        ballIcon.textContent = "8";
+
+    }
+    else if(game === "10-Ball"){
+
+        ballIcon.style.display = "inline-flex";
+        ballIcon.textContent = "10";
+
+    }
+    else{
+
+        ballIcon.style.display = "none";
+
+    }
 
 
-    /* BREAK INDICATOR
+    document.getElementById("raceText").textContent =
+        "RACE TO " + (data.race || 5);
 
-       Supported values:
-       data.break = 1
-       data.break = 2
-       data.break = "player1"
-       data.break = "player2"
+
+    /*
+       Keep Scotch Doubles for now.
+       We can connect this to the controller next.
     */
 
-    const break1 =
-        document.getElementById("break1");
+    document.getElementById("formatText").textContent =
+        data.format || "SCOTCH DOUBLES";
 
-    const break2 =
-        document.getElementById("break2");
 
-    break1.style.display = "none";
-    break2.style.display = "none";
+    /*
+       Break indicator.
+       Supports several possible Firebase values.
+    */
 
-    if (
-        data.break === 1 ||
-        data.break === "1" ||
-        data.break === "player1"
-    ) {
-        break1.style.display = "flex";
+    const breaker =
+        data.breaker ??
+        data.break ??
+        data.breakPlayer ??
+        0;
+
+    document.getElementById("break1").style.display =
+        breaker == 1 ? "block" : "none";
+
+    document.getElementById("break2").style.display =
+        breaker == 2 ? "block" : "none";
+
+
+    /*
+       One Pocket
+    */
+
+    const onePocket =
+        document.getElementById("onePocket");
+
+    if(game === "One Pocket"){
+
+        onePocket.style.display = "flex";
+
+        document.getElementById("balls1").textContent =
+            data.balls1 || 0;
+
+        document.getElementById("balls2").textContent =
+            data.balls2 || 0;
+
+    }
+    else{
+
+        onePocket.style.display = "none";
+
     }
 
-    if (
-        data.break === 2 ||
-        data.break === "2" ||
-        data.break === "player2"
-    ) {
-        break2.style.display = "flex";
+
+    /*
+       Venue / event.
+       Hidden unless Firebase contains one.
+    */
+
+    const venue =
+        document.getElementById("venue");
+
+    if(data.venue){
+
+        venue.textContent = data.venue;
+        venue.style.display = "block";
+
     }
+    else{
+
+        venue.style.display = "none";
+
+    }
+
+
+    /*
+       Sponsor images.
+       These can be connected to the controller later.
+    */
+
+    if(data.leftSponsor){
+
+        document.getElementById("leftSponsorImg").src =
+            data.leftSponsor;
+
+    }
+
+    if(data.rightSponsor){
+
+        document.getElementById("rightSponsorImg").src =
+            data.rightSponsor;
+
+    }
+
 }
 
 
-matchRef.on(
-    "value",
-    snapshot => {
+/* =========================================================
+   LIVE FIREBASE LISTENER
+   ========================================================= */
 
-        if (snapshot.exists()) {
-            renderMatch(
-                snapshot.val()
-            );
-        }
+matchRef.on("value", snapshot => {
+
+    if(snapshot.exists()){
+
+        render(snapshot.val());
 
     }
-);
+
+});
+
 </script>
 
 </body>
