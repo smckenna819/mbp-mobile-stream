@@ -81,11 +81,9 @@ body{
     top:66px;
     width:235px;
     height:132px;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     z-index:5;
 }
 
@@ -101,11 +99,9 @@ body{
     top:66px;
     width:235px;
     height:132px;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     z-index:5;
 }
 
@@ -117,28 +113,21 @@ body{
 
 
 /* =========================================================
-   PLAYER / TEAM ONE CONTAINER
+   PLAYER / TEAM ONE CONTAINER — LOCKED
    ========================================================= */
 
 #player1{
     position:absolute;
-
     left:330px;
     top:95px;
-
     width:360px;
     height:145px;
-
     z-index:6;
 }
 
 
 /* =========================================================
    PLAYER ONE — SINGLES
-
-   IMPORTANT:
-   We are intentionally reserving the upper portion of
-   this panel for a future Scotch Doubles team name.
    ========================================================= */
 
 #player1Singles{
@@ -151,28 +140,30 @@ body{
    PLAYER ONE NAME
 
    Previous:
-   left:12px
-   top:18px
+   left:18px
+   top:42px
+   font-size:31px
 
    THIS PASS:
    left:18px
-   top:42px
+   top:48px
+   font-size:27px
    ========================================================= */
 
 #player1Name{
     position:absolute;
 
     left:18px;
-    top:42px;
+    top:48px;
 
     width:330px;
-    height:35px;
+    height:32px;
 
     display:flex;
     align-items:center;
 
-    font-size:31px;
-    line-height:34px;
+    font-size:27px;
+    line-height:30px;
 
     font-weight:900;
 
@@ -188,28 +179,25 @@ body{
 
 
 /* =========================================================
-   PLAYER ONE FARGO / BREAK ROW
+   PLAYER ONE FARGO + BREAK
 
    Previous:
-   left:38px
-   top:68px
-
-   THIS PASS:
    left:52px
    top:96px
 
-   This is deliberately a large move so we can establish
-   the true usable lower boundary of the player panel.
+   THIS PASS:
+   left:52px
+   top:110px
    ========================================================= */
 
 #player1SingleInfo{
     position:absolute;
 
     left:52px;
-    top:96px;
+    top:110px;
 
     width:290px;
-    height:29px;
+    height:25px;
 
     display:flex;
     align-items:center;
@@ -235,14 +223,11 @@ body{
 
 /* =========================================================
    PLAYER ONE — SCOTCH DOUBLES
-
-   Still hidden until we intentionally test it.
    ========================================================= */
 
 #player1Doubles{
     position:absolute;
     inset:0;
-
     display:none;
 }
 
@@ -474,7 +459,7 @@ body{
 
 
 /* =========================================================
-   SCORES — UNCHANGED
+   SCORES — LOCKED
    ========================================================= */
 
 .score{
@@ -533,7 +518,7 @@ body{
 
 
 /* =========================================================
-   LOWER INFORMATION BAR — UNCHANGED
+   LOWER INFORMATION BAR
    ========================================================= */
 
 .lowerItem{
@@ -651,239 +636,227 @@ body{
 
 <div id="viewport">
 
-    <div id="frame">
+<div id="frame">
 
-        <div id="scoreboard">
-
-
-            <!-- SCOREBOARD SHELL -->
-
-            <img
-                id="shell"
-                src="scoreboard-shell.png"
-                alt=""
-            >
+<div id="scoreboard">
 
 
-            <!-- LEFT SPONSOR -->
+<img
+    id="shell"
+    src="scoreboard-shell.png"
+    alt=""
+>
 
-            <div id="leftSponsor">
 
-                <img
-                    id="leftSponsorImg"
-                    src=""
-                    alt=""
-                >
+<div id="leftSponsor">
+    <img
+        id="leftSponsorImg"
+        src=""
+        alt=""
+    >
+</div>
 
+
+<!-- PLAYER ONE -->
+
+<div id="player1">
+
+    <!-- SINGLES -->
+
+    <div id="player1Singles">
+
+        <div id="player1Name">
+            PLAYER ONE
+        </div>
+
+        <div id="player1SingleInfo">
+
+            <div id="fargo1">
+                FargoRate 620
             </div>
-
-
-            <!-- =================================================
-                 PLAYER / TEAM ONE
-                 ================================================= -->
-
-            <div id="player1">
-
-
-                <!-- SINGLES -->
-
-                <div id="player1Singles">
-
-                    <div id="player1Name">
-                        PLAYER ONE
-                    </div>
-
-                    <div id="player1SingleInfo">
-
-                        <div id="fargo1">
-                            FargoRate 620
-                        </div>
-
-                        <div
-                            id="break1"
-                            class="breakIndicator"
-                        >
-                            BREAK
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SCOTCH DOUBLES -->
-
-                <div id="player1Doubles">
-
-                    <div id="team1Name"></div>
-
-
-                    <div id="team1Row1">
-
-                        <div
-                            id="team1Player1Name"
-                            class="teamPlayerName"
-                        >
-                            PLAYER ONE
-                        </div>
-
-                        <div
-                            id="team1Player1Fargo"
-                            class="teamPlayerFargo"
-                        ></div>
-
-                    </div>
-
-
-                    <div id="team1Row2">
-
-                        <div
-                            id="team1Player2Name"
-                            class="teamPlayerName"
-                        ></div>
-
-                        <div
-                            id="team1Player2Fargo"
-                            class="teamPlayerFargo"
-                        ></div>
-
-                    </div>
-
-
-                    <div id="team1Bottom">
-
-                        <div id="team1Fargo"></div>
-
-                        <div
-                            id="break1Doubles"
-                            class="breakIndicator"
-                        >
-                            BREAK
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- SCORE ONE -->
 
             <div
-                id="score1"
-                class="score"
+                id="break1"
+                class="breakIndicator"
             >
-                0
+                BREAK
             </div>
-
-
-            <!-- MBP LOGO -->
-
-            <img
-                id="mbpLogo"
-                src="mbp-logo.png"
-                alt="McKenna Billiard Productions"
-            >
-
-
-            <!-- SCORE TWO -->
-
-            <div
-                id="score2"
-                class="score"
-            >
-                0
-            </div>
-
-
-            <!-- PLAYER TWO -->
-
-            <div id="player2">
-
-                <div id="player2Name">
-                    PLAYER TWO
-                </div>
-
-                <div class="playerInfo">
-
-                    <div
-                        id="break2"
-                        class="breakIndicator"
-                    >
-                        BREAK
-                    </div>
-
-                    <div id="fargo2">
-                        FargoRate 598
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- RIGHT SPONSOR -->
-
-            <div id="rightSponsor">
-
-                <img
-                    id="rightSponsorImg"
-                    src=""
-                    alt=""
-                >
-
-            </div>
-
-
-            <!-- LOWER BAR -->
-
-            <div
-                id="gameBox"
-                class="lowerItem"
-            >
-
-                <span id="ballIcon">
-                    9
-                </span>
-
-                <span id="gameLabel">
-                    9-BALL
-                </span>
-
-            </div>
-
-
-            <div
-                id="formatBox"
-                class="lowerItem"
-            >
-                SINGLES
-            </div>
-
-
-            <div
-                id="raceBox"
-                class="lowerItem"
-            >
-                RACE TO 5
-            </div>
-
-
-            <!-- LEGACY ONE POCKET VALUES -->
-
-            <div id="onePocket">
-                <span id="balls1">0</span>
-                <span id="balls2">0</span>
-            </div>
-
-
-            <div id="venue"></div>
 
         </div>
 
     </div>
 
+
+    <!-- SCOTCH DOUBLES -->
+
+    <div id="player1Doubles">
+
+        <div id="team1Name"></div>
+
+
+        <div id="team1Row1">
+
+            <div
+                id="team1Player1Name"
+                class="teamPlayerName"
+            >
+                PLAYER ONE
+            </div>
+
+            <div
+                id="team1Player1Fargo"
+                class="teamPlayerFargo"
+            ></div>
+
+        </div>
+
+
+        <div id="team1Row2">
+
+            <div
+                id="team1Player2Name"
+                class="teamPlayerName"
+            ></div>
+
+            <div
+                id="team1Player2Fargo"
+                class="teamPlayerFargo"
+            ></div>
+
+        </div>
+
+
+        <div id="team1Bottom">
+
+            <div id="team1Fargo"></div>
+
+            <div
+                id="break1Doubles"
+                class="breakIndicator"
+            >
+                BREAK
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- SCORE ONE -->
+
+<div
+    id="score1"
+    class="score"
+>
+    0
+</div>
+
+
+<!-- MBP LOGO -->
+
+<img
+    id="mbpLogo"
+    src="mbp-logo.png"
+    alt="McKenna Billiard Productions"
+>
+
+
+<!-- SCORE TWO -->
+
+<div
+    id="score2"
+    class="score"
+>
+    0
+</div>
+
+
+<!-- PLAYER TWO -->
+
+<div id="player2">
+
+    <div id="player2Name">
+        PLAYER TWO
+    </div>
+
+    <div class="playerInfo">
+
+        <div
+            id="break2"
+            class="breakIndicator"
+        >
+            BREAK
+        </div>
+
+        <div id="fargo2">
+            FargoRate 598
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- RIGHT SPONSOR -->
+
+<div id="rightSponsor">
+
+    <img
+        id="rightSponsorImg"
+        src=""
+        alt=""
+    >
+
+</div>
+
+
+<!-- LOWER BAR -->
+
+<div
+    id="gameBox"
+    class="lowerItem"
+>
+
+    <span id="ballIcon">
+        9
+    </span>
+
+    <span id="gameLabel">
+        9-BALL
+    </span>
+
+</div>
+
+
+<div
+    id="formatBox"
+    class="lowerItem"
+>
+    SINGLES
+</div>
+
+
+<div
+    id="raceBox"
+    class="lowerItem"
+>
+    RACE TO 5
+</div>
+
+
+<div id="onePocket">
+    <span id="balls1">0</span>
+    <span id="balls2">0</span>
+</div>
+
+
+<div id="venue"></div>
+
+
+</div>
+</div>
 </div>
 
 
@@ -949,19 +922,19 @@ function fitPlayerName(element, name){
     const length = name.length;
 
     if(length > 24){
+        element.style.fontSize = "21px";
+    }
+
+    else if(length > 20){
         element.style.fontSize = "23px";
     }
-    else if(length > 20){
+
+    else if(length > 17){
         element.style.fontSize = "25px";
     }
-    else if(length > 17){
-        element.style.fontSize = "27px";
-    }
-    else if(length > 14){
-        element.style.fontSize = "29px";
-    }
+
     else{
-        element.style.fontSize = "31px";
+        element.style.fontSize = "27px";
     }
 }
 
@@ -1049,7 +1022,9 @@ function renderMatch(data){
 
 
 
-    /* PLAYER ONE — SINGLES */
+    /* =====================================================
+       PLAYER ONE — SINGLES
+       ===================================================== */
 
     fitPlayerName(
         document.getElementById(
@@ -1068,7 +1043,9 @@ function renderMatch(data){
 
 
 
-    /* PLAYER ONE — DOUBLES */
+    /* =====================================================
+       PLAYER ONE — DOUBLES
+       ===================================================== */
 
     if(showTeam1Doubles){
 
@@ -1160,7 +1137,9 @@ function renderMatch(data){
 
 
 
-    /* PLAYER TWO */
+    /* =====================================================
+       PLAYER TWO
+       ===================================================== */
 
     document.getElementById(
         "player2Name"
@@ -1177,7 +1156,9 @@ function renderMatch(data){
 
 
 
-    /* SCORES */
+    /* =====================================================
+       SCORES
+       ===================================================== */
 
     document.getElementById(
         "score1"
@@ -1192,7 +1173,9 @@ function renderMatch(data){
 
 
 
-    /* GAME */
+    /* =====================================================
+       GAME
+       ===================================================== */
 
     const game =
         data.game || "9-Ball";
@@ -1245,7 +1228,9 @@ function renderMatch(data){
 
 
 
-    /* RACE */
+    /* =====================================================
+       RACE
+       ===================================================== */
 
     document.getElementById(
         "raceBox"
@@ -1262,7 +1247,9 @@ function renderMatch(data){
 
 
 
-    /* FORMAT */
+    /* =====================================================
+       FORMAT
+       ===================================================== */
 
     document.getElementById(
         "formatBox"
@@ -1273,7 +1260,9 @@ function renderMatch(data){
 
 
 
-    /* BREAK */
+    /* =====================================================
+       BREAK
+       ===================================================== */
 
     const breaker =
         data.breaker ??
@@ -1317,7 +1306,9 @@ function renderMatch(data){
 
 
 
-    /* ONE POCKET DATA */
+    /* =====================================================
+       ONE POCKET DATA
+       ===================================================== */
 
     document.getElementById(
         "balls1"
@@ -1332,7 +1323,9 @@ function renderMatch(data){
 
 
 
-    /* VENUE */
+    /* =====================================================
+       VENUE
+       ===================================================== */
 
     const venue =
         document.getElementById(
@@ -1357,7 +1350,9 @@ function renderMatch(data){
 
 
 
-    /* SPONSORS */
+    /* =====================================================
+       SPONSORS
+       ===================================================== */
 
     if(data.leftSponsor){
 
