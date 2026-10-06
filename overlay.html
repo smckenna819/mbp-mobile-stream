@@ -407,15 +407,16 @@ html,body{
 }
 
 /* =========================================================
-   NEW LOWER BAR
-   Horizontal positions stay the same.
-   All three moved DOWN 25px:
-   top 202px -> 227px
+   LOWER BAR
+
+   Horizontal alignment remains LOCKED.
+   Moved straight down:
+   227px -> 252px
    ========================================================= */
 
 .lowerItem{
     position:absolute;
-    top:227px;
+    top:252px;
     height:40px;
 
     display:flex;
@@ -434,56 +435,25 @@ html,body{
         0 3px 5px rgba(0,0,0,.75);
 }
 
-/* BLUE SIDE RACE */
-
 #race1Box{
     left:540px;
     width:245px;
 }
-
-/* GAME TYPE — CENTER */
 
 #gameBox{
     left:785px;
     width:350px;
 }
 
-/* RED SIDE RACE */
-
 #race2Box{
     left:1135px;
     width:245px;
 }
 
-/* GAME BALL ICON */
-
-#ballIcon{
-    width:31px;
-    height:31px;
-    margin-right:10px;
-
-    border-radius:50%;
-
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#f1c40f;
-    border:2px solid #fff;
-
-    color:#111;
-
-    font-size:15px;
-    line-height:15px;
-    font-weight:900;
-
-    text-shadow:none;
-}
-
 /* =========================================================
    ONE POCKET / BANKS BALL COUNTERS
-   Hidden for now while we finish lower-bar geometry.
-   We will position these separately.
+
+   Hidden until we design their final position.
    ========================================================= */
 
 #ballCounters{
@@ -679,10 +649,6 @@ html,body{
 
 <!-- ======================================================
      LOWER BAR
-
-     LEFT   = PLAYER/TEAM 1 RACE
-     CENTER = GAME
-     RIGHT  = PLAYER/TEAM 2 RACE
      ====================================================== -->
 
 <div id="race1Box" class="lowerItem">
@@ -690,15 +656,7 @@ html,body{
 </div>
 
 <div id="gameBox" class="lowerItem">
-
-    <span id="ballIcon">
-        9
-    </span>
-
-    <span id="gameLabel">
-        9-BALL
-    </span>
-
+    <span id="gameLabel">9-BALL</span>
 </div>
 
 <div id="race2Box" class="lowerItem">
@@ -709,11 +667,8 @@ html,body{
 <!-- FUTURE ONE POCKET / BANKS COUNTERS -->
 
 <div id="ballCounters">
-
     <span id="balls1">0</span>
-
     <span id="balls2">0</span>
-
 </div>
 
 
@@ -733,7 +688,7 @@ html,body{
 <script>
 
 /* =========================================================
-   SCALE MASTER 1920x1080 FRAME
+   SCALE MASTER FRAME
    ========================================================= */
 
 function scaleFrame(){
@@ -899,9 +854,7 @@ function renderMatch(data){
     }
 
 
-    /* -----------------------------------------------------
-       PLAYER DATA
-       ----------------------------------------------------- */
+    /* PLAYER DATA */
 
     const p1 =
         data.player1 || {};
@@ -910,9 +863,7 @@ function renderMatch(data){
         data.player2 || {};
 
 
-    /* -----------------------------------------------------
-       MATCH FORMAT
-       ----------------------------------------------------- */
+    /* MATCH FORMAT */
 
     const doubles =
         isScotchDoubles(data);
@@ -951,9 +902,7 @@ function renderMatch(data){
         : "none";
 
 
-    /* -----------------------------------------------------
-       PLAYER ONE
-       ----------------------------------------------------- */
+    /* PLAYER ONE */
 
     fitPlayerName(
         document.getElementById(
@@ -971,9 +920,7 @@ function renderMatch(data){
         : "";
 
 
-    /* -----------------------------------------------------
-       PLAYER ONE DOUBLES
-       ----------------------------------------------------- */
+    /* PLAYER ONE DOUBLES */
 
     if(showTeam1Doubles){
 
@@ -1070,9 +1017,7 @@ function renderMatch(data){
     }
 
 
-    /* -----------------------------------------------------
-       PLAYER TWO
-       ----------------------------------------------------- */
+    /* PLAYER TWO */
 
     fitPlayerName(
         document.getElementById(
@@ -1090,9 +1035,7 @@ function renderMatch(data){
         : "";
 
 
-    /* -----------------------------------------------------
-       SCORES — LOCKED
-       ----------------------------------------------------- */
+    /* SCORES */
 
     document.getElementById(
         "score1"
@@ -1110,78 +1053,28 @@ function renderMatch(data){
         ) || 0;
 
 
-    /* -----------------------------------------------------
-       GAME TYPE
-       ----------------------------------------------------- */
+    /* GAME TYPE */
 
     const game =
         normalizeGame(
             data.game
         );
 
-    const gameLabel =
-        document.getElementById(
-            "gameLabel"
-        );
 
-    const ballIcon =
-        document.getElementById(
-            "ballIcon"
-        );
-
-
-    gameLabel.textContent =
+    document.getElementById(
+        "gameLabel"
+    ).textContent =
         game.toUpperCase();
 
 
-    if(game === "9-Ball"){
-
-        ballIcon.style.display =
-            "inline-flex";
-
-        ballIcon.textContent =
-            "9";
-    }
-
-    else if(game === "8-Ball"){
-
-        ballIcon.style.display =
-            "inline-flex";
-
-        ballIcon.textContent =
-            "8";
-    }
-
-    else if(game === "10-Ball"){
-
-        ballIcon.style.display =
-            "inline-flex";
-
-        ballIcon.textContent =
-            "10";
-    }
-
-    else{
-
-        /*
-        One Pocket and Banks do not
-        need the numbered game-ball
-        icon in the lower bar.
-        */
-
-        ballIcon.style.display =
-            "none";
-    }
-
-
     /* -----------------------------------------------------
-       LEFT / RIGHT RACES
+       LEFT / RIGHT RACE
 
-       CURRENT CONTROLLER:
-       data.race feeds BOTH sides.
+       Existing controller:
+       race controls BOTH.
 
-       FUTURE CONTROLLER:
-       race1 and race2 can be different.
+       Future controller:
+       race1 and race2 become independent.
        ----------------------------------------------------- */
 
     const fallbackRace =
@@ -1217,9 +1110,7 @@ function renderMatch(data){
         race2;
 
 
-    /* -----------------------------------------------------
-       BREAK
-       ----------------------------------------------------- */
+    /* BREAK */
 
     const breaker =
         data.breaker ??
@@ -1262,13 +1153,7 @@ function renderMatch(data){
         : "none";
 
 
-    /* -----------------------------------------------------
-       ONE POCKET / BANKS BALL DATA
-
-       Stored and ready.
-       Visual counters remain hidden until
-       we position them properly.
-       ----------------------------------------------------- */
+    /* ONE POCKET / BANKS BALL DATA */
 
     document.getElementById(
         "balls1"
@@ -1286,9 +1171,7 @@ function renderMatch(data){
         ) || 0;
 
 
-    /* -----------------------------------------------------
-       VENUE
-       ----------------------------------------------------- */
+    /* VENUE */
 
     const venue =
         document.getElementById(
@@ -1312,9 +1195,7 @@ function renderMatch(data){
     }
 
 
-    /* -----------------------------------------------------
-       SPONSORS
-       ----------------------------------------------------- */
+    /* SPONSORS */
 
     if(data.leftSponsor){
 
