@@ -408,24 +408,25 @@ html,body{
 
 /* =========================================================
    LOWER BAR
-
-   Horizontal alignment remains LOCKED.
-   Moved straight down:
-   227px -> 252px
+   Same horizontal alignment.
+   Moved down another 5px.
+   Typography unified across all three.
    ========================================================= */
 
 .lowerItem{
     position:absolute;
-    top:252px;
+    top:257px;
     height:40px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
+    font-family:Arial,Helvetica,sans-serif;
     font-size:21px;
     line-height:24px;
     font-weight:900;
+    letter-spacing:0;
 
     white-space:nowrap;
     z-index:5;
@@ -452,8 +453,6 @@ html,body{
 
 /* =========================================================
    ONE POCKET / BANKS BALL COUNTERS
-
-   Hidden until we design their final position.
    ========================================================= */
 
 #ballCounters{
@@ -498,16 +497,11 @@ html,body{
 
 <img id="shell" src="scoreboard-shell.png" alt="">
 
-<!-- LEFT SPONSOR -->
-
 <div id="leftSponsor">
     <img id="leftSponsorImg" src="" alt="">
 </div>
 
-
-<!-- ======================================================
-     PLAYER ONE
-     ====================================================== -->
+<!-- PLAYER ONE -->
 
 <div id="player1">
 
@@ -523,9 +517,7 @@ html,body{
                 FargoRate 620
             </div>
 
-            <div
-                id="break1"
-                class="breakIndicator">
+            <div id="break1" class="breakIndicator">
                 BREAK
             </div>
 
@@ -533,8 +525,6 @@ html,body{
 
     </div>
 
-
-    <!-- PLAYER ONE DOUBLES -->
 
     <div id="player1Doubles">
 
@@ -542,30 +532,19 @@ html,body{
 
         <div id="team1Row1">
 
-            <div
-                id="team1Player1Name"
-                class="teamPlayerName">
+            <div id="team1Player1Name" class="teamPlayerName">
                 PLAYER ONE
             </div>
 
-            <div
-                id="team1Player1Fargo"
-                class="teamPlayerFargo">
-            </div>
+            <div id="team1Player1Fargo" class="teamPlayerFargo"></div>
 
         </div>
 
         <div id="team1Row2">
 
-            <div
-                id="team1Player2Name"
-                class="teamPlayerName">
-            </div>
+            <div id="team1Player2Name" class="teamPlayerName"></div>
 
-            <div
-                id="team1Player2Fargo"
-                class="teamPlayerFargo">
-            </div>
+            <div id="team1Player2Fargo" class="teamPlayerFargo"></div>
 
         </div>
 
@@ -573,9 +552,7 @@ html,body{
 
             <div id="team1Fargo"></div>
 
-            <div
-                id="break1Doubles"
-                class="breakIndicator">
+            <div id="break1Doubles" class="breakIndicator">
                 BREAK
             </div>
 
@@ -585,15 +562,7 @@ html,body{
 
 </div>
 
-
-<!-- PLAYER ONE SCORE -->
-
-<div id="score1" class="score">
-    0
-</div>
-
-
-<!-- CENTER MBP LOGO -->
+<div id="score1" class="score">0</div>
 
 <img
     id="mbpLogo"
@@ -601,17 +570,9 @@ html,body{
     alt="McKenna Billiard Productions"
 >
 
+<div id="score2" class="score">0</div>
 
-<!-- PLAYER TWO SCORE -->
-
-<div id="score2" class="score">
-    0
-</div>
-
-
-<!-- ======================================================
-     PLAYER TWO
-     ====================================================== -->
+<!-- PLAYER TWO -->
 
 <div id="player2">
 
@@ -623,9 +584,7 @@ html,body{
 
         <div id="player2SingleInfo">
 
-            <div
-                id="break2"
-                class="breakIndicator">
+            <div id="break2" class="breakIndicator">
                 BREAK
             </div>
 
@@ -639,17 +598,11 @@ html,body{
 
 </div>
 
-
-<!-- RIGHT SPONSOR -->
-
 <div id="rightSponsor">
     <img id="rightSponsorImg" src="" alt="">
 </div>
 
-
-<!-- ======================================================
-     LOWER BAR
-     ====================================================== -->
+<!-- LOWER BAR -->
 
 <div id="race1Box" class="lowerItem">
     RACE TO 5
@@ -663,16 +616,10 @@ html,body{
     RACE TO 5
 </div>
 
-
-<!-- FUTURE ONE POCKET / BANKS COUNTERS -->
-
 <div id="ballCounters">
     <span id="balls1">0</span>
     <span id="balls2">0</span>
 </div>
-
-
-<!-- OPTIONAL VENUE -->
 
 <div id="venue"></div>
 
@@ -708,11 +655,7 @@ function scaleFrame(){
         ")";
 }
 
-window.addEventListener(
-    "resize",
-    scaleFrame
-);
-
+window.addEventListener("resize", scaleFrame);
 scaleFrame();
 
 
@@ -720,9 +663,7 @@ scaleFrame();
    FIREBASE
    ========================================================= */
 
-firebase.initializeApp(
-    firebaseConfig
-);
+firebase.initializeApp(firebaseConfig);
 
 const database =
     firebase.database();
@@ -735,10 +676,7 @@ const matchRef =
    PLAYER NAME FITTING
    ========================================================= */
 
-function fitPlayerName(
-    element,
-    name
-){
+function fitPlayerName(element, name){
 
     element.textContent =
         name;
@@ -747,27 +685,16 @@ function fitPlayerName(
         name.length;
 
     if(length > 24){
-
-        element.style.fontSize =
-            "21px";
+        element.style.fontSize = "21px";
     }
-
     else if(length > 20){
-
-        element.style.fontSize =
-            "23px";
+        element.style.fontSize = "23px";
     }
-
     else if(length > 17){
-
-        element.style.fontSize =
-            "25px";
+        element.style.fontSize = "25px";
     }
-
     else{
-
-        element.style.fontSize =
-            "27px";
+        element.style.fontSize = "27px";
     }
 }
 
@@ -779,9 +706,7 @@ function fitPlayerName(
 function isScotchDoubles(data){
 
     const format =
-        String(
-            data.format || ""
-        )
+        String(data.format || "")
         .trim()
         .toLowerCase();
 
@@ -854,8 +779,6 @@ function renderMatch(data){
     }
 
 
-    /* PLAYER DATA */
-
     const p1 =
         data.player1 || {};
 
@@ -863,20 +786,14 @@ function renderMatch(data){
         data.player2 || {};
 
 
-    /* MATCH FORMAT */
-
     const doubles =
         isScotchDoubles(data);
 
     const player1Singles =
-        document.getElementById(
-            "player1Singles"
-        );
+        document.getElementById("player1Singles");
 
     const player1Doubles =
-        document.getElementById(
-            "player1Doubles"
-        );
+        document.getElementById("player1Doubles");
 
     const team1 =
         data.team1 || {};
@@ -905,16 +822,11 @@ function renderMatch(data){
     /* PLAYER ONE */
 
     fitPlayerName(
-        document.getElementById(
-            "player1Name"
-        ),
-        p1.name ||
-        "PLAYER ONE"
+        document.getElementById("player1Name"),
+        p1.name || "PLAYER ONE"
     );
 
-    document.getElementById(
-        "fargo1"
-    ).textContent =
+    document.getElementById("fargo1").textContent =
         p1.fargo
         ? "FargoRate " + p1.fargo
         : "";
@@ -929,9 +841,7 @@ function renderMatch(data){
             team1.teamName ||
             "";
 
-        document.getElementById(
-            "team1Name"
-        ).textContent =
+        document.getElementById("team1Name").textContent =
             teamName;
 
 
@@ -961,45 +871,28 @@ function renderMatch(data){
             "";
 
 
-        document.getElementById(
-            "team1Player1Name"
-        ).textContent =
+        document.getElementById("team1Player1Name").textContent =
             teamPlayer1Name;
 
-
-        document.getElementById(
-            "team1Player1Fargo"
-        ).textContent =
+        document.getElementById("team1Player1Fargo").textContent =
             teamPlayer1Fargo;
 
-
-        document.getElementById(
-            "team1Player2Name"
-        ).textContent =
+        document.getElementById("team1Player2Name").textContent =
             teamPlayer2Name;
 
-
-        document.getElementById(
-            "team1Player2Fargo"
-        ).textContent =
+        document.getElementById("team1Player2Fargo").textContent =
             teamPlayer2Fargo;
 
 
         const f1 =
-            Number(
-                teamPlayer1Fargo
-            ) || 0;
+            Number(teamPlayer1Fargo) || 0;
 
         const f2 =
-            Number(
-                teamPlayer2Fargo
-            ) || 0;
+            Number(teamPlayer2Fargo) || 0;
 
 
         const combined =
-            Number(
-                team1.combinedFargo
-            ) ||
+            Number(team1.combinedFargo) ||
             (
                 f1 && f2
                 ? f1 + f2
@@ -1007,12 +900,9 @@ function renderMatch(data){
             );
 
 
-        document.getElementById(
-            "team1Fargo"
-        ).textContent =
+        document.getElementById("team1Fargo").textContent =
             combined
-            ? "TEAM FARGO " +
-              combined
+            ? "TEAM FARGO " + combined
             : "";
     }
 
@@ -1020,16 +910,11 @@ function renderMatch(data){
     /* PLAYER TWO */
 
     fitPlayerName(
-        document.getElementById(
-            "player2Name"
-        ),
-        p2.name ||
-        "PLAYER TWO"
+        document.getElementById("player2Name"),
+        p2.name || "PLAYER TWO"
     );
 
-    document.getElementById(
-        "fargo2"
-    ).textContent =
+    document.getElementById("fargo2").textContent =
         p2.fargo
         ? "FargoRate " + p2.fargo
         : "";
@@ -1037,20 +922,11 @@ function renderMatch(data){
 
     /* SCORES */
 
-    document.getElementById(
-        "score1"
-    ).textContent =
-        Number(
-            p1.score
-        ) || 0;
+    document.getElementById("score1").textContent =
+        Number(p1.score) || 0;
 
-
-    document.getElementById(
-        "score2"
-    ).textContent =
-        Number(
-            p2.score
-        ) || 0;
+    document.getElementById("score2").textContent =
+        Number(p2.score) || 0;
 
 
     /* GAME TYPE */
@@ -1060,22 +936,11 @@ function renderMatch(data){
             data.game
         );
 
-
-    document.getElementById(
-        "gameLabel"
-    ).textContent =
+    document.getElementById("gameLabel").textContent =
         game.toUpperCase();
 
 
-    /* -----------------------------------------------------
-       LEFT / RIGHT RACE
-
-       Existing controller:
-       race controls BOTH.
-
-       Future controller:
-       race1 and race2 become independent.
-       ----------------------------------------------------- */
+    /* LEFT / RIGHT RACE */
 
     const fallbackRace =
         Number(data.race) ||
@@ -1096,18 +961,11 @@ function renderMatch(data){
         fallbackRace;
 
 
-    document.getElementById(
-        "race1Box"
-    ).textContent =
-        "RACE TO " +
-        race1;
+    document.getElementById("race1Box").textContent =
+        "RACE TO " + race1;
 
-
-    document.getElementById(
-        "race2Box"
-    ).textContent =
-        "RACE TO " +
-        race2;
+    document.getElementById("race2Box").textContent =
+        "RACE TO " + race2;
 
 
     /* BREAK */
@@ -1123,9 +981,7 @@ function renderMatch(data){
         Number(breaker) === 1;
 
 
-    document.getElementById(
-        "break1"
-    ).style.display =
+    document.getElementById("break1").style.display =
         (
             player1Breaking &&
             !showTeam1Doubles
@@ -1134,9 +990,7 @@ function renderMatch(data){
         : "none";
 
 
-    document.getElementById(
-        "break1Doubles"
-    ).style.display =
+    document.getElementById("break1Doubles").style.display =
         (
             player1Breaking &&
             showTeam1Doubles
@@ -1145,9 +999,7 @@ function renderMatch(data){
         : "none";
 
 
-    document.getElementById(
-        "break2"
-    ).style.display =
+    document.getElementById("break2").style.display =
         Number(breaker) === 2
         ? "block"
         : "none";
@@ -1155,28 +1007,17 @@ function renderMatch(data){
 
     /* ONE POCKET / BANKS BALL DATA */
 
-    document.getElementById(
-        "balls1"
-    ).textContent =
-        Number(
-            data.balls1
-        ) || 0;
+    document.getElementById("balls1").textContent =
+        Number(data.balls1) || 0;
 
-
-    document.getElementById(
-        "balls2"
-    ).textContent =
-        Number(
-            data.balls2
-        ) || 0;
+    document.getElementById("balls2").textContent =
+        Number(data.balls2) || 0;
 
 
     /* VENUE */
 
     const venue =
-        document.getElementById(
-            "venue"
-        );
+        document.getElementById("venue");
 
 
     if(data.venue){
@@ -1187,7 +1028,6 @@ function renderMatch(data){
         venue.style.display =
             "block";
     }
-
     else{
 
         venue.style.display =
@@ -1199,18 +1039,14 @@ function renderMatch(data){
 
     if(data.leftSponsor){
 
-        document.getElementById(
-            "leftSponsorImg"
-        ).src =
+        document.getElementById("leftSponsorImg").src =
             data.leftSponsor;
     }
 
 
     if(data.rightSponsor){
 
-        document.getElementById(
-            "rightSponsorImg"
-        ).src =
+        document.getElementById("rightSponsorImg").src =
             data.rightSponsor;
     }
 }
@@ -1224,9 +1060,7 @@ matchRef.on(
     "value",
     snapshot => {
 
-        if(
-            snapshot.exists()
-        ){
+        if(snapshot.exists()){
 
             renderMatch(
                 snapshot.val()
