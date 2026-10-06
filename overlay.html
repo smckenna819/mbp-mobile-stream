@@ -131,8 +131,10 @@ body{
 
 #player1Name{
     position:absolute;
+
     left:24px;
     top:48px;
+
     width:330px;
     height:32px;
 
@@ -154,14 +156,17 @@ body{
 
 #player1SingleInfo{
     position:absolute;
+
     left:44px;
     top:105px;
+
     width:298px;
     height:25px;
 
     display:flex;
     align-items:center;
     justify-content:flex-start;
+
     gap:13px;
 }
 
@@ -172,6 +177,7 @@ body{
     line-height:24px;
 
     color:#e2e2e2;
+
     white-space:nowrap;
 
     text-shadow:0 2px 3px #000;
@@ -190,17 +196,21 @@ body{
 
 #team1Name{
     position:absolute;
+
     left:4px;
     top:0;
+
     width:335px;
     height:18px;
 
     font-size:15px;
     line-height:18px;
+
     font-weight:900;
     letter-spacing:.4px;
 
     color:#bfc7d2;
+
     white-space:nowrap;
     overflow:hidden;
 
@@ -213,25 +223,31 @@ body{
 
 #team1Row1{
     position:absolute;
+
     left:18px;
     top:31px;
+
     width:320px;
     height:23px;
 
     display:flex;
     align-items:center;
+
     gap:8px;
 }
 
 #team1Row2{
     position:absolute;
+
     left:34px;
     top:59px;
+
     width:302px;
     height:23px;
 
     display:flex;
     align-items:center;
+
     gap:8px;
 }
 
@@ -241,6 +257,7 @@ body{
 
     font-size:19px;
     line-height:21px;
+
     font-weight:900;
 
     white-space:nowrap;
@@ -256,9 +273,11 @@ body{
 
     font-size:16px;
     line-height:19px;
+
     font-weight:700;
 
     color:#e2e2e2;
+
     white-space:nowrap;
 
     text-shadow:0 2px 3px #000;
@@ -266,14 +285,17 @@ body{
 
 #team1Bottom{
     position:absolute;
+
     left:52px;
     top:91px;
+
     width:285px;
     height:25px;
 
     display:flex;
     align-items:center;
     justify-content:flex-start;
+
     gap:12px;
 }
 
@@ -282,9 +304,11 @@ body{
 
     font-size:17px;
     line-height:20px;
+
     font-weight:900;
 
     white-space:nowrap;
+
     color:#fff;
 
     text-shadow:0 2px 3px #000;
@@ -297,6 +321,7 @@ body{
 
 .breakIndicator{
     display:none;
+
     flex:0 0 auto;
 
     background:#ef1723;
@@ -305,6 +330,7 @@ body{
 
     font-size:18px;
     line-height:20px;
+
     font-weight:900;
     font-style:italic;
 
@@ -313,12 +339,14 @@ body{
     transform:skew(-10deg);
 
     box-shadow:0 2px 4px rgba(0,0,0,.8);
+
     text-shadow:0 1px 2px #000;
 }
 
 
 /* =========================================================
-   PLAYER TWO CONTAINER — FIRST POSITIONING PASS
+   PLAYER TWO
+   Same typography as Player One
    ========================================================= */
 
 #player2{
@@ -333,24 +361,15 @@ body{
     z-index:6;
 }
 
-
-/* =========================================================
-   PLAYER TWO — SINGLES
-   ========================================================= */
-
 #player2Singles{
     position:absolute;
     inset:0;
 }
 
 
-/*
-   PLAYER TWO NAME
-
-   Mirrored layout logic:
-   - lowered to leave room above for future team name
-   - pulled inward from red diagonal
-   - right aligned
+/* PLAYER TWO NAME
+   Same font size/weight as Player One.
+   Extra container height prevents g/y/p/q/j clipping.
 */
 
 #player2Name{
@@ -360,10 +379,10 @@ body{
     top:48px;
 
     width:330px;
-    height:32px;
+    height:40px;
 
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     justify-content:flex-end;
 
     font-size:27px;
@@ -381,11 +400,8 @@ body{
 }
 
 
-/*
-   PLAYER TWO FARGO + BREAK
-
-   Fargo sits on right.
-   Break appears immediately LEFT of Fargo.
+/* PLAYER TWO FARGO
+   Same font size as Player One.
 */
 
 #player2SingleInfo{
@@ -454,11 +470,11 @@ body{
 }
 
 
-/* PLAYER TWO SCORE — NOT LOCKED YET */
+/* PLAYER TWO SCORE — FIRST CENTERING PASS */
 
 #score2{
-    right:684px;
-    top:61px;
+    right:696px;
+    top:110px;
 }
 
 
@@ -499,6 +515,7 @@ body{
 
     font-size:21px;
     line-height:24px;
+
     font-weight:900;
 
     white-space:nowrap;
@@ -548,6 +565,7 @@ body{
 
     font-size:15px;
     line-height:15px;
+
     font-weight:900;
 
     text-shadow:none;
@@ -555,7 +573,7 @@ body{
 
 
 /* =========================================================
-   OLD ONE POCKET COUNTER
+   OLD ONE POCKET COUNTER — DISABLED
    ========================================================= */
 
 #onePocket{
@@ -564,7 +582,7 @@ body{
 
 
 /* =========================================================
-   VENUE
+   OPTIONAL VENUE
    ========================================================= */
 
 #venue{
@@ -610,7 +628,9 @@ body{
 </div>
 
 
-<!-- PLAYER ONE -->
+<!-- =====================================================
+     PLAYER ONE
+     ===================================================== -->
 
 <div id="player1">
 
@@ -639,29 +659,47 @@ body{
 
         <div id="team1Name"></div>
 
+
         <div id="team1Row1">
 
-            <div id="team1Player1Name" class="teamPlayerName">
+            <div
+                id="team1Player1Name"
+                class="teamPlayerName"
+            >
                 PLAYER ONE
             </div>
 
-            <div id="team1Player1Fargo" class="teamPlayerFargo"></div>
+            <div
+                id="team1Player1Fargo"
+                class="teamPlayerFargo"
+            ></div>
 
         </div>
+
 
         <div id="team1Row2">
 
-            <div id="team1Player2Name" class="teamPlayerName"></div>
+            <div
+                id="team1Player2Name"
+                class="teamPlayerName"
+            ></div>
 
-            <div id="team1Player2Fargo" class="teamPlayerFargo"></div>
+            <div
+                id="team1Player2Fargo"
+                class="teamPlayerFargo"
+            ></div>
 
         </div>
+
 
         <div id="team1Bottom">
 
             <div id="team1Fargo"></div>
 
-            <div id="break1Doubles" class="breakIndicator">
+            <div
+                id="break1Doubles"
+                class="breakIndicator"
+            >
                 BREAK
             </div>
 
@@ -672,7 +710,7 @@ body{
 </div>
 
 
-<!-- PLAYER ONE SCORE — LOCKED -->
+<!-- PLAYER ONE SCORE -->
 
 <div id="score1" class="score">
     0
@@ -695,7 +733,9 @@ body{
 </div>
 
 
-<!-- PLAYER TWO -->
+<!-- =====================================================
+     PLAYER TWO
+     ===================================================== -->
 
 <div id="player2">
 
@@ -707,7 +747,10 @@ body{
 
         <div id="player2SingleInfo">
 
-            <div id="break2" class="breakIndicator">
+            <div
+                id="break2"
+                class="breakIndicator"
+            >
                 BREAK
             </div>
 
@@ -722,12 +765,16 @@ body{
 </div>
 
 
+<!-- RIGHT SPONSOR -->
+
 <div id="rightSponsor">
     <img id="rightSponsorImg" src="" alt="">
 </div>
 
 
-<!-- LOWER BAR -->
+<!-- =====================================================
+     LOWER BAR
+     ===================================================== -->
 
 <div id="gameBox" class="lowerItem">
 
@@ -760,6 +807,7 @@ body{
 
 <div id="venue"></div>
 
+
 </div>
 </div>
 </div>
@@ -768,6 +816,7 @@ body{
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <script src="config.js"></script>
+
 
 <script>
 
@@ -817,6 +866,7 @@ const matchRef =
 
 /* =========================================================
    PLAYER NAME FITTING
+   SAME FUNCTION USED BY BOTH SIDES
    ========================================================= */
 
 function fitPlayerName(element, name){
@@ -948,7 +998,7 @@ function renderMatch(data){
 
 
     /* =====================================================
-       PLAYER ONE — DOUBLES
+       PLAYER ONE DOUBLES
        ===================================================== */
 
     if(showTeam1Doubles){
@@ -1043,6 +1093,7 @@ function renderMatch(data){
 
     /* =====================================================
        PLAYER TWO
+       Same name-fitting rules as Player One
        ===================================================== */
 
     fitPlayerName(
