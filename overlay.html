@@ -346,7 +346,6 @@ body{
 
 /* =========================================================
    PLAYER TWO
-   Same typography as Player One
    ========================================================= */
 
 #player2{
@@ -368,8 +367,8 @@ body{
 
 
 /* PLAYER TWO NAME
-   Same font size/weight as Player One.
-   Extra container height prevents g/y/p/q/j clipping.
+   Same typography as Player One.
+   Overflow is visible so descenders like g are not clipped.
 */
 
 #player2Name{
@@ -379,18 +378,16 @@ body{
     top:48px;
 
     width:330px;
-    height:40px;
+    height:44px;
 
-    display:flex;
-    align-items:flex-start;
-    justify-content:flex-end;
+    display:block;
 
     font-size:27px;
-    line-height:30px;
+    line-height:34px;
     font-weight:900;
 
     white-space:nowrap;
-    overflow:hidden;
+    overflow:visible;
 
     text-align:right;
 
@@ -400,9 +397,7 @@ body{
 }
 
 
-/* PLAYER TWO FARGO
-   Same font size as Player One.
-*/
+/* PLAYER TWO FARGO */
 
 #player2SingleInfo{
     position:absolute;
@@ -470,10 +465,13 @@ body{
 }
 
 
-/* PLAYER TWO SCORE — FIRST CENTERING PASS */
+/* PLAYER TWO SCORE
+   Same vertical position as Player One.
+   Shifted 10px LEFT.
+*/
 
 #score2{
-    right:696px;
+    right:706px;
     top:110px;
 }
 
@@ -619,18 +617,14 @@ body{
 <div id="frame">
 <div id="scoreboard">
 
-
 <img id="shell" src="scoreboard-shell.png" alt="">
-
 
 <div id="leftSponsor">
     <img id="leftSponsorImg" src="" alt="">
 </div>
 
 
-<!-- =====================================================
-     PLAYER ONE
-     ===================================================== -->
+<!-- PLAYER ONE -->
 
 <div id="player1">
 
@@ -659,35 +653,22 @@ body{
 
         <div id="team1Name"></div>
 
-
         <div id="team1Row1">
 
-            <div
-                id="team1Player1Name"
-                class="teamPlayerName"
-            >
+            <div id="team1Player1Name" class="teamPlayerName">
                 PLAYER ONE
             </div>
 
-            <div
-                id="team1Player1Fargo"
-                class="teamPlayerFargo"
-            ></div>
+            <div id="team1Player1Fargo" class="teamPlayerFargo"></div>
 
         </div>
 
 
         <div id="team1Row2">
 
-            <div
-                id="team1Player2Name"
-                class="teamPlayerName"
-            ></div>
+            <div id="team1Player2Name" class="teamPlayerName"></div>
 
-            <div
-                id="team1Player2Fargo"
-                class="teamPlayerFargo"
-            ></div>
+            <div id="team1Player2Fargo" class="teamPlayerFargo"></div>
 
         </div>
 
@@ -696,10 +677,7 @@ body{
 
             <div id="team1Fargo"></div>
 
-            <div
-                id="break1Doubles"
-                class="breakIndicator"
-            >
+            <div id="break1Doubles" class="breakIndicator">
                 BREAK
             </div>
 
@@ -710,14 +688,8 @@ body{
 </div>
 
 
-<!-- PLAYER ONE SCORE -->
+<div id="score1" class="score">0</div>
 
-<div id="score1" class="score">
-    0
-</div>
-
-
-<!-- MBP LOGO -->
 
 <img
     id="mbpLogo"
@@ -726,16 +698,10 @@ body{
 >
 
 
-<!-- PLAYER TWO SCORE -->
-
-<div id="score2" class="score">
-    0
-</div>
+<div id="score2" class="score">0</div>
 
 
-<!-- =====================================================
-     PLAYER TWO
-     ===================================================== -->
+<!-- PLAYER TWO -->
 
 <div id="player2">
 
@@ -747,10 +713,7 @@ body{
 
         <div id="player2SingleInfo">
 
-            <div
-                id="break2"
-                class="breakIndicator"
-            >
+            <div id="break2" class="breakIndicator">
                 BREAK
             </div>
 
@@ -765,26 +728,18 @@ body{
 </div>
 
 
-<!-- RIGHT SPONSOR -->
-
 <div id="rightSponsor">
     <img id="rightSponsorImg" src="" alt="">
 </div>
 
 
-<!-- =====================================================
-     LOWER BAR
-     ===================================================== -->
+<!-- LOWER BAR -->
 
 <div id="gameBox" class="lowerItem">
 
-    <span id="ballIcon">
-        9
-    </span>
+    <span id="ballIcon">9</span>
 
-    <span id="gameLabel">
-        9-BALL
-    </span>
+    <span id="gameLabel">9-BALL</span>
 
 </div>
 
@@ -841,10 +796,7 @@ function scaleFrame(){
         ")";
 }
 
-window.addEventListener(
-    "resize",
-    scaleFrame
-);
+window.addEventListener("resize", scaleFrame);
 
 scaleFrame();
 
@@ -866,7 +818,6 @@ const matchRef =
 
 /* =========================================================
    PLAYER NAME FITTING
-   SAME FUNCTION USED BY BOTH SIDES
    ========================================================= */
 
 function fitPlayerName(element, name){
@@ -937,14 +888,10 @@ function renderMatch(data){
 
 
     const player1Singles =
-        document.getElementById(
-            "player1Singles"
-        );
+        document.getElementById("player1Singles");
 
     const player1Doubles =
-        document.getElementById(
-            "player1Doubles"
-        );
+        document.getElementById("player1Doubles");
 
 
     const team1 =
@@ -976,30 +923,22 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       PLAYER ONE — LOCKED
-       ===================================================== */
+    /* PLAYER ONE — LOCKED */
 
     fitPlayerName(
-        document.getElementById(
-            "player1Name"
-        ),
+        document.getElementById("player1Name"),
         p1.name || "PLAYER ONE"
     );
 
 
-    document.getElementById(
-        "fargo1"
-    ).textContent =
+    document.getElementById("fargo1").textContent =
         p1.fargo
         ? "FargoRate " + p1.fargo
         : "";
 
 
 
-    /* =====================================================
-       PLAYER ONE DOUBLES
-       ===================================================== */
+    /* PLAYER ONE DOUBLES */
 
     if(showTeam1Doubles){
 
@@ -1009,9 +948,7 @@ function renderMatch(data){
             "";
 
 
-        document.getElementById(
-            "team1Name"
-        ).textContent =
+        document.getElementById("team1Name").textContent =
             teamName;
 
 
@@ -1041,27 +978,19 @@ function renderMatch(data){
             "";
 
 
-        document.getElementById(
-            "team1Player1Name"
-        ).textContent =
+        document.getElementById("team1Player1Name").textContent =
             teamPlayer1Name;
 
 
-        document.getElementById(
-            "team1Player1Fargo"
-        ).textContent =
+        document.getElementById("team1Player1Fargo").textContent =
             teamPlayer1Fargo;
 
 
-        document.getElementById(
-            "team1Player2Name"
-        ).textContent =
+        document.getElementById("team1Player2Name").textContent =
             teamPlayer2Name;
 
 
-        document.getElementById(
-            "team1Player2Fargo"
-        ).textContent =
+        document.getElementById("team1Player2Fargo").textContent =
             teamPlayer2Fargo;
 
 
@@ -1081,9 +1010,7 @@ function renderMatch(data){
             );
 
 
-        document.getElementById(
-            "team1Fargo"
-        ).textContent =
+        document.getElementById("team1Fargo").textContent =
             combined
             ? "TEAM FARGO " + combined
             : "";
@@ -1091,63 +1018,44 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       PLAYER TWO
-       Same name-fitting rules as Player One
-       ===================================================== */
+    /* PLAYER TWO */
 
     fitPlayerName(
-        document.getElementById(
-            "player2Name"
-        ),
+        document.getElementById("player2Name"),
         p2.name || "PLAYER TWO"
     );
 
 
-    document.getElementById(
-        "fargo2"
-    ).textContent =
+    document.getElementById("fargo2").textContent =
         p2.fargo
         ? "FargoRate " + p2.fargo
         : "";
 
 
 
-    /* =====================================================
-       SCORES
-       ===================================================== */
+    /* SCORES */
 
-    document.getElementById(
-        "score1"
-    ).textContent =
+    document.getElementById("score1").textContent =
         Number(p1.score) || 0;
 
 
-    document.getElementById(
-        "score2"
-    ).textContent =
+    document.getElementById("score2").textContent =
         Number(p2.score) || 0;
 
 
 
-    /* =====================================================
-       GAME
-       ===================================================== */
+    /* GAME */
 
     const game =
         data.game || "9-Ball";
 
 
-    document.getElementById(
-        "gameLabel"
-    ).textContent =
+    document.getElementById("gameLabel").textContent =
         game.toUpperCase();
 
 
     const ballIcon =
-        document.getElementById(
-            "ballIcon"
-        );
+        document.getElementById("ballIcon");
 
 
     if(game === "9-Ball"){
@@ -1185,13 +1093,9 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       RACE
-       ===================================================== */
+    /* RACE */
 
-    document.getElementById(
-        "raceBox"
-    ).textContent =
+    document.getElementById("raceBox").textContent =
         "RACE TO " +
         (
             data.race ||
@@ -1204,22 +1108,16 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       FORMAT
-       ===================================================== */
+    /* FORMAT */
 
-    document.getElementById(
-        "formatBox"
-    ).textContent =
+    document.getElementById("formatBox").textContent =
         data.format
         ? String(data.format).toUpperCase()
         : "SINGLES";
 
 
 
-    /* =====================================================
-       BREAK
-       ===================================================== */
+    /* BREAK */
 
     const breaker =
         data.breaker ??
@@ -1232,9 +1130,7 @@ function renderMatch(data){
         Number(breaker) === 1;
 
 
-    document.getElementById(
-        "break1"
-    ).style.display =
+    document.getElementById("break1").style.display =
         (
             player1Breaking &&
             !showTeam1Doubles
@@ -1243,9 +1139,7 @@ function renderMatch(data){
         : "none";
 
 
-    document.getElementById(
-        "break1Doubles"
-    ).style.display =
+    document.getElementById("break1Doubles").style.display =
         (
             player1Breaking &&
             showTeam1Doubles
@@ -1254,40 +1148,28 @@ function renderMatch(data){
         : "none";
 
 
-    document.getElementById(
-        "break2"
-    ).style.display =
+    document.getElementById("break2").style.display =
         Number(breaker) === 2
         ? "block"
         : "none";
 
 
 
-    /* =====================================================
-       ONE POCKET DATA
-       ===================================================== */
+    /* ONE POCKET DATA */
 
-    document.getElementById(
-        "balls1"
-    ).textContent =
+    document.getElementById("balls1").textContent =
         Number(data.balls1) || 0;
 
 
-    document.getElementById(
-        "balls2"
-    ).textContent =
+    document.getElementById("balls2").textContent =
         Number(data.balls2) || 0;
 
 
 
-    /* =====================================================
-       VENUE
-       ===================================================== */
+    /* VENUE */
 
     const venue =
-        document.getElementById(
-            "venue"
-        );
+        document.getElementById("venue");
 
 
     if(data.venue){
@@ -1307,24 +1189,18 @@ function renderMatch(data){
 
 
 
-    /* =====================================================
-       SPONSORS
-       ===================================================== */
+    /* SPONSORS */
 
     if(data.leftSponsor){
 
-        document.getElementById(
-            "leftSponsorImg"
-        ).src =
+        document.getElementById("leftSponsorImg").src =
             data.leftSponsor;
     }
 
 
     if(data.rightSponsor){
 
-        document.getElementById(
-            "rightSponsorImg"
-        ).src =
+        document.getElementById("rightSponsorImg").src =
             data.rightSponsor;
     }
 }
