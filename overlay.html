@@ -6,11 +6,6 @@
 <title>MBP Overlay</title>
 
 <style>
-
-/* =========================================================
-   RESET
-   ========================================================= */
-
 *{
     box-sizing:border-box;
 }
@@ -27,11 +22,6 @@ body{
     color:#fff;
 }
 
-
-/* =========================================================
-   VIEWPORT
-   ========================================================= */
-
 #viewport{
     position:fixed;
     inset:0;
@@ -40,102 +30,58 @@ body{
     overflow:hidden;
 }
 
-
-/* =========================================================
-   1920 x 1080 MASTER FRAME
-   ========================================================= */
-
 #frame{
     position:absolute;
-
     width:1920px;
     height:1080px;
-
     left:50%;
     top:50%;
-
     transform-origin:center center;
 }
 
-
 /* =========================================================
-   COMPLETE SCOREBOARD GROUP
+   SCOREBOARD — LOCKED POSITION
+   DO NOT MOVE
    ========================================================= */
-
-/*
-   This entire group moves together.
-
-   Top: 655px
-   Height: 325px
-
-   Bottom of scoreboard is about 980px,
-   leaving roughly 100px beneath it.
-*/
 
 #scoreboard{
     position:absolute;
-
     left:0;
     top:737px;
-
     width:1920px;
     height:325px;
 }
 
-
 /* =========================================================
-   SHELL
+   SHELL — LOCKED POSITION
+   DO NOT MOVE
    ========================================================= */
-
-/*
-   scoreboard-shell.png is a FULL 1920x1080 transparent PNG.
-
-   We position the complete image so the artwork portion
-   lands inside our scoreboard group.
-*/
 
 #shell{
     position:absolute;
-
     width:1920px;
     height:1080px;
-
     left:0;
-
-    /*
-       Artwork inside the PNG is approximately around
-       the middle/lower portion of the original frame.
-       Pull the PNG upward inside this group.
-    */
-
     top:-405px;
-
     object-fit:contain;
-
     pointer-events:none;
     user-select:none;
-
     z-index:1;
 }
 
-
 /* =========================================================
-   LEFT SPONSOR
+   SPONSORS
    ========================================================= */
 
 #leftSponsor{
     position:absolute;
-
     left:95px;
     top:66px;
-
     width:235px;
     height:132px;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     z-index:5;
 }
 
@@ -145,24 +91,15 @@ body{
     object-fit:contain;
 }
 
-
-/* =========================================================
-   RIGHT SPONSOR
-   ========================================================= */
-
 #rightSponsor{
     position:absolute;
-
     right:95px;
     top:66px;
-
     width:235px;
     height:132px;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     z-index:5;
 }
 
@@ -172,9 +109,8 @@ body{
     object-fit:contain;
 }
 
-
 /* =========================================================
-   PLAYER ONE
+   PLAYER 1
    ========================================================= */
 
 #player1{
@@ -186,51 +122,103 @@ body{
     width:300px;
     height:110px;
 
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-
-    z-index:5;
+    z-index:6;
 }
 
+/* PLAYER 1 NAME */
+
 #player1Name{
-    width:100%;
+    position:absolute;
+
+    left:0;
+    top:10px;
+
+    width:300px;
+    height:38px;
+
+    display:flex;
+    align-items:center;
 
     font-size:31px;
     line-height:34px;
-
     font-weight:900;
 
     white-space:nowrap;
     overflow:hidden;
-    text-overflow:ellipsis;
 
     text-shadow:
         0 2px 2px #000,
         0 3px 5px rgba(0,0,0,.9);
 }
 
-.playerInfo{
+/* PLAYER 1 LOWER INFO LINE */
+
+#player1Info{
+    position:absolute;
+
+    left:0;
+    top:57px;
+
+    width:300px;
+    height:30px;
+
     display:flex;
     align-items:center;
 
-    margin-top:9px;
-
-    gap:13px;
+    gap:14px;
 }
 
+/* FARGO DOES NOT MOVE */
+
 #fargo1{
+    flex:0 0 auto;
+
     font-size:20px;
     line-height:24px;
 
     color:#e2e2e2;
 
-    text-shadow:0 2px 3px #000;
+    text-shadow:
+        0 2px 3px #000;
 }
 
+/* BREAK SITS TO RIGHT OF FARGO */
+
+#break1{
+    flex:0 0 auto;
+}
 
 /* =========================================================
-   PLAYER TWO
+   BREAK INDICATORS
+   ========================================================= */
+
+.breakIndicator{
+    display:none;
+
+    background:#ef1723;
+
+    padding:4px 14px 5px;
+
+    font-size:18px;
+    line-height:20px;
+
+    font-weight:900;
+    font-style:italic;
+
+    color:#fff;
+
+    transform:skew(-10deg);
+
+    box-shadow:
+        0 2px 4px rgba(0,0,0,.8);
+
+    text-shadow:
+        0 1px 2px #000;
+}
+
+/* =========================================================
+   PLAYER 2
+   CURRENT POSITION PRESERVED
    ========================================================= */
 
 #player2{
@@ -269,7 +257,13 @@ body{
 }
 
 #player2 .playerInfo{
+    display:flex;
+    align-items:center;
     justify-content:flex-end;
+
+    margin-top:9px;
+
+    gap:13px;
 }
 
 #fargo2{
@@ -281,38 +275,8 @@ body{
     text-shadow:0 2px 3px #000;
 }
 
-
 /* =========================================================
-   BREAK INDICATORS
-   ========================================================= */
-
-.breakIndicator{
-    display:none;
-
-    background:#ef1723;
-
-    padding:4px 16px 5px;
-
-    font-size:18px;
-    line-height:20px;
-
-    font-weight:900;
-    font-style:italic;
-
-    color:#fff;
-
-    transform:skew(-10deg);
-
-    box-shadow:
-        0 2px 4px rgba(0,0,0,.8);
-
-    text-shadow:
-        0 1px 2px #000;
-}
-
-
-/* =========================================================
-   SCORE BOXES
+   SCORES
    ========================================================= */
 
 .score{
@@ -341,11 +305,6 @@ body{
         0 4px 7px rgba(0,0,0,.85);
 }
 
-
-/*
-   Center each number inside the colored angled score window.
-*/
-
 #score1{
     left:684px;
 }
@@ -353,7 +312,6 @@ body{
 #score2{
     right:684px;
 }
-
 
 /* =========================================================
    CENTER MBP LOGO
@@ -374,7 +332,6 @@ body{
 
     z-index:5;
 }
-
 
 /* =========================================================
    LOWER INFORMATION BAR
@@ -403,30 +360,20 @@ body{
         0 2px 3px #000;
 }
 
-
-/* GAME */
-
 #gameBox{
     left:540px;
     width:245px;
 }
-
-
-/* FORMAT */
 
 #formatBox{
     left:785px;
     width:350px;
 }
 
-
-/* RACE */
-
 #raceBox{
     left:1135px;
     width:245px;
 }
-
 
 /* =========================================================
    BALL ICON
@@ -458,9 +405,8 @@ body{
     text-shadow:none;
 }
 
-
 /* =========================================================
-   ONE POCKET COUNTER
+   ONE POCKET
    ========================================================= */
 
 #onePocket{
@@ -483,9 +429,6 @@ body{
     overflow:hidden;
 
     z-index:8;
-
-    box-shadow:
-        0 4px 10px rgba(0,0,0,.7);
 }
 
 .ballCounter{
@@ -511,9 +454,8 @@ body{
     font-size:25px;
 }
 
-
 /* =========================================================
-   OPTIONAL VENUE
+   VENUE
    ========================================================= */
 
 #venue{
@@ -544,7 +486,6 @@ body{
 </style>
 </head>
 
-
 <body>
 
 <div id="viewport">
@@ -553,36 +494,25 @@ body{
 
         <div id="scoreboard">
 
-
-            <!-- =================================================
-                 SCOREBOARD SHELL
-                 ================================================= -->
-
             <img
                 id="shell"
                 src="scoreboard-shell.png"
                 alt=""
             >
 
-
-            <!-- =================================================
-                 LEFT SPONSOR
-                 ================================================= -->
+            <!-- LEFT SPONSOR -->
 
             <div id="leftSponsor">
-
                 <img
                     id="leftSponsorImg"
                     src=""
                     alt=""
                 >
-
             </div>
 
-
-            <!-- =================================================
+            <!-- =====================================================
                  PLAYER ONE
-                 ================================================= -->
+                 ===================================================== -->
 
             <div id="player1">
 
@@ -590,7 +520,20 @@ body{
                     PLAYER ONE
                 </div>
 
-                <div class="playerInfo">
+                <div id="player1Info">
+
+                    <!--
+                        Fargo is ALWAYS first on Player 1.
+                        It never changes position.
+                    -->
+
+                    <div id="fargo1">
+                        FargoRate 620
+                    </div>
+
+                    <!--
+                        BREAK appears to the RIGHT of Fargo.
+                    -->
 
                     <div
                         id="break1"
@@ -599,18 +542,11 @@ body{
                         BREAK
                     </div>
 
-                    <div id="fargo1">
-                        Fargo 620
-                    </div>
-
                 </div>
 
             </div>
 
-
-            <!-- =================================================
-                 SCORE ONE
-                 ================================================= -->
+            <!-- SCORE ONE -->
 
             <div
                 id="score1"
@@ -619,10 +555,7 @@ body{
                 0
             </div>
 
-
-            <!-- =================================================
-                 MBP LOGO
-                 ================================================= -->
+            <!-- MBP LOGO -->
 
             <img
                 id="mbpLogo"
@@ -630,10 +563,7 @@ body{
                 alt="McKenna Billiard Productions"
             >
 
-
-            <!-- =================================================
-                 SCORE TWO
-                 ================================================= -->
+            <!-- SCORE TWO -->
 
             <div
                 id="score2"
@@ -642,10 +572,7 @@ body{
                 0
             </div>
 
-
-            <!-- =================================================
-                 PLAYER TWO
-                 ================================================= -->
+            <!-- PLAYER TWO -->
 
             <div id="player2">
 
@@ -655,9 +582,10 @@ body{
 
                 <div class="playerInfo">
 
-                    <div id="fargo2">
-                        Fargo 598
-                    </div>
+                    <!--
+                        BREAK is already on the LEFT side
+                        for Player 2.
+                    -->
 
                     <div
                         id="break2"
@@ -666,29 +594,25 @@ body{
                         BREAK
                     </div>
 
+                    <div id="fargo2">
+                        FargoRate 598
+                    </div>
+
                 </div>
 
             </div>
 
-
-            <!-- =================================================
-                 RIGHT SPONSOR
-                 ================================================= -->
+            <!-- RIGHT SPONSOR -->
 
             <div id="rightSponsor">
-
                 <img
                     id="rightSponsorImg"
                     src=""
                     alt=""
                 >
-
             </div>
 
-
-            <!-- =================================================
-                 LOWER BAR
-                 ================================================= -->
+            <!-- LOWER BAR -->
 
             <div
                 id="gameBox"
@@ -705,14 +629,12 @@ body{
 
             </div>
 
-
             <div
                 id="formatBox"
                 class="lowerItem"
             >
                 SCOTCH DOUBLES
             </div>
-
 
             <div
                 id="raceBox"
@@ -721,42 +643,23 @@ body{
                 RACE TO 5
             </div>
 
-
-            <!-- =================================================
-                 ONE POCKET
-                 ================================================= -->
+            <!-- ONE POCKET -->
 
             <div id="onePocket">
 
                 <div class="ballCounter">
-
                     P1 BALLS
-
-                    <strong id="balls1">
-                        0
-                    </strong>
-
+                    <strong id="balls1">0</strong>
                 </div>
 
                 <div class="ballCounter">
-
                     P2 BALLS
-
-                    <strong id="balls2">
-                        0
-                    </strong>
-
+                    <strong id="balls2">0</strong>
                 </div>
 
             </div>
 
-
-            <!-- =================================================
-                 VENUE
-                 ================================================= -->
-
             <div id="venue"></div>
-
 
         </div>
 
@@ -764,17 +667,9 @@ body{
 
 </div>
 
-
-<!-- =========================================================
-     FIREBASE
-     ========================================================= -->
-
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-
 <script src="config.js"></script>
-
 
 <script>
 
@@ -797,7 +692,6 @@ function scaleFrame(){
         "translate(-50%, -50%) scale(" +
         scale +
         ")";
-
 }
 
 window.addEventListener(
@@ -806,7 +700,6 @@ window.addEventListener(
 );
 
 scaleFrame();
-
 
 
 /* =========================================================
@@ -824,6 +717,30 @@ const matchRef =
     database.ref("match");
 
 
+/* =========================================================
+   NAME FITTING
+   ========================================================= */
+
+function fitPlayerName(element, name){
+
+    element.textContent = name;
+
+    const length = name.length;
+
+    if(length > 22){
+        element.style.fontSize = "24px";
+    }
+    else if(length > 18){
+        element.style.fontSize = "27px";
+    }
+    else if(length > 14){
+        element.style.fontSize = "29px";
+    }
+    else{
+        element.style.fontSize = "31px";
+    }
+}
+
 
 /* =========================================================
    RENDER MATCH
@@ -835,7 +752,6 @@ function renderMatch(data){
         return;
     }
 
-
     const p1 =
         data.player1 || {};
 
@@ -843,13 +759,14 @@ function renderMatch(data){
         data.player2 || {};
 
 
-    /* PLAYER NAMES */
+    /* =====================================================
+       PLAYER NAMES
+       ===================================================== */
 
-    document.getElementById(
-        "player1Name"
-    ).textContent =
-        p1.name || "PLAYER ONE";
-
+    fitPlayerName(
+        document.getElementById("player1Name"),
+        p1.name || "PLAYER ONE"
+    );
 
     document.getElementById(
         "player2Name"
@@ -857,13 +774,14 @@ function renderMatch(data){
         p2.name || "PLAYER TWO";
 
 
-    /* SCORES */
+    /* =====================================================
+       SCORES
+       ===================================================== */
 
     document.getElementById(
         "score1"
     ).textContent =
         Number(p1.score) || 0;
-
 
     document.getElementById(
         "score2"
@@ -871,29 +789,31 @@ function renderMatch(data){
         Number(p2.score) || 0;
 
 
-    /* FARGO */
+    /* =====================================================
+       FARGORATE
+       ===================================================== */
 
     document.getElementById(
         "fargo1"
     ).textContent =
         p1.fargo
-        ? "Fargo " + p1.fargo
+        ? "FargoRate " + p1.fargo
         : "";
-
 
     document.getElementById(
         "fargo2"
     ).textContent =
         p2.fargo
-        ? "Fargo " + p2.fargo
+        ? "FargoRate " + p2.fargo
         : "";
 
 
-    /* GAME */
+    /* =====================================================
+       GAME
+       ===================================================== */
 
     const game =
         data.game || "9-Ball";
-
 
     document.getElementById(
         "gameLabel"
@@ -908,7 +828,6 @@ function renderMatch(data){
             "ballIcon"
         );
 
-
     if(game === "9-Ball"){
 
         ballIcon.style.display =
@@ -916,7 +835,6 @@ function renderMatch(data){
 
         ballIcon.textContent =
             "9";
-
     }
 
     else if(game === "8-Ball"){
@@ -926,7 +844,6 @@ function renderMatch(data){
 
         ballIcon.textContent =
             "8";
-
     }
 
     else if(game === "10-Ball"){
@@ -936,18 +853,18 @@ function renderMatch(data){
 
         ballIcon.textContent =
             "10";
-
     }
 
     else{
 
         ballIcon.style.display =
             "none";
-
     }
 
 
-    /* RACE */
+    /* =====================================================
+       RACE
+       ===================================================== */
 
     document.getElementById(
         "raceBox"
@@ -957,7 +874,9 @@ function renderMatch(data){
         : "RACE TO " + (data.race || 5);
 
 
-    /* FORMAT */
+    /* =====================================================
+       FORMAT
+       ===================================================== */
 
     document.getElementById(
         "formatBox"
@@ -976,14 +895,12 @@ function renderMatch(data){
         data.break ??
         0;
 
-
     document.getElementById(
         "break1"
     ).style.display =
         Number(breaker) === 1
         ? "block"
         : "none";
-
 
     document.getElementById(
         "break2"
@@ -1002,31 +919,26 @@ function renderMatch(data){
             "onePocket"
         );
 
-
     if(game === "One Pocket"){
 
         onePocket.style.display =
             "flex";
-
 
         document.getElementById(
             "balls1"
         ).textContent =
             Number(data.balls1) || 0;
 
-
         document.getElementById(
             "balls2"
         ).textContent =
             Number(data.balls2) || 0;
-
     }
 
     else{
 
         onePocket.style.display =
             "none";
-
     }
 
 
@@ -1039,7 +951,6 @@ function renderMatch(data){
             "venue"
         );
 
-
     if(data.venue){
 
         venue.textContent =
@@ -1047,14 +958,12 @@ function renderMatch(data){
 
         venue.style.display =
             "block";
-
     }
 
     else{
 
         venue.style.display =
             "none";
-
     }
 
 
@@ -1068,9 +977,7 @@ function renderMatch(data){
             "leftSponsorImg"
         ).src =
             data.leftSponsor;
-
     }
-
 
     if(data.rightSponsor){
 
@@ -1078,11 +985,8 @@ function renderMatch(data){
             "rightSponsorImg"
         ).src =
             data.rightSponsor;
-
     }
-
 }
-
 
 
 /* =========================================================
@@ -1093,16 +997,12 @@ matchRef.on(
     "value",
     snapshot => {
 
-        if(
-            snapshot.exists()
-        ){
+        if(snapshot.exists()){
 
             renderMatch(
                 snapshot.val()
             );
-
         }
-
     }
 );
 
