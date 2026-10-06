@@ -7,10 +7,6 @@
 
 <style>
 
-/* =========================================================
-   RESET
-   ========================================================= */
-
 *{
     box-sizing:border-box;
 }
@@ -27,11 +23,6 @@ body{
     color:#fff;
 }
 
-
-/* =========================================================
-   VIEWPORT
-   ========================================================= */
-
 #viewport{
     position:fixed;
     inset:0;
@@ -40,80 +31,59 @@ body{
     overflow:hidden;
 }
 
-
-/* =========================================================
-   1920 x 1080 MASTER FRAME
-   ========================================================= */
-
 #frame{
     position:absolute;
-
     width:1920px;
     height:1080px;
-
     left:50%;
     top:50%;
-
     transform-origin:center center;
 }
 
 
 /* =========================================================
-   SCOREBOARD
-   LOCKED — DO NOT MOVE
+   SCOREBOARD — LOCKED
    ========================================================= */
 
 #scoreboard{
     position:absolute;
-
     left:0;
     top:737px;
-
     width:1920px;
     height:325px;
 }
 
 
 /* =========================================================
-   SHELL
-   LOCKED — DO NOT MOVE
+   SHELL — LOCKED
    ========================================================= */
 
 #shell{
     position:absolute;
-
     width:1920px;
     height:1080px;
-
     left:0;
     top:-405px;
-
     object-fit:contain;
-
     pointer-events:none;
     user-select:none;
-
     z-index:1;
 }
 
 
 /* =========================================================
-   LEFT SPONSOR
+   SPONSORS
    ========================================================= */
 
 #leftSponsor{
     position:absolute;
-
     left:95px;
     top:66px;
-
     width:235px;
     height:132px;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     z-index:5;
 }
 
@@ -123,24 +93,15 @@ body{
     object-fit:contain;
 }
 
-
-/* =========================================================
-   RIGHT SPONSOR
-   ========================================================= */
-
 #rightSponsor{
     position:absolute;
-
     right:95px;
     top:66px;
-
     width:235px;
     height:132px;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     z-index:5;
 }
 
@@ -152,19 +113,23 @@ body{
 
 
 /* =========================================================
-   PLAYER / TEAM ONE PANEL
+   PLAYER / TEAM ONE
 
-   This is the usable information area inside the
-   black Player 1 section of the shell.
+   THIS PASS:
+   Previous: left 350 / top 78
+   New:      left 330 / top 95
+
+   Singles information remains vertically centered
+   and left aligned.
    ========================================================= */
 
 #player1{
     position:absolute;
 
-    left:350px;
-    top:78px;
+    left:330px;
+    top:95px;
 
-    width:325px;
+    width:345px;
     height:104px;
 
     z-index:6;
@@ -173,14 +138,10 @@ body{
 
 /* =========================================================
    PLAYER ONE — SINGLES
-
-   Vertically centered.
-   Horizontally LEFT aligned.
    ========================================================= */
 
 #player1Singles{
     position:absolute;
-
     inset:0;
 
     display:flex;
@@ -192,9 +153,6 @@ body{
     text-align:left;
 }
 
-
-/* PLAYER NAME */
-
 #player1Name{
     width:100%;
     height:35px;
@@ -204,7 +162,6 @@ body{
 
     font-size:31px;
     line-height:34px;
-
     font-weight:900;
 
     white-space:nowrap;
@@ -216,9 +173,6 @@ body{
         0 2px 2px #000,
         0 3px 5px rgba(0,0,0,.9);
 }
-
-
-/* FARGO + BREAK LINE */
 
 #player1SingleInfo{
     width:100%;
@@ -250,16 +204,10 @@ body{
 
 /* =========================================================
    PLAYER ONE — SCOTCH DOUBLES
-
-   Currently hidden because the existing controller does
-   not yet provide doubles/team data.
-
-   The structure is already here for the controller rebuild.
    ========================================================= */
 
 #player1Doubles{
     position:absolute;
-
     inset:0;
 
     display:none;
@@ -276,14 +224,12 @@ body{
 
 #team1Name{
     width:100%;
-
     height:18px;
 
     font-size:15px;
     line-height:18px;
 
     font-weight:900;
-
     letter-spacing:.4px;
 
     color:#bfc7d2;
@@ -291,19 +237,15 @@ body{
     white-space:nowrap;
     overflow:hidden;
 
-    text-shadow:
-        0 2px 3px #000;
+    text-shadow:0 2px 3px #000;
 }
-
-
-/* COMPLETELY REMOVE TEAM NAME SPACE WHEN EMPTY */
 
 #team1Name:empty{
     display:none;
 }
 
 
-/* TEAM PLAYER ROW */
+/* DOUBLES PLAYER ROW */
 
 .teamPlayerRow{
     width:100%;
@@ -317,7 +259,6 @@ body{
 
 .teamPlayerName{
     flex:1 1 auto;
-
     min-width:0;
 
     font-size:20px;
@@ -345,8 +286,7 @@ body{
 
     white-space:nowrap;
 
-    text-shadow:
-        0 2px 3px #000;
+    text-shadow:0 2px 3px #000;
 }
 
 
@@ -377,8 +317,7 @@ body{
 
     color:#fff;
 
-    text-shadow:
-        0 2px 3px #000;
+    text-shadow:0 2px 3px #000;
 }
 
 
@@ -414,10 +353,7 @@ body{
 
 
 /* =========================================================
-   PLAYER TWO
-
-   LEFT AS-IS FOR NOW.
-   We will mirror the finished Player 1 design later.
+   PLAYER TWO — UNCHANGED
    ========================================================= */
 
 #player2{
@@ -457,12 +393,10 @@ body{
 
 #player2 .playerInfo{
     display:flex;
-
     align-items:center;
     justify-content:flex-end;
 
     margin-top:9px;
-
     gap:13px;
 }
 
@@ -472,16 +406,12 @@ body{
 
     color:#e2e2e2;
 
-    text-shadow:
-        0 2px 3px #000;
+    text-shadow:0 2px 3px #000;
 }
 
 
 /* =========================================================
    SCORES
-
-   Player 1 score has been moved down into the blue window.
-   Player 2 remains untouched for now.
    ========================================================= */
 
 .score{
@@ -498,7 +428,6 @@ body{
     line-height:1;
 
     font-weight:900;
-
     text-align:center;
 
     z-index:6;
@@ -508,10 +437,16 @@ body{
         0 4px 7px rgba(0,0,0,.85);
 }
 
+
+/* PLAYER 1 SCORE — UNCHANGED THIS PASS */
+
 #score1{
     left:690px;
     top:98px;
 }
+
+
+/* PLAYER 2 SCORE — UNCHANGED */
 
 #score2{
     right:684px;
@@ -520,9 +455,7 @@ body{
 
 
 /* =========================================================
-   CENTER MBP LOGO
-
-   UNCHANGED FOR NOW
+   MBP LOGO — UNCHANGED
    ========================================================= */
 
 #mbpLogo{
@@ -543,9 +476,7 @@ body{
 
 
 /* =========================================================
-   LOWER INFORMATION BAR
-
-   UNCHANGED FOR NOW
+   LOWER INFORMATION BAR — UNCHANGED
    ========================================================= */
 
 .lowerItem{
@@ -567,8 +498,7 @@ body{
 
     z-index:5;
 
-    text-shadow:
-        0 2px 3px #000;
+    text-shadow:0 2px 3px #000;
 }
 
 #gameBox{
@@ -620,11 +550,7 @@ body{
 
 /* =========================================================
    OLD ONE POCKET FLOATING COUNTER
-
-   Still present in HTML for compatibility,
-   but permanently hidden.
-
-   We will integrate BALLS into the player panels later.
+   DISABLED
    ========================================================= */
 
 #onePocket{
@@ -674,9 +600,7 @@ body{
         <div id="scoreboard">
 
 
-            <!-- =================================================
-                 SCOREBOARD SHELL
-                 ================================================= -->
+            <!-- SCOREBOARD SHELL -->
 
             <img
                 id="shell"
@@ -685,9 +609,7 @@ body{
             >
 
 
-            <!-- =================================================
-                 LEFT SPONSOR
-                 ================================================= -->
+            <!-- LEFT SPONSOR -->
 
             <div id="leftSponsor">
 
@@ -707,9 +629,7 @@ body{
             <div id="player1">
 
 
-                <!-- ============================
-                     SINGLES
-                     ============================ -->
+                <!-- SINGLES -->
 
                 <div id="player1Singles">
 
@@ -735,14 +655,11 @@ body{
                 </div>
 
 
-                <!-- ============================
-                     SCOTCH DOUBLES
-                     ============================ -->
+                <!-- SCOTCH DOUBLES -->
 
                 <div id="player1Doubles">
 
-
-                    <!-- Optional — invisible when blank -->
+                    <!-- Optional team name -->
 
                     <div id="team1Name"></div>
 
@@ -803,9 +720,7 @@ body{
             </div>
 
 
-            <!-- =================================================
-                 SCORE ONE
-                 ================================================= -->
+            <!-- SCORE ONE -->
 
             <div
                 id="score1"
@@ -815,9 +730,7 @@ body{
             </div>
 
 
-            <!-- =================================================
-                 MBP LOGO
-                 ================================================= -->
+            <!-- MBP LOGO -->
 
             <img
                 id="mbpLogo"
@@ -826,9 +739,7 @@ body{
             >
 
 
-            <!-- =================================================
-                 SCORE TWO
-                 ================================================= -->
+            <!-- SCORE TWO -->
 
             <div
                 id="score2"
@@ -838,9 +749,7 @@ body{
             </div>
 
 
-            <!-- =================================================
-                 PLAYER TWO
-                 ================================================= -->
+            <!-- PLAYER TWO -->
 
             <div id="player2">
 
@@ -866,9 +775,7 @@ body{
             </div>
 
 
-            <!-- =================================================
-                 RIGHT SPONSOR
-                 ================================================= -->
+            <!-- RIGHT SPONSOR -->
 
             <div id="rightSponsor">
 
@@ -881,9 +788,7 @@ body{
             </div>
 
 
-            <!-- =================================================
-                 LOWER BAR
-                 ================================================= -->
+            <!-- LOWER BAR -->
 
             <div
                 id="gameBox"
@@ -917,10 +822,7 @@ body{
             </div>
 
 
-            <!-- =================================================
-                 LEGACY ONE POCKET COUNTER
-                 PERMANENTLY HIDDEN
-                 ================================================= -->
+            <!-- LEGACY ONE POCKET VALUES -->
 
             <div id="onePocket">
 
@@ -930,9 +832,7 @@ body{
             </div>
 
 
-            <!-- =================================================
-                 VENUE
-                 ================================================= -->
+            <!-- VENUE -->
 
             <div id="venue"></div>
 
@@ -1048,12 +948,6 @@ function fitPlayerName(element, name){
 
 /* =========================================================
    FORMAT DETECTION
-
-   Existing controller does not currently send the complete
-   Singles / Scotch Doubles structure.
-
-   Until the controller is rebuilt, anything other than an
-   explicit Scotch Doubles format is treated as Singles.
    ========================================================= */
 
 function isScotchDoubles(data){
@@ -1112,15 +1006,9 @@ function renderMatch(data){
         );
 
 
-    /*
-       Until the controller sends actual doubles/team fields,
-       we only activate doubles mode when BOTH:
-       1. format explicitly says Scotch Doubles
-       2. team/player-two data exists
-    */
-
     const team1 =
         data.team1 || {};
+
 
     const hasTeam1DoublesData =
         !!(
@@ -1169,7 +1057,7 @@ function renderMatch(data){
 
 
     /* =====================================================
-       PLAYER ONE — FUTURE SCOTCH DOUBLES SUPPORT
+       PLAYER ONE — SCOTCH DOUBLES
        ===================================================== */
 
     if(showTeam1Doubles){
@@ -1265,9 +1153,7 @@ function renderMatch(data){
 
 
     /* =====================================================
-       PLAYER TWO
-
-       Old layout intentionally preserved.
+       PLAYER TWO — CURRENT LAYOUT
        ===================================================== */
 
     document.getElementById(
@@ -1383,9 +1269,6 @@ function renderMatch(data){
 
     /* =====================================================
        FORMAT
-
-       IMPORTANT:
-       No more hard-coded SCOTCH DOUBLES fallback.
        ===================================================== */
 
     document.getElementById(
@@ -1444,12 +1327,8 @@ function renderMatch(data){
 
 
     /* =====================================================
-       ONE POCKET
-
-       Old floating counter is disabled.
-
-       We still read the values so we're ready to integrate
-       them into the player panels later.
+       ONE POCKET VALUES
+       Floating counter remains disabled.
        ===================================================== */
 
     document.getElementById(
@@ -1517,7 +1396,7 @@ function renderMatch(data){
 
 
 /* =========================================================
-   LIVE FIREBASE LISTENER
+   LIVE LISTENER
    ========================================================= */
 
 matchRef.on(
