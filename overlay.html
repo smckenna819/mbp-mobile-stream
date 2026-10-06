@@ -6,6 +6,11 @@
 <title>MBP Overlay</title>
 
 <style>
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
 *{
     box-sizing:border-box;
 }
@@ -22,6 +27,11 @@ body{
     color:#fff;
 }
 
+
+/* =========================================================
+   VIEWPORT
+   ========================================================= */
+
 #viewport{
     position:fixed;
     inset:0;
@@ -30,58 +40,80 @@ body{
     overflow:hidden;
 }
 
+
+/* =========================================================
+   1920 x 1080 MASTER FRAME
+   ========================================================= */
+
 #frame{
     position:absolute;
+
     width:1920px;
     height:1080px;
+
     left:50%;
     top:50%;
+
     transform-origin:center center;
 }
 
+
 /* =========================================================
-   SCOREBOARD — LOCKED POSITION
-   DO NOT MOVE
+   SCOREBOARD
+   LOCKED — DO NOT MOVE
    ========================================================= */
 
 #scoreboard{
     position:absolute;
+
     left:0;
     top:737px;
+
     width:1920px;
     height:325px;
 }
 
+
 /* =========================================================
-   SHELL — LOCKED POSITION
-   DO NOT MOVE
+   SHELL
+   LOCKED — DO NOT MOVE
    ========================================================= */
 
 #shell{
     position:absolute;
+
     width:1920px;
     height:1080px;
+
     left:0;
     top:-405px;
+
     object-fit:contain;
+
     pointer-events:none;
     user-select:none;
+
     z-index:1;
 }
 
+
 /* =========================================================
-   SPONSORS
+   LEFT SPONSOR
    ========================================================= */
 
 #leftSponsor{
     position:absolute;
+
     left:95px;
     top:66px;
+
     width:235px;
     height:132px;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
     z-index:5;
 }
 
@@ -91,15 +123,24 @@ body{
     object-fit:contain;
 }
 
+
+/* =========================================================
+   RIGHT SPONSOR
+   ========================================================= */
+
 #rightSponsor{
     position:absolute;
+
     right:95px;
     top:66px;
+
     width:235px;
     height:132px;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
     z-index:5;
 }
 
@@ -109,66 +150,88 @@ body{
     object-fit:contain;
 }
 
+
 /* =========================================================
-   PLAYER 1
+   PLAYER / TEAM ONE PANEL
+
+   This is the usable information area inside the
+   black Player 1 section of the shell.
    ========================================================= */
 
 #player1{
     position:absolute;
 
-    left:390px;
-    top:88px;
+    left:350px;
+    top:78px;
 
-    width:285px;
-    height:100px;
+    width:325px;
+    height:104px;
 
     z-index:6;
 }
 
-/* PLAYER 1 NAME */
 
-#player1Name{
+/* =========================================================
+   PLAYER ONE — SINGLES
+
+   Vertically centered.
+   Horizontally LEFT aligned.
+   ========================================================= */
+
+#player1Singles{
     position:absolute;
 
-    left:0;
-    top:0px;
+    inset:0;
 
-    width:285px;
-    height:36px;
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:flex-start;
+
+    text-align:left;
+}
+
+
+/* PLAYER NAME */
+
+#player1Name{
+    width:100%;
+    height:35px;
 
     display:flex;
     align-items:center;
 
     font-size:31px;
     line-height:34px;
+
     font-weight:900;
 
     white-space:nowrap;
     overflow:hidden;
+
+    text-align:left;
 
     text-shadow:
         0 2px 2px #000,
         0 3px 5px rgba(0,0,0,.9);
 }
 
-/* PLAYER 1 LOWER INFO LINE */
 
-#player1Info{
-    position:absolute;
+/* FARGO + BREAK LINE */
 
-    left:0;
-    top:40px;
-
-    width:285px;
-    height:32px;
+#player1SingleInfo{
+    width:100%;
+    height:29px;
 
     display:flex;
     align-items:center;
+    justify-content:flex-start;
 
-    gap:12px;
+    gap:13px;
+
+    margin-top:5px;
 }
-
-/* FARGO DOES NOT MOVE */
 
 #fargo1{
     flex:0 0 auto;
@@ -178,15 +241,146 @@ body{
 
     color:#e2e2e2;
 
+    white-space:nowrap;
+
     text-shadow:
         0 2px 3px #000;
 }
 
-/* BREAK SITS TO RIGHT OF FARGO */
 
-#break1{
-    flex:0 0 auto;
+/* =========================================================
+   PLAYER ONE — SCOTCH DOUBLES
+
+   Currently hidden because the existing controller does
+   not yet provide doubles/team data.
+
+   The structure is already here for the controller rebuild.
+   ========================================================= */
+
+#player1Doubles{
+    position:absolute;
+
+    inset:0;
+
+    display:none;
+
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-start;
+
+    text-align:left;
 }
+
+
+/* OPTIONAL TEAM NAME */
+
+#team1Name{
+    width:100%;
+
+    height:18px;
+
+    font-size:15px;
+    line-height:18px;
+
+    font-weight:900;
+
+    letter-spacing:.4px;
+
+    color:#bfc7d2;
+
+    white-space:nowrap;
+    overflow:hidden;
+
+    text-shadow:
+        0 2px 3px #000;
+}
+
+
+/* COMPLETELY REMOVE TEAM NAME SPACE WHEN EMPTY */
+
+#team1Name:empty{
+    display:none;
+}
+
+
+/* TEAM PLAYER ROW */
+
+.teamPlayerRow{
+    width:100%;
+    height:23px;
+
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+}
+
+.teamPlayerName{
+    flex:1 1 auto;
+
+    min-width:0;
+
+    font-size:20px;
+    line-height:22px;
+
+    font-weight:900;
+
+    white-space:nowrap;
+    overflow:hidden;
+
+    text-shadow:
+        0 2px 2px #000,
+        0 3px 4px rgba(0,0,0,.8);
+}
+
+.teamPlayerFargo{
+    flex:0 0 auto;
+
+    font-size:17px;
+    line-height:20px;
+
+    font-weight:700;
+
+    color:#e2e2e2;
+
+    white-space:nowrap;
+
+    text-shadow:
+        0 2px 3px #000;
+}
+
+
+/* TEAM FARGO + BREAK */
+
+#team1Bottom{
+    width:100%;
+    height:27px;
+
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+
+    gap:12px;
+
+    margin-top:2px;
+}
+
+#team1Fargo{
+    flex:0 0 auto;
+
+    font-size:17px;
+    line-height:21px;
+
+    font-weight:900;
+
+    white-space:nowrap;
+
+    color:#fff;
+
+    text-shadow:
+        0 2px 3px #000;
+}
+
 
 /* =========================================================
    BREAK INDICATORS
@@ -194,6 +388,8 @@ body{
 
 .breakIndicator{
     display:none;
+
+    flex:0 0 auto;
 
     background:#ef1723;
 
@@ -216,9 +412,12 @@ body{
         0 1px 2px #000;
 }
 
+
 /* =========================================================
-   PLAYER 2
-   CURRENT POSITION PRESERVED
+   PLAYER TWO
+
+   LEFT AS-IS FOR NOW.
+   We will mirror the finished Player 1 design later.
    ========================================================= */
 
 #player2{
@@ -258,6 +457,7 @@ body{
 
 #player2 .playerInfo{
     display:flex;
+
     align-items:center;
     justify-content:flex-end;
 
@@ -272,17 +472,20 @@ body{
 
     color:#e2e2e2;
 
-    text-shadow:0 2px 3px #000;
+    text-shadow:
+        0 2px 3px #000;
 }
+
 
 /* =========================================================
    SCORES
+
+   Player 1 score has been moved down into the blue window.
+   Player 2 remains untouched for now.
    ========================================================= */
 
 .score{
     position:absolute;
-
-    top:61px;
 
     width:102px;
     height:112px;
@@ -306,16 +509,20 @@ body{
 }
 
 #score1{
-    left:684px;
-    top:91px;
+    left:690px;
+    top:98px;
 }
 
 #score2{
     right:684px;
+    top:61px;
 }
+
 
 /* =========================================================
    CENTER MBP LOGO
+
+   UNCHANGED FOR NOW
    ========================================================= */
 
 #mbpLogo{
@@ -334,8 +541,11 @@ body{
     z-index:5;
 }
 
+
 /* =========================================================
    LOWER INFORMATION BAR
+
+   UNCHANGED FOR NOW
    ========================================================= */
 
 .lowerItem{
@@ -376,6 +586,7 @@ body{
     width:245px;
 }
 
+
 /* =========================================================
    BALL ICON
    ========================================================= */
@@ -406,57 +617,23 @@ body{
     text-shadow:none;
 }
 
+
 /* =========================================================
-   ONE POCKET
+   OLD ONE POCKET FLOATING COUNTER
+
+   Still present in HTML for compatibility,
+   but permanently hidden.
+
+   We will integrate BALLS into the player panels later.
    ========================================================= */
 
 #onePocket{
-    display:none;
-
-    position:absolute;
-
-    left:50%;
-    top:3px;
-
-    transform:translateX(-50%);
-
-    height:48px;
-
-    background:rgba(5,5,7,.96);
-
-    border:1px solid #777;
-    border-radius:7px;
-
-    overflow:hidden;
-
-    z-index:8;
+    display:none !important;
 }
 
-.ballCounter{
-    min-width:150px;
-
-    padding:7px 18px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    gap:10px;
-
-    font-size:16px;
-    font-weight:800;
-}
-
-.ballCounter:first-child{
-    border-right:1px solid #555;
-}
-
-.ballCounter strong{
-    font-size:25px;
-}
 
 /* =========================================================
-   VENUE
+   OPTIONAL VENUE
    ========================================================= */
 
 #venue{
@@ -487,6 +664,7 @@ body{
 </style>
 </head>
 
+
 <body>
 
 <div id="viewport">
@@ -495,59 +673,139 @@ body{
 
         <div id="scoreboard">
 
+
+            <!-- =================================================
+                 SCOREBOARD SHELL
+                 ================================================= -->
+
             <img
                 id="shell"
                 src="scoreboard-shell.png"
                 alt=""
             >
 
-            <!-- LEFT SPONSOR -->
+
+            <!-- =================================================
+                 LEFT SPONSOR
+                 ================================================= -->
 
             <div id="leftSponsor">
+
                 <img
                     id="leftSponsorImg"
                     src=""
                     alt=""
                 >
+
             </div>
 
-            <!-- =====================================================
-                 PLAYER ONE
-                 ===================================================== -->
+
+            <!-- =================================================
+                 PLAYER / TEAM ONE
+                 ================================================= -->
 
             <div id="player1">
 
-                <div id="player1Name">
-                    PLAYER ONE
-                </div>
 
-                <div id="player1Info">
+                <!-- ============================
+                     SINGLES
+                     ============================ -->
 
-                    <!--
-                        Fargo is ALWAYS first on Player 1.
-                        It never changes position.
-                    -->
+                <div id="player1Singles">
 
-                    <div id="fargo1">
-                        FargoRate 620
+                    <div id="player1Name">
+                        PLAYER ONE
                     </div>
 
-                    <!--
-                        BREAK appears to the RIGHT of Fargo.
-                    -->
+                    <div id="player1SingleInfo">
 
-                    <div
-                        id="break1"
-                        class="breakIndicator"
-                    >
-                        BREAK
+                        <div id="fargo1">
+                            FargoRate 620
+                        </div>
+
+                        <div
+                            id="break1"
+                            class="breakIndicator"
+                        >
+                            BREAK
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ============================
+                     SCOTCH DOUBLES
+                     ============================ -->
+
+                <div id="player1Doubles">
+
+
+                    <!-- Optional — invisible when blank -->
+
+                    <div id="team1Name"></div>
+
+
+                    <!-- Player A -->
+
+                    <div class="teamPlayerRow">
+
+                        <div
+                            id="team1Player1Name"
+                            class="teamPlayerName"
+                        >
+                            PLAYER ONE
+                        </div>
+
+                        <div
+                            id="team1Player1Fargo"
+                            class="teamPlayerFargo"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- Player B -->
+
+                    <div class="teamPlayerRow">
+
+                        <div
+                            id="team1Player2Name"
+                            class="teamPlayerName"
+                        ></div>
+
+                        <div
+                            id="team1Player2Fargo"
+                            class="teamPlayerFargo"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- Team Fargo + Break -->
+
+                    <div id="team1Bottom">
+
+                        <div id="team1Fargo"></div>
+
+                        <div
+                            id="break1Doubles"
+                            class="breakIndicator"
+                        >
+                            BREAK
+                        </div>
+
                     </div>
 
                 </div>
 
             </div>
 
-            <!-- SCORE ONE -->
+
+            <!-- =================================================
+                 SCORE ONE
+                 ================================================= -->
 
             <div
                 id="score1"
@@ -556,7 +814,10 @@ body{
                 0
             </div>
 
-            <!-- MBP LOGO -->
+
+            <!-- =================================================
+                 MBP LOGO
+                 ================================================= -->
 
             <img
                 id="mbpLogo"
@@ -564,7 +825,10 @@ body{
                 alt="McKenna Billiard Productions"
             >
 
-            <!-- SCORE TWO -->
+
+            <!-- =================================================
+                 SCORE TWO
+                 ================================================= -->
 
             <div
                 id="score2"
@@ -573,7 +837,10 @@ body{
                 0
             </div>
 
-            <!-- PLAYER TWO -->
+
+            <!-- =================================================
+                 PLAYER TWO
+                 ================================================= -->
 
             <div id="player2">
 
@@ -582,11 +849,6 @@ body{
                 </div>
 
                 <div class="playerInfo">
-
-                    <!--
-                        BREAK is already on the LEFT side
-                        for Player 2.
-                    -->
 
                     <div
                         id="break2"
@@ -603,17 +865,25 @@ body{
 
             </div>
 
-            <!-- RIGHT SPONSOR -->
+
+            <!-- =================================================
+                 RIGHT SPONSOR
+                 ================================================= -->
 
             <div id="rightSponsor">
+
                 <img
                     id="rightSponsorImg"
                     src=""
                     alt=""
                 >
+
             </div>
 
-            <!-- LOWER BAR -->
+
+            <!-- =================================================
+                 LOWER BAR
+                 ================================================= -->
 
             <div
                 id="gameBox"
@@ -630,12 +900,14 @@ body{
 
             </div>
 
+
             <div
                 id="formatBox"
                 class="lowerItem"
             >
-                SCOTCH DOUBLES
+                SINGLES
             </div>
+
 
             <div
                 id="raceBox"
@@ -644,23 +916,26 @@ body{
                 RACE TO 5
             </div>
 
-            <!-- ONE POCKET -->
+
+            <!-- =================================================
+                 LEGACY ONE POCKET COUNTER
+                 PERMANENTLY HIDDEN
+                 ================================================= -->
 
             <div id="onePocket">
 
-                <div class="ballCounter">
-                    P1 BALLS
-                    <strong id="balls1">0</strong>
-                </div>
-
-                <div class="ballCounter">
-                    P2 BALLS
-                    <strong id="balls2">0</strong>
-                </div>
+                <span id="balls1">0</span>
+                <span id="balls2">0</span>
 
             </div>
 
+
+            <!-- =================================================
+                 VENUE
+                 ================================================= -->
+
             <div id="venue"></div>
+
 
         </div>
 
@@ -668,9 +943,15 @@ body{
 
 </div>
 
+
+<!-- =========================================================
+     FIREBASE
+     ========================================================= -->
+
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <script src="config.js"></script>
+
 
 <script>
 
@@ -703,6 +984,7 @@ window.addEventListener(
 scaleFrame();
 
 
+
 /* =========================================================
    FIREBASE
    ========================================================= */
@@ -718,29 +1000,78 @@ const matchRef =
     database.ref("match");
 
 
+
 /* =========================================================
-   NAME FITTING
+   PLAYER NAME FITTING
    ========================================================= */
 
 function fitPlayerName(element, name){
 
-    element.textContent = name;
+    element.textContent =
+        name;
 
-    const length = name.length;
+    const length =
+        name.length;
 
-    if(length > 22){
-        element.style.fontSize = "24px";
+    if(length > 24){
+
+        element.style.fontSize =
+            "23px";
     }
-    else if(length > 18){
-        element.style.fontSize = "27px";
+
+    else if(length > 20){
+
+        element.style.fontSize =
+            "25px";
     }
+
+    else if(length > 17){
+
+        element.style.fontSize =
+            "27px";
+    }
+
     else if(length > 14){
-        element.style.fontSize = "29px";
+
+        element.style.fontSize =
+            "29px";
     }
+
     else{
-        element.style.fontSize = "31px";
+
+        element.style.fontSize =
+            "31px";
     }
 }
+
+
+
+/* =========================================================
+   FORMAT DETECTION
+
+   Existing controller does not currently send the complete
+   Singles / Scotch Doubles structure.
+
+   Until the controller is rebuilt, anything other than an
+   explicit Scotch Doubles format is treated as Singles.
+   ========================================================= */
+
+function isScotchDoubles(data){
+
+    const format =
+        String(
+            data.format || ""
+        )
+        .trim()
+        .toLowerCase();
+
+    return (
+        format === "scotch doubles" ||
+        format === "scotch" ||
+        format === "doubles"
+    );
+}
+
 
 
 /* =========================================================
@@ -753,6 +1084,7 @@ function renderMatch(data){
         return;
     }
 
+
     const p1 =
         data.player1 || {};
 
@@ -760,19 +1092,197 @@ function renderMatch(data){
         data.player2 || {};
 
 
+    const doubles =
+        isScotchDoubles(data);
+
+
+
     /* =====================================================
-       PLAYER NAMES
+       PLAYER ONE DISPLAY MODE
+       ===================================================== */
+
+    const player1Singles =
+        document.getElementById(
+            "player1Singles"
+        );
+
+    const player1Doubles =
+        document.getElementById(
+            "player1Doubles"
+        );
+
+
+    /*
+       Until the controller sends actual doubles/team fields,
+       we only activate doubles mode when BOTH:
+       1. format explicitly says Scotch Doubles
+       2. team/player-two data exists
+    */
+
+    const team1 =
+        data.team1 || {};
+
+    const hasTeam1DoublesData =
+        !!(
+            team1.player2Name ||
+            team1.player2?.name
+        );
+
+
+    const showTeam1Doubles =
+        doubles &&
+        hasTeam1DoublesData;
+
+
+    player1Singles.style.display =
+        showTeam1Doubles
+        ? "none"
+        : "flex";
+
+
+    player1Doubles.style.display =
+        showTeam1Doubles
+        ? "flex"
+        : "none";
+
+
+
+    /* =====================================================
+       PLAYER ONE — SINGLES
        ===================================================== */
 
     fitPlayerName(
-        document.getElementById("player1Name"),
+        document.getElementById(
+            "player1Name"
+        ),
         p1.name || "PLAYER ONE"
     );
+
+
+    document.getElementById(
+        "fargo1"
+    ).textContent =
+        p1.fargo
+        ? "FargoRate " + p1.fargo
+        : "";
+
+
+
+    /* =====================================================
+       PLAYER ONE — FUTURE SCOTCH DOUBLES SUPPORT
+       ===================================================== */
+
+    if(showTeam1Doubles){
+
+        const teamName =
+            team1.name ||
+            team1.teamName ||
+            "";
+
+
+        document.getElementById(
+            "team1Name"
+        ).textContent =
+            teamName;
+
+
+        const teamPlayer1Name =
+            team1.player1Name ||
+            team1.player1?.name ||
+            p1.name ||
+            "PLAYER ONE";
+
+
+        const teamPlayer1Fargo =
+            team1.player1Fargo ||
+            team1.player1?.fargo ||
+            p1.fargo ||
+            "";
+
+
+        const teamPlayer2Name =
+            team1.player2Name ||
+            team1.player2?.name ||
+            "";
+
+
+        const teamPlayer2Fargo =
+            team1.player2Fargo ||
+            team1.player2?.fargo ||
+            "";
+
+
+        document.getElementById(
+            "team1Player1Name"
+        ).textContent =
+            teamPlayer1Name;
+
+
+        document.getElementById(
+            "team1Player1Fargo"
+        ).textContent =
+            teamPlayer1Fargo;
+
+
+        document.getElementById(
+            "team1Player2Name"
+        ).textContent =
+            teamPlayer2Name;
+
+
+        document.getElementById(
+            "team1Player2Fargo"
+        ).textContent =
+            teamPlayer2Fargo;
+
+
+        const f1 =
+            Number(teamPlayer1Fargo) || 0;
+
+        const f2 =
+            Number(teamPlayer2Fargo) || 0;
+
+
+        const combined =
+            Number(
+                team1.combinedFargo
+            ) ||
+            (
+                f1 && f2
+                ? f1 + f2
+                : 0
+            );
+
+
+        document.getElementById(
+            "team1Fargo"
+        ).textContent =
+            combined
+            ? "TEAM FARGO " + combined
+            : "";
+    }
+
+
+
+    /* =====================================================
+       PLAYER TWO
+
+       Old layout intentionally preserved.
+       ===================================================== */
 
     document.getElementById(
         "player2Name"
     ).textContent =
         p2.name || "PLAYER TWO";
+
+
+    document.getElementById(
+        "fargo2"
+    ).textContent =
+        p2.fargo
+        ? "FargoRate " + p2.fargo
+        : "";
+
 
 
     /* =====================================================
@@ -784,29 +1294,12 @@ function renderMatch(data){
     ).textContent =
         Number(p1.score) || 0;
 
+
     document.getElementById(
         "score2"
     ).textContent =
         Number(p2.score) || 0;
 
-
-    /* =====================================================
-       FARGORATE
-       ===================================================== */
-
-    document.getElementById(
-        "fargo1"
-    ).textContent =
-        p1.fargo
-        ? "FargoRate " + p1.fargo
-        : "";
-
-    document.getElementById(
-        "fargo2"
-    ).textContent =
-        p2.fargo
-        ? "FargoRate " + p2.fargo
-        : "";
 
 
     /* =====================================================
@@ -816,18 +1309,23 @@ function renderMatch(data){
     const game =
         data.game || "9-Ball";
 
+
     document.getElementById(
         "gameLabel"
     ).textContent =
         game.toUpperCase();
 
 
-    /* BALL ICON */
+
+    /* =====================================================
+       BALL ICON
+       ===================================================== */
 
     const ballIcon =
         document.getElementById(
             "ballIcon"
         );
+
 
     if(game === "9-Ball"){
 
@@ -863,6 +1361,7 @@ function renderMatch(data){
     }
 
 
+
     /* =====================================================
        RACE
        ===================================================== */
@@ -870,20 +1369,32 @@ function renderMatch(data){
     document.getElementById(
         "raceBox"
     ).textContent =
-        game === "One Pocket"
-        ? "RACE TO " + (data.race || 3)
-        : "RACE TO " + (data.race || 5);
+        "RACE TO " +
+        (
+            data.race ||
+            (
+                game === "One Pocket"
+                ? 3
+                : 5
+            )
+        );
+
 
 
     /* =====================================================
        FORMAT
+
+       IMPORTANT:
+       No more hard-coded SCOTCH DOUBLES fallback.
        ===================================================== */
 
     document.getElementById(
         "formatBox"
     ).textContent =
-        data.format ||
-        "SCOTCH DOUBLES";
+        data.format
+        ? String(data.format).toUpperCase()
+        : "SINGLES";
+
 
 
     /* =====================================================
@@ -896,12 +1407,32 @@ function renderMatch(data){
         data.break ??
         0;
 
+
+    const player1Breaking =
+        Number(breaker) === 1;
+
+
     document.getElementById(
         "break1"
     ).style.display =
-        Number(breaker) === 1
+        (
+            player1Breaking &&
+            !showTeam1Doubles
+        )
         ? "block"
         : "none";
+
+
+    document.getElementById(
+        "break1Doubles"
+    ).style.display =
+        (
+            player1Breaking &&
+            showTeam1Doubles
+        )
+        ? "block"
+        : "none";
+
 
     document.getElementById(
         "break2"
@@ -911,36 +1442,27 @@ function renderMatch(data){
         : "none";
 
 
+
     /* =====================================================
        ONE POCKET
+
+       Old floating counter is disabled.
+
+       We still read the values so we're ready to integrate
+       them into the player panels later.
        ===================================================== */
 
-    const onePocket =
-        document.getElementById(
-            "onePocket"
-        );
+    document.getElementById(
+        "balls1"
+    ).textContent =
+        Number(data.balls1) || 0;
 
-    if(game === "One Pocket"){
 
-        onePocket.style.display =
-            "flex";
+    document.getElementById(
+        "balls2"
+    ).textContent =
+        Number(data.balls2) || 0;
 
-        document.getElementById(
-            "balls1"
-        ).textContent =
-            Number(data.balls1) || 0;
-
-        document.getElementById(
-            "balls2"
-        ).textContent =
-            Number(data.balls2) || 0;
-    }
-
-    else{
-
-        onePocket.style.display =
-            "none";
-    }
 
 
     /* =====================================================
@@ -951,6 +1473,7 @@ function renderMatch(data){
         document.getElementById(
             "venue"
         );
+
 
     if(data.venue){
 
@@ -968,6 +1491,7 @@ function renderMatch(data){
     }
 
 
+
     /* =====================================================
        SPONSORS
        ===================================================== */
@@ -980,6 +1504,7 @@ function renderMatch(data){
             data.leftSponsor;
     }
 
+
     if(data.rightSponsor){
 
         document.getElementById(
@@ -990,8 +1515,9 @@ function renderMatch(data){
 }
 
 
+
 /* =========================================================
-   LIVE LISTENER
+   LIVE FIREBASE LISTENER
    ========================================================= */
 
 matchRef.on(
