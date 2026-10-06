@@ -3,390 +3,1077 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MBP Overlay</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{ box-sizing:border-box; }
+
+html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:transparent;
+    font-family:Arial,Helvetica,sans-serif;
+    color:#fff;
 }
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    width: 1920px;
-    height: 1080px;
-    overflow: hidden;
-    background: transparent;
-    font-family: Arial, Helvetica, sans-serif;
+#viewport{
+    position:fixed;
+    inset:0;
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
 }
 
-#scoreboard {
-    position: absolute;
-    left: 0;
-    top: 737px;
-    width: 1920px;
-    height: 325px;
+#frame{
+    position:absolute;
+    width:1920px;
+    height:1080px;
+    left:50%;
+    top:50%;
+    transform-origin:center center;
 }
 
-/* =========================
-   SCOREBOARD SHELL
-   ========================= */
+/* =========================================================
+   SCOREBOARD / SHELL — LOCKED
+   ========================================================= */
 
-#shell {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 1920px;
-    height: 325px;
-    z-index: 1;
-    pointer-events: none;
+#scoreboard{
+    position:absolute;
+    left:0;
+    top:737px;
+    width:1920px;
+    height:325px;
 }
 
-/* =========================
-   PLAYER 1
-   ========================= */
+#shell{
+    position:absolute;
+    width:1920px;
+    height:1080px;
+    left:0;
+    top:-405px;
+    object-fit:contain;
+    pointer-events:none;
+    user-select:none;
+    z-index:1;
+}
 
-#p1Name {
-    position: absolute;
-    left: 405px;
-    top: 145px;
-    width: 280px;
+/* =========================================================
+   SPONSORS
+   ========================================================= */
 
-    color: #ffffff;
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 36px;
+#leftSponsor{
+    position:absolute;
+    left:95px;
+    top:66px;
+    width:235px;
+    height:132px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:5;
+}
 
-    white-space: nowrap;
-    overflow: visible;
+#rightSponsor{
+    position:absolute;
+    right:95px;
+    top:66px;
+    width:235px;
+    height:132px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:5;
+}
+
+#leftSponsor img,
+#rightSponsor img{
+    max-width:90%;
+    max-height:88%;
+    object-fit:contain;
+}
+
+/* =========================================================
+   PLAYER ONE — LOCKED
+   ========================================================= */
+
+#player1{
+    position:absolute;
+    left:330px;
+    top:95px;
+    width:360px;
+    height:145px;
+    z-index:6;
+}
+
+#player1Singles{
+    position:absolute;
+    inset:0;
+}
+
+#player1Name{
+    position:absolute;
+    left:24px;
+    top:48px;
+    width:330px;
+    height:32px;
+
+    display:flex;
+    align-items:center;
+
+    font-size:27px;
+    line-height:30px;
+    font-weight:900;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-align:left;
 
     text-shadow:
-        0 2px 2px rgba(0,0,0,.95),
-        0 0 4px rgba(0,0,0,.8);
-
-    z-index: 10;
+        0 2px 2px #000,
+        0 3px 5px rgba(0,0,0,.9);
 }
 
-#p1Fargo {
-    position: absolute;
-    left: 422px;
-    top: 201px;
-    width: 220px;
+#player1SingleInfo{
+    position:absolute;
+    left:44px;
+    top:105px;
+    width:298px;
+    height:25px;
 
-    color: #ffffff;
-    font-size: 19px;
-    font-weight: 400;
-    line-height: 26px;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:13px;
+}
 
-    white-space: nowrap;
+#fargo1{
+    flex:0 0 auto;
+    font-size:20px;
+    line-height:24px;
+    color:#e2e2e2;
+    white-space:nowrap;
+    text-shadow:0 2px 3px #000;
+}
+
+/* =========================================================
+   PLAYER ONE — SCOTCH DOUBLES
+   ========================================================= */
+
+#player1Doubles{
+    position:absolute;
+    inset:0;
+    display:none;
+}
+
+#team1Name{
+    position:absolute;
+    left:4px;
+    top:0;
+    width:335px;
+    height:18px;
+
+    font-size:15px;
+    line-height:18px;
+    font-weight:900;
+    letter-spacing:.4px;
+    color:#bfc7d2;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-shadow:0 2px 3px #000;
+}
+
+#team1Name:empty{
+    display:none;
+}
+
+#team1Row1{
+    position:absolute;
+    left:18px;
+    top:31px;
+    width:320px;
+    height:23px;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+#team1Row2{
+    position:absolute;
+    left:34px;
+    top:59px;
+    width:302px;
+    height:23px;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.teamPlayerName{
+    flex:1 1 auto;
+    min-width:0;
+
+    font-size:19px;
+    line-height:21px;
+    font-weight:900;
+
+    white-space:nowrap;
+    overflow:hidden;
 
     text-shadow:
-        0 2px 2px rgba(0,0,0,.95);
-
-    z-index: 10;
+        0 2px 2px #000,
+        0 3px 4px rgba(0,0,0,.8);
 }
 
-#p1Score {
-    position: absolute;
-    left: 714px;
-    top: 134px;
-    width: 110px;
-    height: 90px;
+.teamPlayerFargo{
+    flex:0 0 auto;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size:16px;
+    line-height:19px;
+    font-weight:700;
 
-    color: #ffffff;
-    font-size: 58px;
-    font-weight: 900;
-    line-height: 1;
+    color:#e2e2e2;
+    white-space:nowrap;
+    text-shadow:0 2px 3px #000;
+}
 
-    text-align: center;
+#team1Bottom{
+    position:absolute;
+    left:52px;
+    top:91px;
+    width:285px;
+    height:25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:12px;
+}
+
+#team1Fargo{
+    flex:0 0 auto;
+
+    font-size:17px;
+    line-height:20px;
+    font-weight:900;
+
+    white-space:nowrap;
+    color:#fff;
+    text-shadow:0 2px 3px #000;
+}
+
+/* =========================================================
+   BREAK INDICATORS
+   ========================================================= */
+
+.breakIndicator{
+    display:none;
+    flex:0 0 auto;
+
+    background:#ef1723;
+    padding:4px 14px 5px;
+
+    font-size:18px;
+    line-height:20px;
+    font-weight:900;
+    font-style:italic;
+
+    color:#fff;
+    transform:skew(-10deg);
+
+    box-shadow:0 2px 4px rgba(0,0,0,.8);
+    text-shadow:0 1px 2px #000;
+}
+
+/* =========================================================
+   PLAYER TWO — LOCKED
+   ========================================================= */
+
+#player2{
+    position:absolute;
+    right:330px;
+    top:95px;
+    width:360px;
+    height:145px;
+    z-index:6;
+}
+
+#player2Singles{
+    position:absolute;
+    inset:0;
+}
+
+#player2Name{
+    position:absolute;
+    right:24px;
+    top:48px;
+    width:330px;
+    height:44px;
+
+    display:block;
+
+    font-size:27px;
+    line-height:34px;
+    font-weight:900;
+
+    white-space:nowrap;
+    overflow:visible;
+    text-align:right;
 
     text-shadow:
-        0 3px 3px rgba(0,0,0,.95);
-
-    z-index: 10;
+        0 2px 2px #000,
+        0 3px 5px rgba(0,0,0,.9);
 }
 
-/* =========================
-   PLAYER 2
-   ========================= */
+#player2SingleInfo{
+    position:absolute;
+    right:44px;
+    top:105px;
+    width:298px;
+    height:25px;
 
-#p2Name {
-    position: absolute;
-    left: 1285px;
-    top: 145px;
-    width: 280px;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:13px;
+}
 
-    color: #ffffff;
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 36px;
+#fargo2{
+    flex:0 0 auto;
 
-    white-space: nowrap;
-    overflow: visible;
+    font-size:20px;
+    line-height:24px;
+
+    color:#e2e2e2;
+    white-space:nowrap;
+    text-shadow:0 2px 3px #000;
+}
+
+/* =========================================================
+   SCORES — LOCKED
+   ========================================================= */
+
+.score{
+    position:absolute;
+    width:102px;
+    height:112px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:61px;
+    line-height:1;
+    font-weight:900;
+    text-align:center;
+
+    z-index:6;
 
     text-shadow:
-        0 2px 2px rgba(0,0,0,.95),
-        0 0 4px rgba(0,0,0,.8);
-
-    z-index: 10;
+        0 3px 3px #000,
+        0 4px 7px rgba(0,0,0,.85);
 }
 
-#p2Fargo {
-    position: absolute;
-    left: 1365px;
-    top: 201px;
-    width: 220px;
+#score1{
+    left:696px;
+    top:110px;
+}
 
-    color: #ffffff;
-    font-size: 19px;
-    font-weight: 400;
-    line-height: 26px;
+#score2{
+    right:701px;
+    top:110px;
+}
 
-    white-space: nowrap;
+/* =========================================================
+   MBP LOGO — LOCKED
+   ========================================================= */
+
+#mbpLogo{
+    position:absolute;
+    left:50%;
+    top:53px;
+    transform:translateX(-50%);
+
+    width:230px;
+    height:125px;
+
+    object-fit:contain;
+    z-index:5;
+}
+
+/* =========================================================
+   LOWER BAR
+   SAME horizontal alignment.
+   Moved DOWN 18px.
+   ========================================================= */
+
+.lowerItem{
+    position:absolute;
+    top:261px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    white-space:nowrap;
+    z-index:5;
+}
+
+/* SAME EXACT TEXT STYLE FOR ALL THREE */
+
+.lowerText{
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:21px;
+    line-height:24px;
+    font-weight:900;
+    letter-spacing:0;
+
+    color:#fff;
+    white-space:nowrap;
 
     text-shadow:
-        0 2px 2px rgba(0,0,0,.95);
-
-    z-index: 10;
+        0 2px 3px #000,
+        0 3px 5px rgba(0,0,0,.75);
 }
 
-#p2Score {
-    position: absolute;
-    left: 1087px;
-    top: 134px;
-    width: 110px;
-    height: 90px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: #ffffff;
-    font-size: 58px;
-    font-weight: 900;
-    line-height: 1;
-
-    text-align: center;
-
-    text-shadow:
-        0 3px 3px rgba(0,0,0,.95);
-
-    z-index: 10;
+#race1Box{
+    left:540px;
+    width:245px;
 }
 
-/* =========================
-   MBP CENTER LOGO
-   ========================= */
-
-#mbpLogo {
-    position: absolute;
-
-    /* centered on the 1920px scoreboard */
-    left: 960px;
-    top: 130px;
-
-    width: 125px;
-    height: auto;
-
-    transform: translateX(-50%);
-
-    object-fit: contain;
-
-    z-index: 9;
-    pointer-events: none;
+#gameBox{
+    left:785px;
+    width:350px;
 }
 
-/* =========================
-   LOWER INFORMATION BAR
-   LOCKED AT 261px
-   ========================= */
-
-.lowerItem {
-    position: absolute;
-    top: 261px;
-
-    color: #ffffff;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 21px;
-    font-weight: 800;
-    line-height: 26px;
-
-    text-align: center;
-    white-space: nowrap;
-
-    text-shadow:
-        0 2px 2px rgba(0,0,0,.95);
-
-    z-index: 10;
+#race2Box{
+    left:1135px;
+    width:245px;
 }
 
-#race1 {
-    left: 570px;
-    width: 220px;
+/* =========================================================
+   ONE POCKET / BANKS BALL COUNTERS
+   ========================================================= */
+
+#ballCounters{
+    display:none;
+    position:absolute;
+    z-index:8;
 }
 
-#gameType {
-    left: 850px;
-    width: 220px;
+/* =========================================================
+   OPTIONAL VENUE
+   ========================================================= */
+
+#venue{
+    display:none;
+
+    position:absolute;
+    left:50%;
+    top:-45px;
+    transform:translateX(-50%);
+
+    padding:8px 24px;
+
+    background:rgba(8,8,10,.92);
+    border:1px solid #777;
+    border-radius:7px;
+
+    font-size:18px;
+    font-weight:800;
+
+    white-space:nowrap;
+    z-index:8;
 }
 
-#race2 {
-    left: 1130px;
-    width: 220px;
-}
 </style>
 </head>
 
 <body>
 
+<div id="viewport">
+<div id="frame">
 <div id="scoreboard">
 
-    <img
-        id="shell"
-        src="scoreboard-shell.png"
-        alt=""
-    >
+<img id="shell" src="scoreboard-shell.png" alt="">
 
-    <!-- PLAYER 1 -->
-    <div id="p1Name">PLAYER ONE</div>
-    <div id="p1Fargo">FargoRate</div>
-    <div id="p1Score">0</div>
+<div id="leftSponsor">
+    <img id="leftSponsorImg" src="" alt="">
+</div>
 
-    <!-- CENTER MBP LOGO -->
-    <img
-        id="mbpLogo"
-        src="mbp-logo.png"
-        alt="McKenna Billiard Productions"
-    >
+<!-- PLAYER ONE -->
 
-    <!-- PLAYER 2 -->
-    <div id="p2Score">0</div>
-    <div id="p2Name">PLAYER TWO</div>
-    <div id="p2Fargo">FargoRate</div>
+<div id="player1">
 
-    <!-- LOWER BAR -->
-    <div id="race1" class="lowerItem">RACE TO 5</div>
-    <div id="gameType" class="lowerItem">9-BALL</div>
-    <div id="race2" class="lowerItem">RACE TO 5</div>
+    <div id="player1Singles">
+
+        <div id="player1Name">
+            PLAYER ONE
+        </div>
+
+        <div id="player1SingleInfo">
+
+            <div id="fargo1">
+                FargoRate 620
+            </div>
+
+            <div id="break1" class="breakIndicator">
+                BREAK
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="player1Doubles">
+
+        <div id="team1Name"></div>
+
+        <div id="team1Row1">
+
+            <div id="team1Player1Name" class="teamPlayerName">
+                PLAYER ONE
+            </div>
+
+            <div id="team1Player1Fargo" class="teamPlayerFargo"></div>
+
+        </div>
+
+        <div id="team1Row2">
+
+            <div id="team1Player2Name" class="teamPlayerName"></div>
+
+            <div id="team1Player2Fargo" class="teamPlayerFargo"></div>
+
+        </div>
+
+        <div id="team1Bottom">
+
+            <div id="team1Fargo"></div>
+
+            <div id="break1Doubles" class="breakIndicator">
+                BREAK
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
+
+<div id="score1" class="score">0</div>
+
+<img
+    id="mbpLogo"
+    src="mbp-logo.png"
+    alt="McKenna Billiard Productions"
+>
+
+<div id="score2" class="score">0</div>
+
+<!-- PLAYER TWO -->
+
+<div id="player2">
+
+    <div id="player2Singles">
+
+        <div id="player2Name">
+            PLAYER TWO
+        </div>
+
+        <div id="player2SingleInfo">
+
+            <div id="break2" class="breakIndicator">
+                BREAK
+            </div>
+
+            <div id="fargo2">
+                FargoRate 598
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="rightSponsor">
+    <img id="rightSponsorImg" src="" alt="">
+</div>
+
+<!-- LOWER BAR -->
+
+<div id="race1Box" class="lowerItem">
+    <span id="race1Label" class="lowerText">RACE TO 5</span>
+</div>
+
+<div id="gameBox" class="lowerItem">
+    <span id="gameLabel" class="lowerText">9-BALL</span>
+</div>
+
+<div id="race2Box" class="lowerItem">
+    <span id="race2Label" class="lowerText">RACE TO 5</span>
+</div>
+
+<div id="ballCounters">
+    <span id="balls1">0</span>
+    <span id="balls2">0</span>
+</div>
+
+<div id="venue"></div>
+
+</div>
+</div>
+</div>
+
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <script src="config.js"></script>
 
 <script>
-firebase.initializeApp(firebaseConfig);
 
-const database = firebase.database();
-const matchRef = database.ref("match");
+/* =========================================================
+   SCALE MASTER FRAME
+   ========================================================= */
 
-const p1Name = document.getElementById("p1Name");
-const p1Fargo = document.getElementById("p1Fargo");
-const p1Score = document.getElementById("p1Score");
+function scaleFrame(){
 
-const p2Name = document.getElementById("p2Name");
-const p2Fargo = document.getElementById("p2Fargo");
-const p2Score = document.getElementById("p2Score");
+    const frame =
+        document.getElementById("frame");
 
-const race1 = document.getElementById("race1");
-const gameType = document.getElementById("gameType");
-const race2 = document.getElementById("race2");
+    const scale =
+        Math.min(
+            window.innerWidth / 1920,
+            window.innerHeight / 1080
+        );
 
-function formatGame(game) {
-
-    if (!game) {
-        return "9-BALL";
-    }
-
-    const value = String(game).trim().toLowerCase();
-
-    if (value === "9-ball" || value === "9 ball") {
-        return "9-BALL";
-    }
-
-    if (value === "8-ball" || value === "8 ball") {
-        return "8-BALL";
-    }
-
-    if (value === "10-ball" || value === "10 ball") {
-        return "10-BALL";
-    }
-
-    if (value === "one pocket" || value === "one-pocket") {
-        return "ONE POCKET";
-    }
-
-    if (value === "banks" || value === "bank") {
-        return "BANKS";
-    }
-
-    return String(game).toUpperCase();
+    frame.style.transform =
+        "translate(-50%, -50%) scale(" +
+        scale +
+        ")";
 }
 
-matchRef.on("value", snapshot => {
-
-    const data = snapshot.val() || {};
-
-    /* PLAYER 1 */
-
-    p1Name.textContent =
-        data.player1?.name || "PLAYER ONE";
-
-    p1Fargo.textContent =
-        data.player1?.fargo
-            ? "FargoRate " + data.player1.fargo
-            : "FargoRate";
-
-    p1Score.textContent =
-        data.player1?.score ?? 0;
+window.addEventListener("resize", scaleFrame);
+scaleFrame();
 
 
-    /* PLAYER 2 */
+/* =========================================================
+   FIREBASE
+   ========================================================= */
 
-    p2Name.textContent =
-        data.player2?.name || "PLAYER TWO";
+firebase.initializeApp(firebaseConfig);
 
-    p2Fargo.textContent =
-        data.player2?.fargo
-            ? "FargoRate " + data.player2.fargo
-            : "FargoRate";
+const database =
+    firebase.database();
 
-    p2Score.textContent =
-        data.player2?.score ?? 0;
-
-
-    /* GAME TYPE */
-
-    gameType.textContent =
-        formatGame(data.game);
+const matchRef =
+    database.ref("match");
 
 
-    /*
-       CURRENT CONTROLLER:
-       One race value controls both sides.
+/* =========================================================
+   PLAYER NAME FITTING
+   ========================================================= */
 
-       Later we'll change the controller/Firebase
-       structure to race1 and race2 for handicapped
-       matches.
-    */
+function fitPlayerName(element, name){
 
-    const currentRace =
-        Number(data.race) || 5;
+    element.textContent =
+        name;
 
-    race1.textContent =
-        "RACE TO " + currentRace;
+    const length =
+        name.length;
 
-    race2.textContent =
-        "RACE TO " + currentRace;
-});
+    if(length > 24){
+        element.style.fontSize = "21px";
+    }
+    else if(length > 20){
+        element.style.fontSize = "23px";
+    }
+    else if(length > 17){
+        element.style.fontSize = "25px";
+    }
+    else{
+        element.style.fontSize = "27px";
+    }
+}
+
+
+/* =========================================================
+   SCOTCH DOUBLES DETECTION
+   ========================================================= */
+
+function isScotchDoubles(data){
+
+    const format =
+        String(data.format || "")
+        .trim()
+        .toLowerCase();
+
+    return (
+        format === "scotch doubles" ||
+        format === "scotch" ||
+        format === "doubles"
+    );
+}
+
+
+/* =========================================================
+   GAME NORMALIZATION
+   ========================================================= */
+
+function normalizeGame(game){
+
+    const value =
+        String(game || "9-Ball")
+        .trim()
+        .toLowerCase();
+
+    if(
+        value === "8-ball" ||
+        value === "8 ball"
+    ){
+        return "8-Ball";
+    }
+
+    if(
+        value === "9-ball" ||
+        value === "9 ball"
+    ){
+        return "9-Ball";
+    }
+
+    if(
+        value === "10-ball" ||
+        value === "10 ball"
+    ){
+        return "10-Ball";
+    }
+
+    if(
+        value === "one pocket" ||
+        value === "one-pocket"
+    ){
+        return "One Pocket";
+    }
+
+    if(
+        value === "banks" ||
+        value === "bank"
+    ){
+        return "Banks";
+    }
+
+    return game || "9-Ball";
+}
+
+
+/* =========================================================
+   RENDER MATCH
+   ========================================================= */
+
+function renderMatch(data){
+
+    if(!data){
+        return;
+    }
+
+    const p1 =
+        data.player1 || {};
+
+    const p2 =
+        data.player2 || {};
+
+
+    const doubles =
+        isScotchDoubles(data);
+
+    const player1Singles =
+        document.getElementById("player1Singles");
+
+    const player1Doubles =
+        document.getElementById("player1Doubles");
+
+    const team1 =
+        data.team1 || {};
+
+    const hasTeam1DoublesData =
+        !!(
+            team1.player2Name ||
+            team1.player2?.name
+        );
+
+    const showTeam1Doubles =
+        doubles &&
+        hasTeam1DoublesData;
+
+    player1Singles.style.display =
+        showTeam1Doubles
+        ? "none"
+        : "block";
+
+    player1Doubles.style.display =
+        showTeam1Doubles
+        ? "block"
+        : "none";
+
+
+    /* PLAYER ONE */
+
+    fitPlayerName(
+        document.getElementById("player1Name"),
+        p1.name || "PLAYER ONE"
+    );
+
+    document.getElementById("fargo1").textContent =
+        p1.fargo
+        ? "FargoRate " + p1.fargo
+        : "";
+
+
+    /* PLAYER ONE DOUBLES */
+
+    if(showTeam1Doubles){
+
+        const teamName =
+            team1.name ||
+            team1.teamName ||
+            "";
+
+        document.getElementById("team1Name").textContent =
+            teamName;
+
+
+        const teamPlayer1Name =
+            team1.player1Name ||
+            team1.player1?.name ||
+            p1.name ||
+            "PLAYER ONE";
+
+
+        const teamPlayer1Fargo =
+            team1.player1Fargo ||
+            team1.player1?.fargo ||
+            p1.fargo ||
+            "";
+
+
+        const teamPlayer2Name =
+            team1.player2Name ||
+            team1.player2?.name ||
+            "";
+
+
+        const teamPlayer2Fargo =
+            team1.player2Fargo ||
+            team1.player2?.fargo ||
+            "";
+
+
+        document.getElementById("team1Player1Name").textContent =
+            teamPlayer1Name;
+
+        document.getElementById("team1Player1Fargo").textContent =
+            teamPlayer1Fargo;
+
+        document.getElementById("team1Player2Name").textContent =
+            teamPlayer2Name;
+
+        document.getElementById("team1Player2Fargo").textContent =
+            teamPlayer2Fargo;
+
+
+        const f1 =
+            Number(teamPlayer1Fargo) || 0;
+
+        const f2 =
+            Number(teamPlayer2Fargo) || 0;
+
+
+        const combined =
+            Number(team1.combinedFargo) ||
+            (
+                f1 && f2
+                ? f1 + f2
+                : 0
+            );
+
+
+        document.getElementById("team1Fargo").textContent =
+            combined
+            ? "TEAM FARGO " + combined
+            : "";
+    }
+
+
+    /* PLAYER TWO */
+
+    fitPlayerName(
+        document.getElementById("player2Name"),
+        p2.name || "PLAYER TWO"
+    );
+
+    document.getElementById("fargo2").textContent =
+        p2.fargo
+        ? "FargoRate " + p2.fargo
+        : "";
+
+
+    /* SCORES */
+
+    document.getElementById("score1").textContent =
+        Number(p1.score) || 0;
+
+    document.getElementById("score2").textContent =
+        Number(p2.score) || 0;
+
+
+    /* GAME */
+
+    const game =
+        normalizeGame(
+            data.game
+        );
+
+    document.getElementById("gameLabel").textContent =
+        game.toUpperCase();
+
+
+    /* LEFT / RIGHT RACE */
+
+    const fallbackRace =
+        Number(data.race) ||
+        (
+            game === "One Pocket"
+            ? 3
+            : 5
+        );
+
+
+    const race1 =
+        Number(data.race1) ||
+        fallbackRace;
+
+
+    const race2 =
+        Number(data.race2) ||
+        fallbackRace;
+
+
+    document.getElementById("race1Label").textContent =
+        "RACE TO " + race1;
+
+    document.getElementById("race2Label").textContent =
+        "RACE TO " + race2;
+
+
+    /* BREAK */
+
+    const breaker =
+        data.breaker ??
+        data.breakPlayer ??
+        data.break ??
+        0;
+
+
+    const player1Breaking =
+        Number(breaker) === 1;
+
+
+    document.getElementById("break1").style.display =
+        (
+            player1Breaking &&
+            !showTeam1Doubles
+        )
+        ? "block"
+        : "none";
+
+
+    document.getElementById("break1Doubles").style.display =
+        (
+            player1Breaking &&
+            showTeam1Doubles
+        )
+        ? "block"
+        : "none";
+
+
+    document.getElementById("break2").style.display =
+        Number(breaker) === 2
+        ? "block"
+        : "none";
+
+
+    /* BALL DATA */
+
+    document.getElementById("balls1").textContent =
+        Number(data.balls1) || 0;
+
+    document.getElementById("balls2").textContent =
+        Number(data.balls2) || 0;
+
+
+    /* VENUE */
+
+    const venue =
+        document.getElementById("venue");
+
+
+    if(data.venue){
+
+        venue.textContent =
+            data.venue;
+
+        venue.style.display =
+            "block";
+    }
+    else{
+
+        venue.style.display =
+            "none";
+    }
+
+
+    /* SPONSORS */
+
+    if(data.leftSponsor){
+
+        document.getElementById("leftSponsorImg").src =
+            data.leftSponsor;
+    }
+
+
+    if(data.rightSponsor){
+
+        document.getElementById("rightSponsorImg").src =
+            data.rightSponsor;
+    }
+}
+
+
+/* =========================================================
+   LIVE FIREBASE LISTENER
+   ========================================================= */
+
+matchRef.on(
+    "value",
+    snapshot => {
+
+        if(snapshot.exists()){
+
+            renderMatch(
+                snapshot.val()
+            );
+        }
+    }
+);
+
 </script>
 
 </body>
