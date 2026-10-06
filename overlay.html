@@ -390,7 +390,7 @@ html,body{
 }
 
 /* =========================================================
-   MBP LOGO — LOCKED SIZE / POSITION TEST
+   MBP LOGO — LOCKED
    ========================================================= */
 
 #mbpLogo{
@@ -407,9 +407,7 @@ html,body{
 }
 
 /* =========================================================
-   LOWER BAR
-   SAME horizontal alignment.
-   Moved DOWN 18px.
+   LOWER BAR — LOCKED
    ========================================================= */
 
 .lowerItem{
@@ -424,8 +422,6 @@ html,body{
     white-space:nowrap;
     z-index:5;
 }
-
-/* SAME EXACT TEXT STYLE FOR ALL THREE */
 
 .lowerText{
     font-family:Arial,Helvetica,sans-serif;
@@ -455,6 +451,38 @@ html,body{
 #race2Box{
     left:1135px;
     width:245px;
+}
+
+/* =========================================================
+   LOWER BAR VERTICAL SEPARATORS
+   ========================================================= */
+
+.lowerSeparator{
+    position:absolute;
+    top:270px;
+    width:3px;
+    height:22px;
+
+    background:linear-gradient(
+        to right,
+        #777,
+        #fff,
+        #777
+    );
+
+    box-shadow:
+        0 1px 2px #000,
+        0 2px 4px rgba(0,0,0,.8);
+
+    z-index:6;
+}
+
+#lowerSeparator1{
+    left:785px;
+}
+
+#lowerSeparator2{
+    left:1135px;
 }
 
 /* =========================================================
@@ -530,7 +558,6 @@ html,body{
         </div>
 
     </div>
-
 
     <div id="player1Doubles">
 
@@ -622,6 +649,9 @@ html,body{
     <span id="race2Label" class="lowerText">RACE TO 5</span>
 </div>
 
+<div id="lowerSeparator1" class="lowerSeparator"></div>
+<div id="lowerSeparator2" class="lowerSeparator"></div>
+
 <div id="ballCounters">
     <span id="balls1">0</span>
     <span id="balls2">0</span>
@@ -632,7 +662,6 @@ html,body{
 </div>
 </div>
 </div>
-
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
@@ -790,7 +819,6 @@ function renderMatch(data){
     const p2 =
         data.player2 || {};
 
-
     const doubles =
         isScotchDoubles(data);
 
@@ -849,13 +877,11 @@ function renderMatch(data){
         document.getElementById("team1Name").textContent =
             teamName;
 
-
         const teamPlayer1Name =
             team1.player1Name ||
             team1.player1?.name ||
             p1.name ||
             "PLAYER ONE";
-
 
         const teamPlayer1Fargo =
             team1.player1Fargo ||
@@ -863,18 +889,15 @@ function renderMatch(data){
             p1.fargo ||
             "";
 
-
         const teamPlayer2Name =
             team1.player2Name ||
             team1.player2?.name ||
             "";
 
-
         const teamPlayer2Fargo =
             team1.player2Fargo ||
             team1.player2?.fargo ||
             "";
-
 
         document.getElementById("team1Player1Name").textContent =
             teamPlayer1Name;
@@ -888,13 +911,11 @@ function renderMatch(data){
         document.getElementById("team1Player2Fargo").textContent =
             teamPlayer2Fargo;
 
-
         const f1 =
             Number(teamPlayer1Fargo) || 0;
 
         const f2 =
             Number(teamPlayer2Fargo) || 0;
-
 
         const combined =
             Number(team1.combinedFargo) ||
@@ -903,7 +924,6 @@ function renderMatch(data){
                 ? f1 + f2
                 : 0
             );
-
 
         document.getElementById("team1Fargo").textContent =
             combined
@@ -955,16 +975,13 @@ function renderMatch(data){
             : 5
         );
 
-
     const race1 =
         Number(data.race1) ||
         fallbackRace;
 
-
     const race2 =
         Number(data.race2) ||
         fallbackRace;
-
 
     document.getElementById("race1Label").textContent =
         "RACE TO " + race1;
@@ -981,10 +998,8 @@ function renderMatch(data){
         data.break ??
         0;
 
-
     const player1Breaking =
         Number(breaker) === 1;
-
 
     document.getElementById("break1").style.display =
         (
@@ -994,7 +1009,6 @@ function renderMatch(data){
         ? "block"
         : "none";
 
-
     document.getElementById("break1Doubles").style.display =
         (
             player1Breaking &&
@@ -1002,7 +1016,6 @@ function renderMatch(data){
         )
         ? "block"
         : "none";
-
 
     document.getElementById("break2").style.display =
         Number(breaker) === 2
@@ -1023,7 +1036,6 @@ function renderMatch(data){
 
     const venue =
         document.getElementById("venue");
-
 
     if(data.venue){
 
@@ -1047,7 +1059,6 @@ function renderMatch(data){
         document.getElementById("leftSponsorImg").src =
             data.leftSponsor;
     }
-
 
     if(data.rightSponsor){
 
