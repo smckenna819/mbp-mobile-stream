@@ -6,7 +6,6 @@
 <title>MBP Overlay</title>
 
 <style>
-
 *{
     box-sizing:border-box;
 }
@@ -113,7 +112,7 @@ body{
 
 
 /* =========================================================
-   PLAYER ONE CONTAINER
+   PLAYER ONE — LOCKED
    ========================================================= */
 
 #player1{
@@ -125,25 +124,15 @@ body{
     z-index:6;
 }
 
-
-/* =========================================================
-   PLAYER ONE — SINGLES
-   ========================================================= */
-
 #player1Singles{
     position:absolute;
     inset:0;
 }
 
-
-/* PLAYER ONE NAME — LOCKED */
-
 #player1Name{
     position:absolute;
-
     left:24px;
     top:48px;
-
     width:330px;
     height:32px;
 
@@ -152,12 +141,10 @@ body{
 
     font-size:27px;
     line-height:30px;
-
     font-weight:900;
 
     white-space:nowrap;
     overflow:hidden;
-
     text-align:left;
 
     text-shadow:
@@ -165,22 +152,16 @@ body{
         0 3px 5px rgba(0,0,0,.9);
 }
 
-
-/* PLAYER ONE FARGO — LOCKED */
-
 #player1SingleInfo{
     position:absolute;
-
     left:44px;
     top:105px;
-
     width:298px;
     height:25px;
 
     display:flex;
     align-items:center;
     justify-content:flex-start;
-
     gap:13px;
 }
 
@@ -191,11 +172,9 @@ body{
     line-height:24px;
 
     color:#e2e2e2;
-
     white-space:nowrap;
 
-    text-shadow:
-        0 2px 3px #000;
+    text-shadow:0 2px 3px #000;
 }
 
 
@@ -209,26 +188,19 @@ body{
     display:none;
 }
 
-
-/* OPTIONAL TEAM NAME */
-
 #team1Name{
     position:absolute;
-
     left:4px;
     top:0;
-
     width:335px;
     height:18px;
 
     font-size:15px;
     line-height:18px;
-
     font-weight:900;
     letter-spacing:.4px;
 
     color:#bfc7d2;
-
     white-space:nowrap;
     overflow:hidden;
 
@@ -239,39 +211,27 @@ body{
     display:none;
 }
 
-
-/* DOUBLES PLAYER ONE */
-
 #team1Row1{
     position:absolute;
-
     left:18px;
     top:31px;
-
     width:320px;
     height:23px;
 
     display:flex;
     align-items:center;
-
     gap:8px;
 }
 
-
-/* DOUBLES PLAYER TWO */
-
 #team1Row2{
     position:absolute;
-
     left:34px;
     top:59px;
-
     width:302px;
     height:23px;
 
     display:flex;
     align-items:center;
-
     gap:8px;
 }
 
@@ -281,7 +241,6 @@ body{
 
     font-size:19px;
     line-height:21px;
-
     font-weight:900;
 
     white-space:nowrap;
@@ -297,33 +256,24 @@ body{
 
     font-size:16px;
     line-height:19px;
-
     font-weight:700;
 
     color:#e2e2e2;
-
     white-space:nowrap;
 
-    text-shadow:
-        0 2px 3px #000;
+    text-shadow:0 2px 3px #000;
 }
-
-
-/* TEAM FARGO + BREAK */
 
 #team1Bottom{
     position:absolute;
-
     left:52px;
     top:91px;
-
     width:285px;
     height:25px;
 
     display:flex;
     align-items:center;
     justify-content:flex-start;
-
     gap:12px;
 }
 
@@ -332,11 +282,9 @@ body{
 
     font-size:17px;
     line-height:20px;
-
     font-weight:900;
 
     white-space:nowrap;
-
     color:#fff;
 
     text-shadow:0 2px 3px #000;
@@ -349,7 +297,6 @@ body{
 
 .breakIndicator{
     display:none;
-
     flex:0 0 auto;
 
     background:#ef1723;
@@ -358,7 +305,6 @@ body{
 
     font-size:18px;
     line-height:20px;
-
     font-weight:900;
     font-style:italic;
 
@@ -366,72 +312,109 @@ body{
 
     transform:skew(-10deg);
 
-    box-shadow:
-        0 2px 4px rgba(0,0,0,.8);
-
-    text-shadow:
-        0 1px 2px #000;
+    box-shadow:0 2px 4px rgba(0,0,0,.8);
+    text-shadow:0 1px 2px #000;
 }
 
 
 /* =========================================================
-   PLAYER TWO — UNCHANGED
+   PLAYER TWO CONTAINER — FIRST POSITIONING PASS
    ========================================================= */
 
 #player2{
     position:absolute;
 
-    right:370px;
-    top:66px;
+    right:330px;
+    top:95px;
 
-    width:300px;
-    height:110px;
+    width:360px;
+    height:145px;
 
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-
-    text-align:right;
-
-    z-index:5;
+    z-index:6;
 }
 
+
+/* =========================================================
+   PLAYER TWO — SINGLES
+   ========================================================= */
+
+#player2Singles{
+    position:absolute;
+    inset:0;
+}
+
+
+/*
+   PLAYER TWO NAME
+
+   Mirrored layout logic:
+   - lowered to leave room above for future team name
+   - pulled inward from red diagonal
+   - right aligned
+*/
+
 #player2Name{
-    width:100%;
+    position:absolute;
 
-    font-size:31px;
-    line-height:34px;
+    right:24px;
+    top:48px;
 
+    width:330px;
+    height:32px;
+
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+
+    font-size:27px;
+    line-height:30px;
     font-weight:900;
 
     white-space:nowrap;
     overflow:hidden;
-    text-overflow:ellipsis;
+
+    text-align:right;
 
     text-shadow:
         0 2px 2px #000,
         0 3px 5px rgba(0,0,0,.9);
 }
 
-#player2 .playerInfo{
-    display:flex;
 
+/*
+   PLAYER TWO FARGO + BREAK
+
+   Fargo sits on right.
+   Break appears immediately LEFT of Fargo.
+*/
+
+#player2SingleInfo{
+    position:absolute;
+
+    right:44px;
+    top:105px;
+
+    width:298px;
+    height:25px;
+
+    display:flex;
     align-items:center;
     justify-content:flex-end;
-
-    margin-top:9px;
 
     gap:13px;
 }
 
 #fargo2{
+    flex:0 0 auto;
+
     font-size:20px;
     line-height:24px;
 
     color:#e2e2e2;
 
-    text-shadow:
-        0 2px 3px #000;
+    white-space:nowrap;
+
+    text-shadow:0 2px 3px #000;
 }
 
 
@@ -463,10 +446,7 @@ body{
 }
 
 
-/* PLAYER ONE SCORE
-   Previous: left 690 / top 98
-   This pass: 6px RIGHT + 12px DOWN
-*/
+/* PLAYER ONE SCORE — LOCKED */
 
 #score1{
     left:696px;
@@ -474,7 +454,7 @@ body{
 }
 
 
-/* PLAYER TWO SCORE — UNCHANGED */
+/* PLAYER TWO SCORE — NOT LOCKED YET */
 
 #score2{
     right:684px;
@@ -519,7 +499,6 @@ body{
 
     font-size:21px;
     line-height:24px;
-
     font-weight:900;
 
     white-space:nowrap;
@@ -569,7 +548,6 @@ body{
 
     font-size:15px;
     line-height:15px;
-
     font-weight:900;
 
     text-shadow:none;
@@ -577,7 +555,7 @@ body{
 
 
 /* =========================================================
-   OLD ONE POCKET COUNTER — DISABLED
+   OLD ONE POCKET COUNTER
    ========================================================= */
 
 #onePocket{
@@ -586,7 +564,7 @@ body{
 
 
 /* =========================================================
-   OPTIONAL VENUE
+   VENUE
    ========================================================= */
 
 #venue{
@@ -623,7 +601,9 @@ body{
 <div id="frame">
 <div id="scoreboard">
 
+
 <img id="shell" src="scoreboard-shell.png" alt="">
+
 
 <div id="leftSponsor">
     <img id="leftSponsorImg" src="" alt="">
@@ -654,8 +634,6 @@ body{
 
     </div>
 
-
-    <!-- SCOTCH DOUBLES -->
 
     <div id="player1Doubles">
 
@@ -694,7 +672,7 @@ body{
 </div>
 
 
-<!-- SCORE ONE -->
+<!-- PLAYER ONE SCORE — LOCKED -->
 
 <div id="score1" class="score">
     0
@@ -710,7 +688,7 @@ body{
 >
 
 
-<!-- SCORE TWO -->
+<!-- PLAYER TWO SCORE -->
 
 <div id="score2" class="score">
     0
@@ -721,26 +699,28 @@ body{
 
 <div id="player2">
 
-    <div id="player2Name">
-        PLAYER TWO
-    </div>
+    <div id="player2Singles">
 
-    <div class="playerInfo">
-
-        <div id="break2" class="breakIndicator">
-            BREAK
+        <div id="player2Name">
+            PLAYER TWO
         </div>
 
-        <div id="fargo2">
-            FargoRate 598
+        <div id="player2SingleInfo">
+
+            <div id="break2" class="breakIndicator">
+                BREAK
+            </div>
+
+            <div id="fargo2">
+                FargoRate 598
+            </div>
+
         </div>
 
     </div>
 
 </div>
 
-
-<!-- RIGHT SPONSOR -->
 
 <div id="rightSponsor">
     <img id="rightSponsorImg" src="" alt="">
@@ -789,7 +769,6 @@ body{
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <script src="config.js"></script>
 
-
 <script>
 
 /* =========================================================
@@ -813,7 +792,10 @@ function scaleFrame(){
         ")";
 }
 
-window.addEventListener("resize", scaleFrame);
+window.addEventListener(
+    "resize",
+    scaleFrame
+);
 
 scaleFrame();
 
@@ -905,10 +887,14 @@ function renderMatch(data){
 
 
     const player1Singles =
-        document.getElementById("player1Singles");
+        document.getElementById(
+            "player1Singles"
+        );
 
     const player1Doubles =
-        document.getElementById("player1Doubles");
+        document.getElementById(
+            "player1Doubles"
+        );
 
 
     const team1 =
@@ -940,22 +926,30 @@ function renderMatch(data){
 
 
 
-    /* PLAYER ONE — SINGLES */
+    /* =====================================================
+       PLAYER ONE — LOCKED
+       ===================================================== */
 
     fitPlayerName(
-        document.getElementById("player1Name"),
+        document.getElementById(
+            "player1Name"
+        ),
         p1.name || "PLAYER ONE"
     );
 
 
-    document.getElementById("fargo1").textContent =
+    document.getElementById(
+        "fargo1"
+    ).textContent =
         p1.fargo
         ? "FargoRate " + p1.fargo
         : "";
 
 
 
-    /* PLAYER ONE — DOUBLES */
+    /* =====================================================
+       PLAYER ONE — DOUBLES
+       ===================================================== */
 
     if(showTeam1Doubles){
 
@@ -965,7 +959,9 @@ function renderMatch(data){
             "";
 
 
-        document.getElementById("team1Name").textContent =
+        document.getElementById(
+            "team1Name"
+        ).textContent =
             teamName;
 
 
@@ -995,19 +991,27 @@ function renderMatch(data){
             "";
 
 
-        document.getElementById("team1Player1Name").textContent =
+        document.getElementById(
+            "team1Player1Name"
+        ).textContent =
             teamPlayer1Name;
 
 
-        document.getElementById("team1Player1Fargo").textContent =
+        document.getElementById(
+            "team1Player1Fargo"
+        ).textContent =
             teamPlayer1Fargo;
 
 
-        document.getElementById("team1Player2Name").textContent =
+        document.getElementById(
+            "team1Player2Name"
+        ).textContent =
             teamPlayer2Name;
 
 
-        document.getElementById("team1Player2Fargo").textContent =
+        document.getElementById(
+            "team1Player2Fargo"
+        ).textContent =
             teamPlayer2Fargo;
 
 
@@ -1027,7 +1031,9 @@ function renderMatch(data){
             );
 
 
-        document.getElementById("team1Fargo").textContent =
+        document.getElementById(
+            "team1Fargo"
+        ).textContent =
             combined
             ? "TEAM FARGO " + combined
             : "";
@@ -1035,42 +1041,62 @@ function renderMatch(data){
 
 
 
-    /* PLAYER TWO */
+    /* =====================================================
+       PLAYER TWO
+       ===================================================== */
 
-    document.getElementById("player2Name").textContent =
-        p2.name || "PLAYER TWO";
+    fitPlayerName(
+        document.getElementById(
+            "player2Name"
+        ),
+        p2.name || "PLAYER TWO"
+    );
 
 
-    document.getElementById("fargo2").textContent =
+    document.getElementById(
+        "fargo2"
+    ).textContent =
         p2.fargo
         ? "FargoRate " + p2.fargo
         : "";
 
 
 
-    /* SCORES */
+    /* =====================================================
+       SCORES
+       ===================================================== */
 
-    document.getElementById("score1").textContent =
+    document.getElementById(
+        "score1"
+    ).textContent =
         Number(p1.score) || 0;
 
 
-    document.getElementById("score2").textContent =
+    document.getElementById(
+        "score2"
+    ).textContent =
         Number(p2.score) || 0;
 
 
 
-    /* GAME */
+    /* =====================================================
+       GAME
+       ===================================================== */
 
     const game =
         data.game || "9-Ball";
 
 
-    document.getElementById("gameLabel").textContent =
+    document.getElementById(
+        "gameLabel"
+    ).textContent =
         game.toUpperCase();
 
 
     const ballIcon =
-        document.getElementById("ballIcon");
+        document.getElementById(
+            "ballIcon"
+        );
 
 
     if(game === "9-Ball"){
@@ -1108,9 +1134,13 @@ function renderMatch(data){
 
 
 
-    /* RACE */
+    /* =====================================================
+       RACE
+       ===================================================== */
 
-    document.getElementById("raceBox").textContent =
+    document.getElementById(
+        "raceBox"
+    ).textContent =
         "RACE TO " +
         (
             data.race ||
@@ -1123,16 +1153,22 @@ function renderMatch(data){
 
 
 
-    /* FORMAT */
+    /* =====================================================
+       FORMAT
+       ===================================================== */
 
-    document.getElementById("formatBox").textContent =
+    document.getElementById(
+        "formatBox"
+    ).textContent =
         data.format
         ? String(data.format).toUpperCase()
         : "SINGLES";
 
 
 
-    /* BREAK */
+    /* =====================================================
+       BREAK
+       ===================================================== */
 
     const breaker =
         data.breaker ??
@@ -1145,7 +1181,9 @@ function renderMatch(data){
         Number(breaker) === 1;
 
 
-    document.getElementById("break1").style.display =
+    document.getElementById(
+        "break1"
+    ).style.display =
         (
             player1Breaking &&
             !showTeam1Doubles
@@ -1154,7 +1192,9 @@ function renderMatch(data){
         : "none";
 
 
-    document.getElementById("break1Doubles").style.display =
+    document.getElementById(
+        "break1Doubles"
+    ).style.display =
         (
             player1Breaking &&
             showTeam1Doubles
@@ -1163,28 +1203,40 @@ function renderMatch(data){
         : "none";
 
 
-    document.getElementById("break2").style.display =
+    document.getElementById(
+        "break2"
+    ).style.display =
         Number(breaker) === 2
         ? "block"
         : "none";
 
 
 
-    /* ONE POCKET DATA */
+    /* =====================================================
+       ONE POCKET DATA
+       ===================================================== */
 
-    document.getElementById("balls1").textContent =
+    document.getElementById(
+        "balls1"
+    ).textContent =
         Number(data.balls1) || 0;
 
 
-    document.getElementById("balls2").textContent =
+    document.getElementById(
+        "balls2"
+    ).textContent =
         Number(data.balls2) || 0;
 
 
 
-    /* VENUE */
+    /* =====================================================
+       VENUE
+       ===================================================== */
 
     const venue =
-        document.getElementById("venue");
+        document.getElementById(
+            "venue"
+        );
 
 
     if(data.venue){
@@ -1204,18 +1256,24 @@ function renderMatch(data){
 
 
 
-    /* SPONSORS */
+    /* =====================================================
+       SPONSORS
+       ===================================================== */
 
     if(data.leftSponsor){
 
-        document.getElementById("leftSponsorImg").src =
+        document.getElementById(
+            "leftSponsorImg"
+        ).src =
             data.leftSponsor;
     }
 
 
     if(data.rightSponsor){
 
-        document.getElementById("rightSponsorImg").src =
+        document.getElementById(
+            "rightSponsorImg"
+        ).src =
             data.rightSponsor;
     }
 }
